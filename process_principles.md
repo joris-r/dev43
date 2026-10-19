@@ -73,8 +73,10 @@ documents, and the next increment can start.
 
 ### Specification
 
-The specification records only the decisions an agent could not guess,
-together with their rationale. It must remain shorter and more abstract
+The specification records only the decisions an agent could not guess.
+A decision states what is decided, not why: reasoning goes stale as the
+project moves on. The reasons are discussed in Exploration and kept in
+the commit message of the phase. The specification must remain shorter and more abstract
 than the tests and the source code, and easy for a human to read.
 
 All work starts with the specification. Writing it after the code tends
@@ -160,8 +162,8 @@ behavior.
   libraries, with throwaway prototypes if useful.
 - **Production**: a README of a few lines (what the software is for,
   for whom, how to run it), then a short draft of the technical level
-  of the specification with tags: technical choices with their
-  "because," project conventions including the test and quality
+  of the specification with tags: technical choices, project
+  conventions including the test and quality
   policy. Nothing is written at the functional or interface level.
   Only what is costly to change later is decided. Then concrete setup:
   repository (ignore rules, lock files), tooling, CI, a minimal

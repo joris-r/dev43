@@ -31,8 +31,11 @@ same level/domain tree, containing only what changes. Each file starts
 with the `DOMAIN = <CODE>` line of its domain.
 
 - New decision: a new ID (next free number for its prefix).
-- Modified decision: cite the existing ID, give the new text and why it changed.
-- Removed decision: cite the ID and the reason.
+- Modified decision: cite the existing ID and give the new text.
+- Removed decision: cite the ID.
+
+Give no reasons in the change specification; they go in your hand-over
+message and in the commit message of the phase.
 
 Keep it shorter and more abstract than tests and code would be. Record
 only what an agent could not guess. Tag every choice the human did not

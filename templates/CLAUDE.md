@@ -71,8 +71,9 @@ that they must act on it. It says only how confident you are.
 - Links never point to a higher-numbered level: a level may cite its own
   level or lower-numbered ones (level 1 cites only level 1, level 3 may
   cite 1, 2 or 3).
-- Give a decision a "because" when its reason is not obvious, or when it
-  is a trade-off someone might later want to reverse.
+- A decision states what is decided, not why. Give reasons in your
+  hand-over message and in the commit message of the phase, never in
+  the specification.
 
 ## Tests and code
 
@@ -98,4 +99,5 @@ that they must act on it. It says only how confident you are.
   `git diff HEAD` the work of the current phase, `git log` the history.
 - Stage only at the end of Production. Commit only at the end of a
   phase, on the human's go, after updating STATE:
-  `dev43: <increment> — <phase>`. Never commit at any other time.
+  `dev43: <increment> — <phase>`, with a short body giving the reasons
+  for the phase's main decisions. Never commit at any other time.

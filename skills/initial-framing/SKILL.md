@@ -50,7 +50,7 @@ specification: no IDs.
 
 Write a short draft in `spec/main/3-technical/`:
 
-- `stack.md`: each technical choice with its "because".
+- `stack.md`: the technical choices.
 - `conventions.md`: layout, naming, test and quality policy.
 
 Write nothing in `1-functional/` or `2-interfaces/`: features are
