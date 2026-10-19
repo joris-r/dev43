@@ -6,7 +6,7 @@ description: Dev-4-3 Integration phase, the last phase of each increment. Use wh
 # Integration
 
 Goal: `spec/main/` describes the software as it now exists, the change
-folder is gone, and the process itself has been reviewed.
+page is gone, and the process itself has been reviewed.
 
 ## Exploration
 
@@ -21,17 +21,17 @@ Production in STATE.
 
 Work without interrupting. Rewrite `spec/main/` in place:
 
-- Apply new, modified and removed decisions from the change spec.
+- Put each part of the change page in the page it belongs to: the data
+  model in `data-model.md`, technical decisions in `technical.md`,
+  behavior in its feature-area page. Apply modifications and removals.
 - Rewrite affected passages so they read as one document, not as a
-  history of changes.
-- If a new ID of the change already exists in `spec/main/`, renumber the
-  new one and update its citations in the spec, tests and code. Change
-  only the citations, never test or code logic.
+  history of changes. Keep it minimal: merging is not a reason to add
+  detail.
 - Apply the approved process changes to the project (e.g. `CLAUDE.md`).
   Record approved skill changes for the plugin maintainer; never edit
   the plugin's skills.
 
-Then delete `spec/changes/<slug>/`. Tag every choice not dictated by
+Then delete `spec/changes/<slug>.md`. Tag every choice not dictated by
 the change spec. Stage all changes (`git add -A`) and hand over with
 the list of tags, with one line on each `unsure` tag saying why.
 
@@ -49,9 +49,9 @@ Verification in STATE.
 Checks:
 
 - The full test suite passes.
-- No ID is defined twice in `spec/main/`.
-- Every ID cited in tests or code exists in `spec/main/`.
-- `spec/changes/<slug>/` no longer exists.
+- No rule ID is defined twice in `spec/main/`.
+- Every rule ID cited in tests or code exists in `spec/main/`.
+- `spec/changes/<slug>.md` no longer exists.
 
 ## Exit
 

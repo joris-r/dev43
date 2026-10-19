@@ -19,8 +19,7 @@ Set up the Dev-4-3 process in the current project. Templates are in
    - present → never overwrite it. Show the human a merge proposal
      (template rules appended under a `# Dev-4-3 rules` section) and apply
      it only on approval.
-5. Create `spec/main/1-functional/`, `spec/main/2-interfaces/`,
-   `spec/main/3-technical/` and `spec/changes/` (with `.gitkeep` files).
+5. Create `spec/main/` and `spec/changes/` (with `.gitkeep` files).
 6. Copy the STATE template to `spec/STATE.md` and fill it in:
    increment `framing`, phase Initial Framing, step Exploration.
 7. Stage and commit only the files you created or changed, as

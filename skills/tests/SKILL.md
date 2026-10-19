@@ -1,6 +1,6 @@
 ---
 name: tests
-description: Dev-4-3 Tests phase of an increment. Use when spec/STATE.md says Phase is Tests. Writes tests, each linked to a decision ID, before any implementation.
+description: Dev-4-3 Tests phase of an increment. Use when spec/STATE.md says Phase is Tests. Writes tests, each citing what it checks in the specification, before any implementation.
 ---
 
 # Tests
@@ -12,15 +12,14 @@ during it.
 ## Exploration
 
 1. Read the change specification and the test and quality policy in
-   `spec/main/3-technical/`.
-2. Discuss with the human: what to test, at which level, which edge
-   cases matter.
+   `spec/main/technical.md`.
+2. Discuss with the human: what to test, at which level. Edge cases are
+   settled here, by tests: raise one only when a test cannot choose.
 3. If the change brings new test or quality needs, propose an update
-   of the policy; once the human agrees, write it in the change folder
-   under `3-technical/`.
-4. Flag decisions that cannot be tested; propose to make them testable
+   of the policy; once the human agrees, write it in the change page.
+4. Flag rules that cannot be tested; propose to make them testable
    or to accept them as not testable. Mark each accepted one
-   "(not testable)" in the change spec.
+   "(not testable)" in the change page.
 
 End when the human says Exploration is over; then set Step to
 Production in STATE.
@@ -29,10 +28,12 @@ Production in STATE.
 
 Work without interrupting.
 
-- Each test cites the ID(s) it checks, in its name or a comment.
-- Every testable decision of the change has at least one test.
-- Update or delete existing tests that cite a modified or removed
-  decision.
+- Each test cites what it checks: a name from the specification (in
+  the test name or its grouping) or a rule ID.
+- Every example and every testable rule of the change has at least one
+  test.
+- Update or delete existing tests that check something the change
+  modifies or removes.
 - Tests must fail for the right reason before implementation (missing
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
@@ -57,16 +58,16 @@ Verification in STATE.
 
 Checks:
 
-- Every new or modified decision of the change has at least one test,
+- Every new or modified rule ID of the change is cited by a test,
   unless marked "(not testable)".
-- Every test added or changed in this increment cites an ID that exists
-  in `spec/main/` or the change folder.
+- Every rule ID cited in tests exists in `spec/main/` or the change
+  page.
 - The new tests fail for the right reason (missing behavior, not syntax
   or setup errors).
 
 The human's review deserves particular care: checking behavior through
-tests is cheaper than through code. Does each test truly express its
-decision?
+tests is cheaper than through code. Does each part of the change have
+tests, and does each test truly express it?
 
 ## Exit
 

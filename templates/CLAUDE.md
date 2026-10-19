@@ -55,30 +55,40 @@ that they must act on it. It says only how confident you are.
 
 ## Specification
 
-- Layout: `spec/main/<level>/<domain>.md` and
-  `spec/changes/<slug>/<level>/<domain>.md`. Levels:
-  `1-functional` (needs, rules, UI), `2-interfaces` (API, data model,
-  integrations), `3-technical` (stack, architecture, conventions, test
-  and quality policy).
-- IDs: `F-<DOMAIN>-<NNN>`, `I-<DOMAIN>-<NNN>`, `T-<DOMAIN>-<NNN>`.
-  Each domain file declares its code on its first line:
-  `DOMAIN = <CODE>` (upper case, chosen by the human). Several files may
-  share a code. Every ID is unique across the whole spec: take the next
-  free `<NNN>` for its `F-<DOMAIN>`, `I-<DOMAIN>` or `T-<DOMAIN>` prefix.
-  Never reuse the number of a removed ID.
-  IDs are created only in the specification. Never invent one elsewhere.
-- Cite IDs; never copy decision text into tests or code.
-- Links never point to a higher-numbered level: a level may cite its own
-  level or lower-numbered ones (level 1 cites only level 1, level 3 may
-  cite 1, 2 or 3).
+- Write the minimum. A statement belongs in the specification only if a
+  competent agent could reasonably choose otherwise and the human would
+  care. Everything else is derived by agents, in tests and code. Tag
+  what you are unsure of instead of specifying it.
 - A decision states what is decided, not why. Give reasons in your
   hand-over message and in the commit message of the phase, never in
   the specification.
+- Data model first: entities, their fields and constraints, and their
+  relations. It sets the vocabulary: everything else refers to things
+  by these names, and to commands, endpoints or screens by theirs.
+- Prefer examples (a terminal session, a request and its response, a
+  sample file) to prose. Add a few rules for what the examples do not
+  show.
+- Use nested lists, never tables.
+- Give an ID only to a free-text rule that a test or code must cite and
+  that no name already identifies: `R<n>:` at the start of its list
+  item, e.g. `- R4: On error, the data file is left unchanged.` Numbers
+  are project-wide: a new rule takes one above the highest ever used,
+  in `spec/` or in its history (`git log -p -- spec`). Never reuse a
+  number.
+- Layout:
+  - `spec/main/`: the main specification. `data-model.md`,
+    `technical.md` (stack, conventions, test and quality policy), and
+    one page per feature area, named with the human.
+  - `spec/changes/<slug>.md`: the change specification of the current
+    increment, one page.
 
 ## Tests and code
 
-- Every test cites the ID(s) it checks. Non-trivial code cites the ID it
-  implements.
+- Tests cite what they check: a name from the specification (in the
+  test name or its grouping) or a rule ID.
+- Code cites a rule ID only where it explains something the reader
+  would not otherwise see.
+- Never copy specification text into tests or code.
 - During Implementation, never change test code. If a test seems wrong,
   tag it `unsure`, explain why in your hand-over, and continue. Adding
   the tag, and removing it once the human has ruled, are the only

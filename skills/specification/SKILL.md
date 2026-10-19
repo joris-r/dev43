@@ -5,41 +5,47 @@ description: Dev-4-3 Specification phase, the first phase of each increment. Use
 
 # Specification
 
-Goal: a short change specification for one increment, citing the IDs of
-the decisions it adds, modifies or removes. `spec/main/` stays untouched.
+Goal: a minimal change specification for one increment, on one page.
+`spec/main/` stays untouched.
 
 ## Exploration
 
 1. Agree with the human on the increment's scope; record it in STATE
    with a short slug once they approve. On a return from a later phase,
-   keep the slug and amend the existing change folder.
+   keep the slug and amend the existing change page.
 2. Read the relevant parts of `spec/main/`, the code and tests. Search
    the web or documents when the topic needs it.
-3. Approach the subject gradually, level by level: functional and UI
-   first, then interfaces, then technical.
+3. Approach the subject gradually: the data model first (which
+   entities and fields the change adds or modifies), then the behavior
+   with examples, then technical decisions if any.
 4. Surface decisions; flag early if the scope looks too big.
-5. If the change needs a new domain file, ask the human for its
-   `DOMAIN` code.
+5. If the change needs a new feature-area page in `spec/main/`, agree
+   on its name with the human.
 
 End when the human says Exploration is over; then set Step to
 Production in STATE.
 
 ## Production
 
-Work without interrupting. Write `spec/changes/<slug>/` with the
-same level/domain tree, containing only what changes. Each file starts
-with the `DOMAIN = <CODE>` line of its domain.
+Work without interrupting. Write `spec/changes/<slug>.md`: a title
+with the scope in one sentence, then only what changes, in the order of
+the main specification: data model first, then behavior, then
+technical.
 
-- New decision: a new ID (next free number for its prefix).
-- Modified decision: cite the existing ID and give the new text.
-- Removed decision: cite the ID.
+- New content: write it as it will read in `spec/main/`.
+- Modified content: write its new version and name what it replaces
+  (by name or rule ID).
+- Removed content: list it under a `Removed` heading, by name or rule
+  ID.
 
-Give no reasons in the change specification; they go in your hand-over
-message and in the commit message of the phase.
+Follow the specification rules of `CLAUDE.md`: write the minimum,
+examples first, lists not tables, rule IDs only where needed, no
+reasons. Leave edge cases to the Tests phase. Tag every choice the
+human did not make.
 
-Keep it shorter and more abstract than tests and code would be. Record
-only what an agent could not guess. Tag every choice the human did not
-make. Stage all changes (`git add -A`) and hand over with the list of tags,
+[example.md](example.md), next to this skill, is a change page of the
+target shape: the first increment of a command-line to-do list. Match
+its length and level of detail, not its content. Stage all changes (`git add -A`) and hand over with the list of tags,
 with one line on each `unsure` tag saying why.
 
 ## Verification

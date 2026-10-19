@@ -73,11 +73,17 @@ documents, and the next increment can start.
 
 ### Specification
 
-The specification records only the decisions an agent could not guess.
+The specification is minimal. Agents are good at deriving details, so
+it records only the decisions where the human matters: those a
+competent agent could reasonably make otherwise, and that the human
+cares about. Everything else is derived by the agents in the tests and
+the code, and brought to the human's attention by tags when they are
+unsure. The specification must remain shorter and more abstract than
+the tests and the source code, and easy for a human to read.
+
 A decision states what is decided, not why: reasoning goes stale as the
 project moves on. The reasons are discussed in Exploration and kept in
-the commit message of the phase. The specification must remain shorter and more abstract
-than the tests and the source code, and easy for a human to read.
+the commit message of the phase.
 
 All work starts with the specification. Writing it after the code tends
 to describe what the code does rather than what was needed, and bakes in
@@ -86,12 +92,20 @@ accidental decisions.
 The specification is a living document: it evolves through change
 specifications, which are merged into the main specification at Integration.
 
-Requirements and decisions are identified by unique IDs and are
-cross-referenced, never repeated, between the specification, the tests
-and the source code. This lets Verification check that every requirement
-is tested and implemented.
+The specification starts from the data model. It settles many
+decisions on its own and defines the vocabulary: everything else refers
+to things by their names. It favors examples (a terminal session, a
+request and its response, a sample file) over prose, with a few rules
+for what the examples do not show, and uses nested lists rather than
+tables, which are hard to read, edit and diff.
 
-Specification documents are split first by level, then by domain.
+Tests and code refer to the specification by these names, never by
+repeating it. Only a free-text rule that has no natural name, and that a
+test or code must cite, gets a short unique ID.
+
+The main specification is a few pages: the data model, the technical
+decisions, and one page per feature area. A change specification is a
+single page.
 
 
 ### Working with Agents
@@ -161,17 +175,17 @@ behavior.
   constraints, out of scope). The agent compares structuring stacks and
   libraries, with throwaway prototypes if useful.
 - **Production**: a README of a few lines (what the software is for,
-  for whom, how to run it), then a short draft of the technical level
+  for whom, how to run it), then a short draft of the technical page
   of the specification with tags: technical choices, project
-  conventions including the test and quality
-  policy. Nothing is written at the functional or interface level.
+  conventions including the test and quality policy. Nothing else is
+  specified: the data model and the features come with the increments.
   Only what is costly to change later is decided. Then concrete setup:
   repository (ignore rules, lock files), tooling, CI, a minimal
   skeleton that runs with a trivial test.
 - **Verification**: the skeleton runs with its trivial test; human
   review.
 
-Exit: the technical level of the main specification exists, the
+Exit: the technical page of the main specification exists, the
 skeleton runs, and the first increment can start with a small scope.
 
 
@@ -179,27 +193,32 @@ skeleton runs, and the first increment can start with a small scope.
 
 - **Exploration**: frame the topic, explore the web, documents, existing
   code and tests.
-- **Production**: a short change specification that cites the unique
-  IDs of the modified decisions.
+- **Production**: a minimal change specification on one page: data
+  model first, then behavior with examples, then technical decisions.
+  It names what it modifies or removes. Edge cases are left to the
+  Tests phase.
 - **Verification**: `spec/main/` is unchanged; human review, including
   the size of the increment (possible verdict: too big, split it).
 
 
 ## Tests Phase
 
-- **Exploration**: what to test, which edge cases; flag decisions that
-  cannot be tested; propose an update of the test and quality policy
+- **Exploration**: what to test; edge cases are settled here, by
+  tests, and raised to the human only when a test cannot choose; flag
+  rules that cannot be tested; propose an update of the test and quality policy
   if the increment brings new needs.
-- **Production**: tests each linked to a decision by its unique ID.
-- **Verification**: every new or modified decision has a test or is
-  marked not testable; every test cites an existing ID; the new tests
-  fail for the right reason. Then the human reviews the test suite
-  (does each test truly express the decision?). This review deserves
+- **Production**: tests, each citing what it checks by its name in the
+  specification or by its rule ID.
+- **Verification**: every new or modified rule ID has a test or is
+  marked not testable; every rule ID cited in tests exists; the new
+  tests fail for the right reason. Then the human reviews the test
+  suite (does each part of the change have tests, and does each test
+  truly express it?). This review deserves
   particular care: checking behavior through tests is more efficient
   than through the code they constrain.
 
 The test and quality policy is a project decision, recorded in the
-technical level of the specification: a first version in Initial
+technical page of the specification: a first version in Initial
 Framing, updated in the Tests phase when an
 increment brings new needs.
 
@@ -234,10 +253,12 @@ human approved.
 
 - **Exploration**: retrospective on the process itself (rules, agent
   context, thresholds).
-- **Production**: in-place rewrite of the main specification,
-  resolving ID conflicts, then removal of the change specification.
-- **Verification**: the full test suite passes, no ID is defined twice
-  in the main specification, every ID cited in tests or code exists,
+- **Production**: in-place rewrite of the main specification, each
+  part of the change in the page it belongs to, then removal of the
+  change specification.
+- **Verification**: the full test suite passes, no rule ID is defined
+  twice in the main specification, every rule ID cited in tests or code
+  exists,
   and the change specification is removed; human review.
 
 

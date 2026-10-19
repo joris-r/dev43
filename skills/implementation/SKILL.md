@@ -27,7 +27,8 @@ ones.
   and continue. This is a disputed test.
 - Tag every interpretation of the specification and every technical
   choice it does not dictate.
-- Cite the implemented ID in non-trivial code.
+- Cite a rule ID in code only where it explains something the reader
+  would not otherwise see.
 - If a decision calls into question what was agreed, stop and propose a
   return to Exploration (or to Specification).
 
@@ -58,7 +59,7 @@ Checks:
 
 - The full test suite passes, except disputed tests.
 - The checks required by the test and quality policy in
-  `spec/main/3-technical/`, as updated by the change folder, pass.
+  `spec/main/technical.md`, as updated by the change page, pass.
 - Test files are unchanged since the Tests phase (`git diff HEAD` on
   the test files shows nothing but tags).
 

@@ -5,8 +5,8 @@ description: Dev-4-3 Initial Framing phase for a new project with no code yet. U
 
 # Initial Framing
 
-Goal: the technical level of the main specification exists, a minimal
-skeleton runs with one trivial test, and the first increment can start with a small scope.
+Goal: `spec/main/technical.md` exists, a minimal skeleton runs with one
+trivial test, and the first increment can start with a small scope.
 Decide only what is costly to change later.
 
 This is a bootstrap phase: the only one that writes `spec/main/`
@@ -34,8 +34,6 @@ Peer discussion with the human. Cover, one topic at a time:
 5. Conventions: repo layout, naming, the test and quality policy, and
    repository files: what `.gitignore` excludes, whether lock files are
    committed.
-6. Domain code: propose `MAIN` by default, since no specific domain is
-   in play yet; the human decides.
 
 Surface decisions; don't settle them alone. End when the human says
 Exploration is over; then set Step to Production in STATE.
@@ -48,19 +46,14 @@ Write `README.md`: a few lines on what the software is for and for
 whom, and how to run it and its tests. It is context, not
 specification: no IDs.
 
-Write a short draft in `spec/main/3-technical/`:
+Write a short `spec/main/technical.md`: the stack, the conventions, and
+the test and quality policy. Write nothing else in `spec/main/`: the
+data model and the features come with the increments, starting with
+the first one. Tag every choice the human did not explicitly make.
 
-- `stack.md`: the technical choices.
-- `conventions.md`: layout, naming, test and quality policy.
-
-Write nothing in `1-functional/` or `2-interfaces/`: features are
-specified by increments, starting with the first one.
-
-Start each file with the agreed `DOMAIN` line. Give each decision an
-ID. Tag every choice the human did not explicitly make.
-
-Then set up the repository (`.gitignore`, lock files as agreed), tooling, CI, and a minimal skeleton that runs with one trivial
-test, following `stack.md` and `conventions.md`.
+Then set up the repository (`.gitignore`, lock files as agreed),
+tooling, CI, and a minimal skeleton that runs with one trivial test,
+following `technical.md`.
 Tag every choice they do not dictate.
 
 Stage all changes (`git add -A`) and hand over with the list of tags,
