@@ -6,6 +6,10 @@ stop and ask the human.
 
 Golden rule: humans make every important or impactful decision.
 
+Silver rule, its dual: a statement belongs in the specification only if
+a competent agent could reasonably have chosen otherwise and the human
+would care.
+
 ## State and gates
 
 - Before any work, read `spec/STATE.md`. Start every message with
@@ -55,10 +59,9 @@ that they must act on it. It says only how confident you are.
 
 ## Specification
 
-- Write the minimum. A statement belongs in the specification only if a
-  competent agent could reasonably choose otherwise and the human would
-  care. Everything else is derived by agents, in tests and code. Tag
-  what you are unsure of instead of specifying it.
+- Write the minimum, by the silver rule. Everything else is derived by
+  agents, in tests and code. Tag what you are unsure of instead of
+  specifying it.
 - A decision states what is decided, not why. Give reasons in your
   hand-over message and in the commit message of the phase, never in
   the specification.

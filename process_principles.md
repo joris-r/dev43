@@ -24,6 +24,10 @@ Each phase, main or special, follows three steps:
 The golden rule of Dev-4-3 is: humans must be involved in every
 important or impactful decision.
 
+The silver rule is its dual, and limits how much humans are involved: a
+statement belongs in the specification only if a competent agent could
+reasonably have chosen otherwise and the human would care.
+
 The main goal is to ensure that the user needs are correctly identified
 and fulfilled by the produced software.
 
@@ -73,10 +77,9 @@ documents, and the next increment can start.
 
 ### Specification
 
-The specification is minimal. Agents are good at deriving details, so
-it records only the decisions where the human matters: those a
-competent agent could reasonably make otherwise, and that the human
-cares about. Everything else is derived by the agents in the tests and
+The specification is minimal, by the silver rule. Agents are good at
+deriving details, so it records only the decisions where the human
+matters. Everything else is derived by the agents in the tests and
 the code, and brought to the human's attention by tags when they are
 unsure. The specification must remain shorter and more abstract than
 the tests and the source code, and easy for a human to read.
