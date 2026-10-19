@@ -10,8 +10,8 @@ packaged as a Claude Code plugin. The process itself is described in
   (step gates, decision tags, spec layout, test protection).
 - `templates/STATE.md`: tracks the current increment, phase and step.
 - `commands/init.md`: `/dev43:init`, sets up a project.
-- `skills/`: one skill per phase: `initial-framing`, `retro-specification`,
-  `specification`, `tests`, `implementation`, `integration`.
+- `skills/`: one skill per phase: `initial-framing`, `specification`,
+  `tests`, `implementation`, `integration`.
 
 ## Install
 
@@ -41,9 +41,11 @@ claude --plugin-dir /path/to/dev-4-3
 In a project, run:
 
 ```
-/dev43:init new        # new project → Initial Framing
-/dev43:init existing   # existing code → Retro-Specification
+/dev43:init
 ```
+
+Only new projects are supported for now: adopting Dev-4-3 on existing
+code (Retro-Specification) is future work.
 
 This copies `CLAUDE.md` (or proposes a merge if one exists), creates the
 `spec/` tree and `spec/STATE.md`, and starts the first Exploration. From

@@ -12,10 +12,8 @@ There are four main phases:
 3. Implementation
 4. Integration
 
-They are repeated for each increment. Two special phases may come first:
-
-- Initial Framing (new project)
-- Retro-Specification (existing project)
+They are repeated for each increment. A special phase, Initial Framing,
+comes first in a new project.
 
 Each phase, main or special, follows three steps:
 
@@ -142,29 +140,6 @@ Exit: the main specification exists, the skeleton runs, and the
 first increment can start with a small scope.
 
 
-## Retro-Specification Phase
-
-This phase replaces Initial Framing when the project already has code.
-It writes the main specification from the existing software. The main
-task is to tell intended behavior apart from accidental behavior, so that
-the specification describes what is needed, not just what the code does.
-
-- **Exploration**: read the existing code, tests and documentation;
-  discuss with the human what the software is for and which behaviors
-  are known to be intended, accidental or wrong.
-- **Production**: a draft main specification derived from the code,
-  with decision tags on every behavior whose intent is uncertain, the
-  test and quality policy as practiced today, and existing tests linked
-  to unique IDs where possible.
-- **Verification**: fresh-context review until convergence; the human
-  rules on each tagged behavior (keep, change in a later increment, or
-  leave out of the specification).
-
-Exit: the main specification exists, known gaps between the code and
-the specification are listed, and the first increment can start with a
-small scope.
-
-
 ## Specification Phase
 
 - **Exploration**: frame the topic, explore the web, documents, existing
@@ -191,7 +166,7 @@ small scope.
 
 The test and quality policy is a project decision, recorded in the
 technical level of the specification: a first version in Initial
-Framing or Retro-Specification, updated in the Tests phase when an
+Framing, updated in the Tests phase when an
 increment brings new needs.
 
 
@@ -229,3 +204,14 @@ important technical decision.
   resolving ID conflicts.
 - **Verification**: global fresh-context review, condensation, removal
   of the change specification.
+
+
+## Future Work
+
+### Retro-Specification Phase
+
+Adopting Dev-4-3 on a project that already has code is not supported
+yet. A Retro-Specification phase would replace Initial Framing: it would
+write the main specification from the existing software, telling
+intended behavior apart from accidental behavior, so that the
+specification describes what is needed, not just what the code does.
