@@ -154,8 +154,9 @@ running skeleton. It delivers no feature.
 - **Production**: a short draft with tags: overall vision
   (functional and UX), technical choices with their "because," project
   conventions including the test and quality policy. Only what is
-  costly to change later is decided. Then concrete setup: repository,
-  tooling, CI, a minimal skeleton that runs with a trivial test.
+  costly to change later is decided. Then concrete setup: repository
+  (README, ignore rules, lock files), tooling, CI, a minimal skeleton
+  that runs with a trivial test.
 - **Verification**: the skeleton runs with its trivial test; human
   review.
 

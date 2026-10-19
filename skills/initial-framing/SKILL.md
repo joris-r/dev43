@@ -25,7 +25,9 @@ Peer discussion with the human. Cover, one topic at a time:
    libraries. Give trade-offs and a recommendation. Build throwaway
    prototypes (outside the repo or in a scratch folder) if a choice
    needs evidence.
-5. Conventions: repo layout, naming, and the test and quality policy.
+5. Conventions: repo layout, naming, the test and quality policy, and
+   repository files: what `README.md` covers, what `.gitignore`
+   excludes, whether lock files are committed.
 6. Domain code: propose `MAIN` by default, since no specific domain is
    in play yet; the human decides.
 
@@ -45,8 +47,9 @@ Work without interrupting. Write a short draft in `spec/main/`:
 Start each file with the agreed `DOMAIN` line. Give each decision an
 ID. Tag every choice the human did not explicitly make.
 
-Then set up the repository, tooling, CI, and a minimal skeleton that
-runs with one trivial test, following `stack.md` and `conventions.md`.
+Then set up the repository (`README.md`, `.gitignore`, lock files as
+agreed), tooling, CI, and a minimal skeleton that runs with one trivial
+test, following `stack.md` and `conventions.md`.
 Tag every choice they do not dictate.
 
 Stage all changes (`git add -A`) and hand over with the list of tags,
