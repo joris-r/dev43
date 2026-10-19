@@ -9,6 +9,12 @@ Goal: the technical level of the main specification exists, a minimal
 skeleton runs with one trivial test, and the first increment can start with a small scope.
 Decide only what is costly to change later.
 
+This is a bootstrap phase: the only one that writes `spec/main/`
+directly, and the only one whose code is not test-first, because it
+builds the tooling the cycle depends on. Keep it bounded: the skeleton
+implements only technical decisions, and its trivial test checks the
+tooling, not a behavior.
+
 ## Setup (first use only)
 
 If the project has no `spec/STATE.md`, ask the human to run

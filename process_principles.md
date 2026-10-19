@@ -147,6 +147,13 @@ This phase sets up a new project before the first increment: a short
 README, the technical stack, the conventions and a minimal running
 skeleton. It delivers no feature, and specifies none.
 
+It is a bootstrap phase, and the only exception to two rules: it writes
+the main specification directly, and its code is not written test-first.
+The normal cycle needs a stack and test tooling, so they cannot go
+through it. The exception is bounded: the skeleton implements only
+technical decisions, and its trivial test checks the tooling, not a
+behavior.
+
 - **Exploration**: peer-to-peer discussion of the overall scope (what
   the software is for, for whom, technical, legal and platform
   constraints, out of scope). The agent compares structuring stacks and
