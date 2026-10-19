@@ -68,7 +68,9 @@ that they must act on it. It says only how confident you are.
   Never reuse the number of a removed ID.
   IDs are created only in the specification. Never invent one elsewhere.
 - Cite IDs; never copy decision text into tests or code.
-- Links point downward only: level 2 cites level 1, level 3 cites 1 or 2.
+- Links never point to a higher-numbered level: a level may cite its own
+  level or lower-numbered ones (level 1 cites only level 1, level 3 may
+  cite 1, 2 or 3).
 - Give a decision a "because" when its reason is not obvious, or when it
   is a trade-off someone might later want to reverse.
 
