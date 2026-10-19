@@ -1,12 +1,12 @@
 ---
 name: initial-framing
-description: Dev-4-3 Initial Framing phase for a new project with no code yet. Use when spec/STATE.md says Phase is Initial Framing, or when the human starts a new project with Dev-4-3. Sets vision, stack, conventions and a running skeleton; delivers no feature.
+description: Dev-4-3 Initial Framing phase for a new project with no code yet. Use when spec/STATE.md says Phase is Initial Framing, or when the human starts a new project with Dev-4-3. Sets the stack, conventions and a running skeleton; delivers no feature.
 ---
 
 # Initial Framing
 
-Goal: the main specification exists, a minimal skeleton runs with one
-trivial test, and the first increment can start with a small scope.
+Goal: the technical level of the main specification exists, a minimal
+skeleton runs with one trivial test, and the first increment can start with a small scope.
 Decide only what is costly to change later.
 
 ## Setup (first use only)
@@ -26,8 +26,8 @@ Peer discussion with the human. Cover, one topic at a time:
    prototypes (outside the repo or in a scratch folder) if a choice
    needs evidence.
 5. Conventions: repo layout, naming, the test and quality policy, and
-   repository files: what `README.md` covers, what `.gitignore`
-   excludes, whether lock files are committed.
+   repository files: what `.gitignore` excludes, whether lock files are
+   committed.
 6. Domain code: propose `MAIN` by default, since no specific domain is
    in play yet; the human decides.
 
@@ -36,19 +36,24 @@ Exploration is over; then set Step to Production in STATE.
 
 ## Production
 
-Work without interrupting. Write a short draft in `spec/main/`:
+Work without interrupting.
 
-- `1-functional/vision.md`: purpose, users, main use cases, UX
-  principles, out of scope.
-- `3-technical/stack.md`: each technical choice with its "because".
-- `3-technical/conventions.md`: layout, naming, test and quality policy.
-- `2-interfaces/` only if an interface decision is already costly to change.
+Write `README.md`: a few lines on what the software is for and for
+whom, and how to run it and its tests. It is context, not
+specification: no IDs.
+
+Write a short draft in `spec/main/3-technical/`:
+
+- `stack.md`: each technical choice with its "because".
+- `conventions.md`: layout, naming, test and quality policy.
+
+Write nothing in `1-functional/` or `2-interfaces/`: features are
+specified by increments, starting with the first one.
 
 Start each file with the agreed `DOMAIN` line. Give each decision an
 ID. Tag every choice the human did not explicitly make.
 
-Then set up the repository (`README.md`, `.gitignore`, lock files as
-agreed), tooling, CI, and a minimal skeleton that runs with one trivial
+Then set up the repository (`.gitignore`, lock files as agreed), tooling, CI, and a minimal skeleton that runs with one trivial
 test, following `stack.md` and `conventions.md`.
 Tag every choice they do not dictate.
 

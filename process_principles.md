@@ -143,25 +143,27 @@ committed at any other time.
 
 ## Initial Framing Phase
 
-This phase sets up a new project before the first increment: the
-overall vision, the technical stack, the conventions and a minimal
-running skeleton. It delivers no feature.
+This phase sets up a new project before the first increment: a short
+README, the technical stack, the conventions and a minimal running
+skeleton. It delivers no feature, and specifies none.
 
 - **Exploration**: peer-to-peer discussion of the overall scope (what
   the software is for, for whom, technical, legal and platform
   constraints, out of scope). The agent compares structuring stacks and
   libraries, with throwaway prototypes if useful.
-- **Production**: a short draft with tags: overall vision
-  (functional and UX), technical choices with their "because," project
-  conventions including the test and quality policy. Only what is
-  costly to change later is decided. Then concrete setup: repository
-  (README, ignore rules, lock files), tooling, CI, a minimal skeleton
-  that runs with a trivial test.
+- **Production**: a README of a few lines (what the software is for,
+  for whom, how to run it), then a short draft of the technical level
+  of the specification with tags: technical choices with their
+  "because," project conventions including the test and quality
+  policy. Nothing is written at the functional or interface level.
+  Only what is costly to change later is decided. Then concrete setup:
+  repository (ignore rules, lock files), tooling, CI, a minimal
+  skeleton that runs with a trivial test.
 - **Verification**: the skeleton runs with its trivial test; human
   review.
 
-Exit: the main specification exists, the skeleton runs, and the
-first increment can start with a small scope.
+Exit: the technical level of the main specification exists, the
+skeleton runs, and the first increment can start with a small scope.
 
 
 ## Specification Phase
