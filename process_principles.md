@@ -132,10 +132,11 @@ running skeleton. It delivers no feature.
   libraries, with throwaway prototypes if useful.
 - **Production**: a short draft with decision tags: overall vision
   (functional and UX), technical choices with their "because," project
-  conventions. Only what is costly to change later is decided.
-- **Verification**: fresh-context review until convergence, then
-  concrete setup: repository, tooling, CI, a minimal skeleton that runs
-  with a trivial test.
+  conventions including the test and quality policy. Only what is
+  costly to change later is decided. Then concrete setup: repository,
+  tooling, CI, a minimal skeleton that runs with a trivial test.
+- **Verification**: fresh-context review until convergence, skeleton
+  included.
 
 Exit: the main specification exists, the skeleton runs, and the
 first increment can start with a small scope.
@@ -152,10 +153,12 @@ the specification describes what is needed, not just what the code does.
   discuss with the human what the software is for and which behaviors
   are known to be intended, accidental or wrong.
 - **Production**: a draft main specification derived from the code,
-  with decision tags on every behavior whose intent is uncertain.
+  with decision tags on every behavior whose intent is uncertain, the
+  test and quality policy as practiced today, and existing tests linked
+  to unique IDs where possible.
 - **Verification**: fresh-context review until convergence; the human
   rules on each tagged behavior (keep, change in a later increment, or
-  drop); existing tests are linked to unique IDs where possible.
+  leave out of the specification).
 
 Exit: the main specification exists, known gaps between the code and
 the specification are listed, and the first increment can start with a
@@ -169,22 +172,27 @@ small scope.
 - **Production**: a short change specification that cites the unique
   IDs of the modified decisions.
 - **Verification**: consistency, repetition, vagueness, decisions
-  without a "because"; size of the increment (possible verdict: too big,
+  without a "because" when their reason is not obvious or they are a
+  trade-off; size of the increment (possible verdict: too big,
   split it).
 
 
 ## Tests Phase
 
 - **Exploration**: what to test, which edge cases; flag decisions that
-  cannot be tested.
+  cannot be tested; propose an update of the test and quality policy
+  if the increment brings new needs.
 - **Production**: tests each linked to a decision by its unique ID.
 - **Verification**: the human reviews the test suite (does each test
-  truly express the decision?); coverage and decision-to-test links
-  checked. This review deserves particular care: checking behavior
-  through tests is more efficient than through the code they constrain.
+  truly express the decision?); every testable decision has a test
+  and every test cites its decision. This review deserves particular
+  care: checking behavior through tests is more efficient than through
+  the code they constrain.
 
-Test types, coverage threshold and use of mutation testing are
-project decisions, recorded in the project's specification.
+The test and quality policy is a project decision, recorded in the
+technical level of the specification: a first version in Initial
+Framing or Retro-Specification, updated in the Tests phase when an
+increment brings new needs.
 
 
 ## Implementation Phase
@@ -193,7 +201,8 @@ project decisions, recorded in the project's specification.
   divergences.
 - **Production**: autonomous coding until tests are green, deviations
   tagged.
-- **Verification**: tests, lint, typing, static analysis; the human
+- **Verification**: tests and the checks required by the test and
+  quality policy; the human
   handles the tags and reviews the produced code.
 
 Technical choices (stack, libraries, algorithms, communication
@@ -214,9 +223,9 @@ important technical decision.
 
 ## Integration Phase
 
-- **Exploration**: gaps between what was planned and what was delivered,
-  decisions that moved; retrospective on the process itself (rules,
-  agent context, thresholds).
-- **Production**: in-place rewrite of the main specification.
+- **Exploration**: retrospective on the process itself (rules, agent
+  context, thresholds).
+- **Production**: in-place rewrite of the main specification,
+  resolving ID conflicts.
 - **Verification**: global fresh-context review, condensation, removal
-  of the change specification, resolution of ID conflicts.
+  of the change specification.
