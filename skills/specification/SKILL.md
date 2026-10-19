@@ -36,7 +36,8 @@ with the `DOMAIN = <CODE>` line of its domain.
 
 Keep it shorter and more abstract than tests and code would be. Record
 only what an agent could not guess. Tag every choice the human did not
-make. Stage all changes (`git add -A`) and hand over with the list of tags.
+make. Stage all changes (`git add -A`) and hand over with the list of tags,
+with one line on each `unsure` tag saying why.
 
 ## Verification
 

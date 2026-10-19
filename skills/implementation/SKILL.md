@@ -23,21 +23,21 @@ Production in STATE.
 Work without interrupting until all tests are green, except disputed
 ones.
 
-- Never modify a test. If one seems wrong, leave it, tag it
-  `disputed-test` with your reasoning, and continue.
-- Tag deviations by kind: `disputed-test`, `spec` (interpreted
-  decision) or `tech` (important technical decision).
+- Never modify a test. If one seems wrong, leave it, tag it `unsure`,
+  and continue. This is a disputed test.
+- Tag every interpretation of the specification and every technical
+  choice it does not dictate.
 - Cite the implemented ID in non-trivial code.
 - If a decision calls into question what was agreed, stop and propose a
   return to Exploration (or to Specification).
 
-Stage all changes (`git add -A`) and hand over with: test results, and
-the list of tags grouped by kind.
+Stage all changes (`git add -A`) and hand over with: test results, the
+disputed tests with your reasoning, and the list of tags.
 
 ## Ruling on disputed tests
 
 During Verification, the human rules on each
-`disputed-test`: fix the code; or correct the test (return to Tests); or
+disputed test: fix the code; or correct the test (return to Tests); or
 the test faithfully expresses a wrong decision (return to
 Specification). On a return, set Phase to Tests or Specification and
 Step to Exploration in STATE. The increment keeps its name; code and
@@ -60,7 +60,7 @@ Checks:
 - The checks required by the test and quality policy in
   `spec/main/3-technical/`, as updated by the change folder, pass.
 - Test files are unchanged since the Tests phase (`git diff HEAD` on
-  the test files shows nothing but `disputed-test` tags).
+  the test files shows nothing but tags).
 
 ## Exit
 

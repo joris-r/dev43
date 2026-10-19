@@ -49,7 +49,8 @@ Then set up the repository, tooling, CI, and a minimal skeleton that
 runs with one trivial test, following `stack.md` and `conventions.md`.
 Tag every choice they do not dictate.
 
-Stage all changes (`git add -A`) and hand over with the list of tags.
+Stage all changes (`git add -A`) and hand over with the list of tags,
+with one line on each `unsure` tag saying why.
 
 ## Verification
 

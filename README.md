@@ -7,7 +7,7 @@ packaged as a Claude Code plugin. The process itself is described in
 ## Contents
 
 - `templates/CLAUDE.md`: the rules agents must follow in a Dev-4-3 project
-  (step gates, decision tags, spec layout, test protection).
+  (step gates, tags, spec layout, test protection).
 - `templates/STATE.md`: tracks the current increment, phase and step.
 - `commands/init.md`: `/dev43:init`, sets up a project.
 - `skills/`: one skill per phase: `initial-framing`, `specification`,

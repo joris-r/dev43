@@ -38,10 +38,11 @@ Work without interrupting.
   return from Implementation, this applies only to new or changed
   tests.
 - Write only the minimum non-test code needed for tests to compile
-  (stubs, signatures), and tag it `tech` if it fixes an interface.
+  (stubs, signatures), and tag it if it fixes an interface.
 
 Tag every choice the spec does not dictate. Stage all changes
-(`git add -A`) and hand over with the list of tags.
+(`git add -A`) and hand over with the list of tags,
+with one line on each `unsure` tag saying why.
 
 ## Verification
 

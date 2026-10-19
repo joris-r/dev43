@@ -16,30 +16,42 @@ Golden rule: humans make every important or impactful decision.
   complete; only the human decides.
 - Production cannot start until the human has declared Exploration over.
 - Production ends when you hand over: stage all changes (`git add -A`)
-  and list your tags.
+  and list your tags (file and line), with one line on each `unsure`
+  tag saying why.
 - Verification: run the checks of the phase (see its skill) and report
   the results, then the human reviews. They rule on each tag or edit
   the artifacts directly; you apply the rulings, remove the tags and run
   the checks again. The step is complete when the checks pass,
-  `git grep -n --untracked "@dev43:decision" -- ':!CLAUDE.md'` returns
-  nothing, and the human approves.
+  no tag remains (see Tags), and the human approves.
 - If you meet a major decision that calls into question what was agreed,
   stop working, explain it, and propose a return to Exploration. Never
   work around it. If the human agrees, set Step to Exploration in STATE.
 
-## Decision tags
+## Tags
 
-- Tag every choice that the specification does not dictate, on the line
-  where it applies (spec, test or code):
-  `@dev43:decision[<kind>] <ID> — <what you chose and why>`
-  - `spec`: interpreted a specification decision
-  - `tech`: made a technical decision (library, algorithm, structure, interface)
-  - `disputed-test`: you believe a test is wrong (Implementation only)
-  - `<ID>` is the related decision ID, or `none`.
-- In Markdown, put the tag in an HTML comment: `<!-- @dev43:decision[...] ... -->`.
+A tag draws the human's attention to something you chose, and records
+that they must act on it. It says only how confident you are.
+
+- Tag every choice that neither the specification nor the human
+  dictated, on the line where it applies (spec, test or code):
+  - `@dev43:sure`: you are confident; a quick look is enough.
+  - `@dev43:unsure`: you are not confident; the human must look closely.
+    A test you believe is wrong is always `unsure`.
+- Write the choice itself as normal content: the artifact must read
+  correctly once the tag is removed. Put nothing else in the tag, no
+  kind, ID or explanation; explanations go in your hand-over message.
+- In Markdown, put the tag in an HTML comment: `<!-- @dev43:unsure -->`.
   In code, use the language's comment syntax.
-- If unsure whether something is a decision, tag it.
-- Never remove a tag unless the human has ruled on it.
+- If unsure whether something is a choice, tag it.
+- The human accepts a tag by removing it, and rejects it by changing
+  the content (or asking you to). Never remove a tag yourself unless
+  the human has ruled on it.
+- No tag remains when both commands print nothing:
+  `git diff HEAD | grep '^+.*@dev43:'` and
+  `git ls-files -o --exclude-standard -z | xargs -0 -r grep -Hn '@dev43:'`.
+  Committed content never holds a real tag, so tags quoted in committed
+  documents do not count. To quote a tag in a new document, write
+  `@dev43\:`.
 
 ## Specification
 
@@ -65,11 +77,11 @@ Golden rule: humans make every important or impactful decision.
 - Every test cites the ID(s) it checks. Non-trivial code cites the ID it
   implements.
 - During Implementation, never change test code. If a test seems wrong,
-  tag it `disputed-test` with your reasoning and continue. Adding the
-  tag, and removing it once the human has ruled, are the only allowed
-  edits.
+  tag it `unsure`, explain why in your hand-over, and continue. Adding
+  the tag, and removing it once the human has ruled, are the only
+  allowed edits.
 - Add no dependency, library, service or interface unless the
-  specification names it or you tag it `tech`.
+  specification names it or you tag it.
 
 ## Working with the human
 

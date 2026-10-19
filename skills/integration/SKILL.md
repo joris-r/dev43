@@ -33,7 +33,7 @@ Work without interrupting. Rewrite `spec/main/` in place:
 
 Then delete `spec/changes/<slug>/`. Tag every choice not dictated by
 the change spec. Stage all changes (`git add -A`) and hand over with
-the list of tags.
+the list of tags, with one line on each `unsure` tag saying why.
 
 ## Verification
 

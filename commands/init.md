@@ -23,7 +23,7 @@ Set up the Dev-4-3 process in the current project. Templates are in
    `spec/main/3-technical/` and `spec/changes/` (with `.gitkeep` files).
 6. Copy the STATE template to `spec/STATE.md` and fill it in:
    increment `framing`, phase Initial Framing, step Exploration.
-7. List what you created, then start Exploration with the
+7. Stage and commit only the files you created or changed, as
+   `dev43: init`, so that later phases can diff against it.
+8. List what you created, then start Exploration with the
    `dev43:initial-framing` skill.
-
-Do not commit.

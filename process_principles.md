@@ -100,13 +100,19 @@ surface. The step ends when both consider the subject mature; the human
 has the final say.
 
 In the Production step, the agent works without interruption and tags
-each place where it made a decision, directly on the relevant line of
+each place where it made a choice, directly on the relevant line of
 the specification, tests or source code. Then it hands over.
+
+A tag draws the human's attention and records that they must act. It
+carries only the agent's confidence: sure (a quick look is enough) or
+unsure (look closely). The artifact itself stays complete without the
+tag; the human accepts a choice by removing its tag, and rejects it by
+changing the content.
 
 In the Verification step, the agent first runs the checks of the phase.
 A check is kept only if it is cheap to run and has an obvious use; some
 phases have almost none. Then the human reviews every produced artifact
-once, with particular attention to the tagged decisions, and rules on
+once, with particular attention to the tagged choices, and rules on
 each tag or edits the artifacts directly. The agent applies the rulings
 and runs the checks again. The step is complete when the checks pass,
 no tags remain and the human approves.
@@ -131,7 +137,8 @@ records.
   commit holds one phase of one increment, so `git diff HEAD` shows the
   work of the current phase.
 
-Nothing is staged or committed at any other time.
+Apart from one commit when Dev-4-3 is set up, nothing is staged or
+committed at any other time.
 
 
 ## Initial Framing Phase
@@ -144,7 +151,7 @@ running skeleton. It delivers no feature.
   the software is for, for whom, technical, legal and platform
   constraints, out of scope). The agent compares structuring stacks and
   libraries, with throwaway prototypes if useful.
-- **Production**: a short draft with decision tags: overall vision
+- **Production**: a short draft with tags: overall vision
   (functional and UX), technical choices with their "because," project
   conventions including the test and quality policy. Only what is
   costly to change later is decided. Then concrete setup: repository,
@@ -201,15 +208,14 @@ interfaces) are important decisions like any other, because they are
 hard to reverse.
 
 Tests are never modified during Implementation. If the agent believes a
-test is wrong, it leaves it unchanged, tags it as disputed with its
-reasoning, and continues. At review, the human rules: either the code is
+test is wrong, it leaves it unchanged, tags it unsure with its
+reasoning in the hand-over, and continues. At review, the human rules: either the code is
 fixed, or the test is corrected in a return to the Tests phase, or, if
 the test faithfully expresses a wrong decision, the work returns to the
 Specification phase.
 
-In code, at least three kinds of deviation are distinguished, so review
-can go by severity: disputed test, interpreted specification decision,
-important technical decision.
+A disputed test is always tagged unsure: it contradicts a suite the
+human approved.
 
 
 ## Integration Phase
