@@ -1,50 +1,53 @@
-# add-list: add and list tasks
+# shorten: create and follow short links
 
-A to-do list on the command line: add tasks and list them.
+A small HTTP service that shortens URLs.
 
 ## Data model
 
-- Task
-  - text: one line, not empty
-  - done: false when added
-- Tasks keep the order in which they were added; a task's number is its
-  position, from 1.
-- Stored as JSON:
-  ```json
-  {"version": 1, "tasks": [{"text": "buy some milk", "done": false}]}
-  ```
+- Link
+  - code: 6 characters from `a-z` and `0-9`, unique
+  - url: an absolute `http` or `https` URL
+  - hits: number of times the link was followed, 0 when created
 
-## todo add
+## POST /links
 
-```console
-$ todo add buy some milk
-Added 1: buy some milk
+```http
+POST /links
+Content-Type: application/json
+
+{"url": "https://example.org/a/long/path"}
 ```
 
-## todo list
+```http
+HTTP/1.1 201 Created
+Content-Type: application/json
 
-```console
-$ todo list
-1. [ ] buy some milk
+{"code": "k3x9qa", "url": "https://example.org/a/long/path", "hits": 0}
 ```
 
-- `todo` alone is `todo list`.
+- R1: Shortening a URL that already has a link returns that link, with
+  status 200.
+
+## GET /{code}
+
+```http
+GET /k3x9qa
+```
+
+```http
+HTTP/1.1 302 Found
+Location: https://example.org/a/long/path
+```
+
+- Each redirect adds 1 to `hits`.
 
 ## Errors
 
-- Messages go to standard error, prefixed with `todo: error:`.
-- R1: On error, the data file is left unchanged.
-- Exit 2: wrong command or option.
-- Exit 1: any other error.
-
-## Data file location
-
-- First match wins:
-  1. `--file PATH`
-  2. `TODO_FILE`
-  3. `$HOME/.local/share/todo/tasks.json`
+- Error responses are JSON: `{"error": "<message>"}`.
+- 400: the body is not JSON, or `url` is missing or not an `http` or
+  `https` URL.
+- 404: unknown code.
 
 ## Technical
 
-- R2: Write the data file to a temporary file in the same directory,
-  then rename it.
+- R2: Codes are random, never derived from the URL or from a counter.

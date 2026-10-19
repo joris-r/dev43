@@ -44,7 +44,7 @@ reasons. Leave edge cases to the Tests phase. Tag every choice the
 human did not make.
 
 [example.md](example.md), next to this skill, is a change page of the
-target shape: the first increment of a command-line to-do list. Match
+target shape: the first increment of a small HTTP link shortener. Match
 its length and level of detail, not its content. Stage all changes (`git add -A`) and hand over with the list of tags,
 with one line on each `unsure` tag saying why.
 
