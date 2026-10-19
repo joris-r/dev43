@@ -49,23 +49,22 @@ Then set up the repository, tooling, CI, and a minimal skeleton that
 runs with one trivial test, following `stack.md` and `conventions.md`.
 Tag every choice they do not dictate.
 
-Hand over for human review of every file, tags first.
+Stage all changes (`git add -A`) and hand over with the list of tags.
 
 ## Verification
 
 Starts when the human declares Production over: set Step to
 Verification in STATE.
 
-Cycle until a round adds no new tags:
+1. Run the checks below and report the results, with the list of
+   remaining tags.
+2. The human reviews every produced artifact (`git diff --cached`) and
+   rules on each tag or edits the artifacts directly. Apply the rulings,
+   remove the tags, and run the checks again.
 
-1. Spawn a subagent with only the paths of the spec files and the
-   skeleton, and this checklist: consistency, repetition, vagueness,
-   decisions that are cheap to change and could be dropped, missing ID
-   or broken downward links; skeleton matches the spec and runs with
-   its trivial test. Tell it to tag each problem in place with
-   `@dev43:decision[verify]`, not to fix anything, and to return a list.
-2. The human rules on each tag; apply the rulings and remove those tags.
-3. Repeat.
+Checks:
+
+- The skeleton runs and its trivial test passes.
 
 ## Exit
 
@@ -73,4 +72,6 @@ Spec exists, skeleton runs, no tags remain, the human approves. Next
 phase: Specification.
 
 On the human's go, set Phase to Specification and Step to Exploration in
-STATE, and clear Increment and Scope.
+STATE, and clear Increment and Scope; then stage all changes and
+commit them as `dev43: <increment> — Initial Framing`, where
+`<increment>` is the increment that just ended.

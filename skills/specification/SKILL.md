@@ -36,30 +36,31 @@ with the `DOMAIN = <CODE>` line of its domain.
 
 Keep it shorter and more abstract than tests and code would be. Record
 only what an agent could not guess. Tag every choice the human did not
-make. Hand over for human review, tags first.
+make. Stage all changes (`git add -A`) and hand over with the list of tags.
 
 ## Verification
 
 Starts when the human declares Production over: set Step to
 Verification in STATE.
 
-Cycle until a round adds no new tags:
+1. Run the checks below and report the results, with the list of
+   remaining tags.
+2. The human reviews every produced artifact (`git diff --cached`) and
+   rules on each tag or edits the artifacts directly. Apply the rulings,
+   remove the tags, and run the checks again.
 
-1. Spawn a subagent with only the paths of `spec/main/` and the change
-   folder, and this checklist: consistency with main and within the
-   change; repetition; vagueness; broken or upward links; untestable
-   decisions; decisions missing a "because" when their reason is not
-   obvious or they are a trade-off; size of the increment (verdict may
-   be "too big, split it"). Tell it to tag each problem in place with
-   `@dev43:decision[verify]`, not to fix anything, and to return a list.
-2. The human rules on each tag; apply and remove. If the human accepts
-   a split, return to Exploration and narrow the Scope in STATE; the
-   rest becomes a later increment.
-3. Repeat.
+Checks:
+
+- `spec/main/` is unchanged (`git diff HEAD -- spec/main` is empty).
+
+The human also judges the size of the increment. If they decide to
+split it, return to Exploration and narrow the Scope in STATE; the rest
+becomes a later increment.
 
 ## Exit
 
 No tags remain and the human approves. Next phase: Tests.
 
 On the human's go, set Phase to Tests and Step to Exploration in
-STATE.
+STATE; then stage all changes and
+commit them as `dev43: <increment> — Specification`.

@@ -99,23 +99,39 @@ agent. The subject is approached gradually until the important decisions
 surface. The step ends when both consider the subject mature; the human
 has the final say.
 
-In the Production and Verification steps, the agent works without
-interruption and tags each place where it made a decision, directly on
-the relevant line of the specification, tests or source code. At the end
-of the step, the human reviews every produced artifact, with particular
-attention to the tagged decisions. The step is complete only when no tags
-remain.
+In the Production step, the agent works without interruption and tags
+each place where it made a decision, directly on the relevant line of
+the specification, tests or source code. Then it hands over.
 
-The Verification step starts with an agent in a fresh context, so that it
-judges the artifacts on their own rather than through the reasoning that
-produced them. Verification is cyclic: after each human review, the agent
-verifies again, until no new tags appear.
+In the Verification step, the agent first runs the checks of the phase.
+A check is kept only if it is cheap to run and has an obvious use; some
+phases have almost none. Then the human reviews every produced artifact
+once, with particular attention to the tagged decisions, and rules on
+each tag or edits the artifacts directly. The agent applies the rulings
+and runs the checks again. The step is complete when the checks pass,
+no tags remain and the human approves.
 
 Reviewing afterward, in context, is more efficient than interrupting the
 agent, since the main decisions have normally already surfaced during
 Exploration. If the agent nevertheless meets a major decision, one that
 calls into question what was agreed, it stops and the work returns to
 Exploration.
+
+
+### Version Control
+
+The project is a git repository. Git gives the history and the current
+changes for free, so the process relies on it instead of keeping its own
+records.
+
+- At the end of Production, the agent stages all changes. During
+  Verification, `git diff --cached` shows what the agent produced and
+  `git diff` what changed during the review.
+- At the end of each phase, on the human's go, the agent commits. Each
+  commit holds one phase of one increment, so `git diff HEAD` shows the
+  work of the current phase.
+
+Nothing is staged or committed at any other time.
 
 
 ## Initial Framing Phase
@@ -133,8 +149,8 @@ running skeleton. It delivers no feature.
   conventions including the test and quality policy. Only what is
   costly to change later is decided. Then concrete setup: repository,
   tooling, CI, a minimal skeleton that runs with a trivial test.
-- **Verification**: fresh-context review until convergence, skeleton
-  included.
+- **Verification**: the skeleton runs with its trivial test; human
+  review.
 
 Exit: the main specification exists, the skeleton runs, and the
 first increment can start with a small scope.
@@ -146,10 +162,8 @@ first increment can start with a small scope.
   code and tests.
 - **Production**: a short change specification that cites the unique
   IDs of the modified decisions.
-- **Verification**: consistency, repetition, vagueness, decisions
-  without a "because" when their reason is not obvious or they are a
-  trade-off; size of the increment (possible verdict: too big,
-  split it).
+- **Verification**: `spec/main/` is unchanged; human review, including
+  the size of the increment (possible verdict: too big, split it).
 
 
 ## Tests Phase
@@ -158,11 +172,12 @@ first increment can start with a small scope.
   cannot be tested; propose an update of the test and quality policy
   if the increment brings new needs.
 - **Production**: tests each linked to a decision by its unique ID.
-- **Verification**: the human reviews the test suite (does each test
-  truly express the decision?); every testable decision has a test
-  and every test cites its decision. This review deserves particular
-  care: checking behavior through tests is more efficient than through
-  the code they constrain.
+- **Verification**: every new or modified decision has a test or is
+  marked not testable; every test cites an existing ID; the new tests
+  fail for the right reason. Then the human reviews the test suite
+  (does each test truly express the decision?). This review deserves
+  particular care: checking behavior through tests is more efficient
+  than through the code they constrain.
 
 The test and quality policy is a project decision, recorded in the
 technical level of the specification: a first version in Initial
@@ -176,9 +191,10 @@ increment brings new needs.
   divergences.
 - **Production**: autonomous coding until tests are green, deviations
   tagged.
-- **Verification**: tests and the checks required by the test and
-  quality policy; the human
-  handles the tags and reviews the produced code.
+- **Verification**: the full test suite passes, the checks required by
+  the test and quality policy pass, and the test files are unchanged
+  since the Tests phase (`git diff HEAD`); the human handles the tags
+  and reviews the produced code.
 
 Technical choices (stack, libraries, algorithms, communication
 interfaces) are important decisions like any other, because they are
@@ -201,9 +217,10 @@ important technical decision.
 - **Exploration**: retrospective on the process itself (rules, agent
   context, thresholds).
 - **Production**: in-place rewrite of the main specification,
-  resolving ID conflicts.
-- **Verification**: global fresh-context review, condensation, removal
-  of the change specification.
+  resolving ID conflicts, then removal of the change specification.
+- **Verification**: the full test suite passes, no ID is defined twice
+  in the main specification, every ID cited in tests or code exists,
+  and the change specification is removed; human review.
 
 
 ## Future Work

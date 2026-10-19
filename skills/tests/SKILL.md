@@ -40,33 +40,38 @@ Work without interrupting.
 - Write only the minimum non-test code needed for tests to compile
   (stubs, signatures), and tag it `tech` if it fixes an interface.
 
-Tag every choice the spec does not dictate. Hand over for review.
+Tag every choice the spec does not dictate. Stage all changes
+(`git add -A`) and hand over with the list of tags.
 
 ## Verification
 
 Starts when the human declares Production over: set Step to
 Verification in STATE.
 
-This review deserves particular care: checking behavior through tests is
-cheaper than through code.
+1. Run the checks below and report the results, with the list of
+   remaining tags.
+2. The human reviews every produced artifact (`git diff --cached`) and
+   rules on each tag or edits the artifacts directly. Apply the rulings,
+   remove the tags, and run the checks again.
 
-Cycle until a round adds no new tags:
+Checks:
 
-1. Spawn a subagent with only the paths of `spec/main/`, the change
-   folder and the tests, and this checklist: does each test truly
-   express its decision; decisions with no test, unless marked "(not
-   testable)"; tests added or changed in this increment with no or
-   wrong ID; tests that check implementation details instead of
-   behavior; missing edge cases. Tell it to tag each problem in place
-   with `@dev43:decision[verify]`, not to fix anything, and to return a
-   list.
-2. The human reviews the suite and rules on each tag.
-3. Repeat.
+- Every new or modified decision of the change has at least one test,
+  unless marked "(not testable)".
+- Every test added or changed in this increment cites an ID that exists
+  in `spec/main/` or the change folder.
+- The new tests fail for the right reason (missing behavior, not syntax
+  or setup errors).
+
+The human's review deserves particular care: checking behavior through
+tests is cheaper than through code. Does each test truly express its
+decision?
 
 ## Exit
 
-No tags remain and the human approves the suite. Next phase:
-Implementation. From now on, tests are read-only.
+Checks pass, no tags remain and the human approves the suite. Next
+phase: Implementation. From now on, tests are read-only.
 
 On the human's go, set Phase to Implementation and Step to
-Exploration in STATE.
+Exploration in STATE; then stage all changes and
+commit them as `dev43: <increment> — Tests`.

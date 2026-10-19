@@ -31,11 +31,12 @@ ones.
 - If a decision calls into question what was agreed, stop and propose a
   return to Exploration (or to Specification).
 
-Hand over with: test results, and the list of tags grouped by kind.
+Stage all changes (`git add -A`) and hand over with: test results, and
+the list of tags grouped by kind.
 
 ## Ruling on disputed tests
 
-At the end of Production or Verification, the human rules on each
+During Verification, the human rules on each
 `disputed-test`: fix the code; or correct the test (return to Tests); or
 the test faithfully expresses a wrong decision (return to
 Specification). On a return, set Phase to Tests or Specification and
@@ -47,24 +48,25 @@ tests already written stay unless the human decides otherwise.
 Starts when the human declares Production over: set Step to
 Verification in STATE.
 
-Cycle until a round adds no new tags:
+1. Run the checks below and report the results, with the list of
+   remaining tags.
+2. The human reviews every produced artifact (`git diff --cached`) and
+   rules on each tag or edits the artifacts directly. Apply the rulings,
+   remove the tags, and run the checks again.
 
-1. Run the tests and the checks required by the test and quality
-   policy in `spec/main/3-technical/`, as updated by the change folder.
-   Report results.
-2. Spawn a subagent with only the paths of `spec/main/`, the change
-   folder, the tests and the sources, and this checklist, limited to
-   code added or changed in this increment: code matches spec; code not
-   traceable to an ID; dead or speculative code; new dependencies. Tell
-   it to tag each problem in place with `@dev43:decision[verify]`, not
-   to fix anything, and to return a list.
-3. The human handles the tags and reviews the code.
-4. Repeat.
+Checks:
+
+- The full test suite passes, except disputed tests.
+- The checks required by the test and quality policy in
+  `spec/main/3-technical/`, as updated by the change folder, pass.
+- Test files are unchanged since the Tests phase (`git diff HEAD` on
+  the test files shows nothing but `disputed-test` tags).
 
 ## Exit
 
-Tests green, checks pass, no tags remain, the human approves. Next
-phase: Integration.
+Checks pass, no tags remain, the human approves. Next phase:
+Integration.
 
 On the human's go, set Phase to Integration and Step to Exploration in
-STATE.
+STATE; then stage all changes and
+commit them as `dev43: <increment> — Implementation`.

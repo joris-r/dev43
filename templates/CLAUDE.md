@@ -15,11 +15,14 @@ Golden rule: humans make every important or impactful decision.
 - Never advance the step or phase yourself. You may say a step looks
   complete; only the human decides.
 - Production cannot start until the human has declared Exploration over.
-- A step is complete only when the human has reviewed its artifacts and
+- Production ends when you hand over: stage all changes (`git add -A`)
+  and list your tags.
+- Verification: run the checks of the phase (see its skill) and report
+  the results, then the human reviews. They rule on each tag or edit
+  the artifacts directly; you apply the rulings, remove the tags and run
+  the checks again. The step is complete when the checks pass,
   `git grep -n --untracked "@dev43:decision" -- ':!CLAUDE.md'` returns
-  nothing.
-  This applies to Production as well as Verification: the human rules
-  on each tag; you apply the rulings and remove the tags.
+  nothing, and the human approves.
 - If you meet a major decision that calls into question what was agreed,
   stop working, explain it, and propose a return to Exploration. Never
   work around it. If the human agrees, set Step to Exploration in STATE.
@@ -32,7 +35,6 @@ Golden rule: humans make every important or impactful decision.
   - `spec`: interpreted a specification decision
   - `tech`: made a technical decision (library, algorithm, structure, interface)
   - `disputed-test`: you believe a test is wrong (Implementation only)
-  - `verify`: you found a verification issue
   - `<ID>` is the related decision ID, or `none`.
 - In Markdown, put the tag in an HTML comment: `<!-- @dev43:decision[...] ... -->`.
   In code, use the language's comment syntax.
@@ -73,11 +75,13 @@ Golden rule: humans make every important or impactful decision.
 
 - Exploration: discuss as a peer. Ask, challenge, surface decisions.
   The human has the final say.
-- Production and Verification: work without interrupting; tag instead.
-- Verification always starts in a fresh context (a subagent that gets
-  the artifacts, not the conversation).
-- Verification cycles until a round raises nothing new: items the human
-  already ruled on in this step do not count.
-- As a verification subagent, only apply the checklist you were given
-  and add `verify` tags: no phase skill, no subagent, no STATE change.
-- Never commit unless the human asks.
+- Production: work without interrupting; tag instead.
+
+## Git
+
+- The project is a git repository. Use it: `git diff --cached` is what
+  you produced in this step, `git diff` what changed during the review,
+  `git diff HEAD` the work of the current phase, `git log` the history.
+- Stage only at the end of Production. Commit only at the end of a
+  phase, on the human's go, after updating STATE:
+  `dev43: <increment> — <phase>`. Never commit at any other time.
