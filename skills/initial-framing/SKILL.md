@@ -1,6 +1,6 @@
 ---
 name: initial-framing
-description: Dev-4-3 Initial Framing phase for a new project with no code yet. Use when spec/STATE.md says Phase is Initial Framing, or when the human starts a new project with Dev-4-3. Sets the stack, conventions and a running skeleton; delivers no feature.
+description: Dev43 Initial Framing phase for a new project with no code yet. Use when spec/STATE.md says Phase is Initial Framing, or when the human starts a new project with Dev43. Sets the stack, conventions and a running skeleton; delivers no feature.
 ---
 
 # Initial Framing

@@ -1,6 +1,6 @@
 ---
 name: tests
-description: Dev-4-3 Tests phase of an increment. Use when spec/STATE.md says Phase is Tests. Writes tests, each citing what it checks in the specification, before any implementation.
+description: Dev43 Tests phase of an increment. Use when spec/STATE.md says Phase is Tests. Writes tests, each citing what it checks in the specification, before any implementation.
 ---
 
 # Tests

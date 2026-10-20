@@ -1,6 +1,6 @@
 {
   "name": "dev43",
-  "description": "Dev-4-3 process plugin for Claude Code.",
+  "description": "Dev43 process plugin for Claude Code.",
   "owner": {
     "name": "Joris Rehm",
     "email": "joris@jirm.eu"
@@ -9,7 +9,7 @@
     {
       "name": "dev43",
       "source": "./",
-      "description": "Dev-4-3: a specification-driven development process for humans and LLM agents, one skill per phase."
+      "description": "Dev43: a specification-driven development process for humans and LLM agents, one skill per phase."
     }
   ]
 }

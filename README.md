@@ -1,4 +1,4 @@
-# Dev-4-3
+# Dev43
 
 A specification-driven development process for humans and LLM agents,
 packaged as a Claude Code plugin. The process itself is described in
@@ -6,7 +6,7 @@ packaged as a Claude Code plugin. The process itself is described in
 
 ## Contents
 
-- `templates/CLAUDE.md`: the rules agents must follow in a Dev-4-3 project
+- `templates/CLAUDE.md`: the rules agents must follow in a Dev43 project
   (step gates, tags, spec layout, test protection).
 - `templates/STATE.md`: tracks the current increment, phase and step.
 - `commands/init.md`: `/dev43:init`, sets up a project.
@@ -18,7 +18,7 @@ packaged as a Claude Code plugin. The process itself is described in
 From a terminal, with the Claude Code CLI:
 
 ```sh
-claude plugin marketplace add /path/to/dev-4-3
+claude plugin marketplace add /path/to/dev43
 claude plugin install dev43@dev43
 ```
 
@@ -33,7 +33,7 @@ The `/plugin` slash command is not available inside the VS Code extension.
 To try the plugin without installing it:
 
 ```sh
-claude --plugin-dir /path/to/dev-4-3
+claude --plugin-dir /path/to/dev43
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ In a project, run:
 /dev43:init
 ```
 
-Only new projects are supported for now: adopting Dev-4-3 on existing
+Only new projects are supported for now: adopting Dev43 on existing
 code (Retro-Specification) is future work.
 
 This copies `CLAUDE.md` (or proposes a merge if one exists), creates the

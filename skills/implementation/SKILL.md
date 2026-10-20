@@ -1,6 +1,6 @@
 ---
 name: implementation
-description: Dev-4-3 Implementation phase of an increment. Use when spec/STATE.md says Phase is Implementation. Writes code until the tests pass, never modifying tests, tagging every deviation.
+description: Dev43 Implementation phase of an increment. Use when spec/STATE.md says Phase is Implementation. Writes code until the tests pass, never modifying tests, tagging every deviation.
 ---
 
 # Implementation

@@ -1,6 +1,6 @@
 ---
 name: integration
-description: Dev-4-3 Integration phase, the last phase of each increment. Use when spec/STATE.md says Phase is Integration. Merges the change specification into the main specification and runs a retrospective.
+description: Dev43 Integration phase, the last phase of each increment. Use when spec/STATE.md says Phase is Integration. Merges the change specification into the main specification and runs a retrospective.
 ---
 
 # Integration
@@ -13,7 +13,7 @@ page is gone, and the process itself has been reviewed.
 Retrospective with the human on the process itself: rules in
 `CLAUDE.md`, agent context, thresholds, skill instructions. Propose
 concrete changes, one per message; the human decides. Label each with
-its target: the project (e.g. `CLAUDE.md`) or the Dev-4-3 plugin.
+its target: the project (e.g. `CLAUDE.md`) or the Dev43 plugin.
 
 When you have nothing left to raise, propose to end Exploration. It
 ends when the human agrees; then set Step to Production in STATE.

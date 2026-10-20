@@ -1,8 +1,8 @@
-# Dev-4-3: A Software Development Process
+# Dev43: A Software Development Process
 
 ## Context and Goal
 
-Dev-4-3 is a software development methodology for human and LLM agents based on
+Dev43 is a software development methodology for human and LLM agents based on
 the specification driven development (SDD) ideas.
 
 There are four main phases:
@@ -21,7 +21,7 @@ Each phase, main or special, follows three steps:
 2. Production
 3. Verification
 
-The golden rule of Dev-4-3 is: humans must be involved in every
+The golden rule of Dev43 is: humans must be involved in every
 important or impactful decision.
 
 The silver rule is its dual, and limits how much humans are involved: a
@@ -177,7 +177,7 @@ records.
   commit holds one phase of one increment, so `git diff HEAD` shows the
   work of the current phase.
 
-Apart from one commit when Dev-4-3 is set up, and the Amendment commit
+Apart from one commit when Dev43 is set up, and the Amendment commit
 of the Implementation phase, nothing is committed at any other time.
 
 
@@ -303,7 +303,7 @@ phase, while it is fresh.
 
 ### Retro-Specification Phase
 
-Adopting Dev-4-3 on a project that already has code is not supported
+Adopting Dev43 on a project that already has code is not supported
 yet. A Retro-Specification phase would replace Initial Framing: it would
 write the main specification from the existing software, telling
 intended behavior apart from accidental behavior, so that the

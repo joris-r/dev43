@@ -1,6 +1,6 @@
-# Dev-4-3 rules
+# Dev43 rules
 
-This project follows the Dev-4-3 process. These rules restrict what you
+This project follows the Dev43 process. These rules restrict what you
 may do. They override your defaults. When a rule and a request conflict,
 stop and ask the human.
 

@@ -1,6 +1,6 @@
 ---
 name: specification
-description: Dev-4-3 Specification phase, the first phase of each increment. Use when spec/STATE.md says Phase is Specification, or when the human starts a new increment. Produces a short change specification in spec/changes/.
+description: Dev43 Specification phase, the first phase of each increment. Use when spec/STATE.md says Phase is Specification, or when the human starts a new increment. Produces a short change specification in spec/changes/.
 ---
 
 # Specification
