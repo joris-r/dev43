@@ -80,4 +80,4 @@ No tags remain and the human approves. Next phase: Tests.
 
 On the human's go, set Phase to Tests and Step to Exploration in
 STATE; then stage all changes and
-commit them as `dev43: <increment> — Specification`.
+commit them as `[<increment>] Specification`.

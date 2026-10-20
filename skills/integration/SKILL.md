@@ -62,5 +62,5 @@ Specification.
 
 On the human's go, set Phase to Specification and Step to Exploration in
 STATE, and clear Increment and Scope; then stage all changes and
-commit them as `dev43: <increment> — Integration`, where
+commit them as `[<increment>] Integration`, where
 `<increment>` is the increment that just ended.

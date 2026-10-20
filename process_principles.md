@@ -235,10 +235,10 @@ skeleton runs, and the first increment can start with a small scope.
   specification or by its rule ID.
 - **Verification**: every new or modified rule ID has a test or is
   marked not testable; every rule ID cited in tests exists; the new
-  tests fail for the right reason. Then the human reviews the test
-  suite (does each part of the change have tests, and does each test
-  truly express it?). This review deserves
-  particular care: checking behavior through tests is more efficient
+  tests fail for the right reason, or are legitimate negative checks.
+  Then the human reviews the test suite (does each part of the change
+  have tests, and does each test truly express it?). This review
+  deserves particular care: checking behavior through tests is more efficient
   than through the code they constrain.
 
 The test and quality policy is a project decision, recorded in the
@@ -278,6 +278,12 @@ return: the agent writes the specification line and its tests together,
 checks that the tests fail for the right reason, and the human approves
 both in one gate. It is committed as an Amendment. Anything larger goes
 back through Specification or Tests.
+
+Points are often discovered after the Specification phase. One the
+human would not care about stays in the code. One that belongs in the
+specification but needs no new test, such as a technical decision, is
+written in the change page right away and reviewed with the current
+phase, while it is fresh.
 
 
 ## Integration Phase

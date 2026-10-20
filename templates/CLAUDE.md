@@ -90,6 +90,15 @@ records that they must act on it.
   are project-wide: a new rule takes one above the highest ever used,
   in `spec/` or in its history (`git log -p -- spec`). Never reuse a
   number.
+- A point discovered after the Specification phase:
+  - the human would not care (silver rule): code only;
+  - it belongs in the specification but needs no new test (e.g. a
+    technical decision): write it in the change page, tagged; it is
+    reviewed and committed with the current phase;
+  - new behavior that one or two new tests can check: an Amendment
+    (see the Implementation skill);
+  - anything larger, or a change to what was agreed: propose a return.
+  Never leave it only in your memory or a commit message.
 - Layout:
   - `spec/main/`: the main specification. `data-model.md`,
     `technical.md` (stack, conventions, test and quality policy), and
@@ -138,7 +147,7 @@ records that they must act on it.
   with `git add -N .` so they show in `git diff`; and at the exit
   commit.
 - Commit only at the end of a phase, on the human's go, after updating
-  STATE: `git add -A`, then commit as `dev43: <increment> — <phase>`,
+  STATE: `git add -A`, then commit as `[<increment>] <phase>`,
   with a short body giving the reasons for the phase's main decisions.
   A phase done again after a return ends its subject with ` (return)`.
   The only other commit is an Amendment during Implementation (see its

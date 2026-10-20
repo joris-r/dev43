@@ -36,7 +36,7 @@ check), skip the return loop:
 2. Run the new tests: they must fail for the right reason.
 3. Hand over both together; the human reviews them in one gate.
 4. On approval, commit only the change page and the new tests as
-   `dev43: <increment> — Amendment`. Phase and Step stay as they were.
+   `[<increment>] Amendment`. Phase and Step stay as they were.
 
 Anything larger, or a change to an existing rule or test, goes through
 a return to Specification or Tests.
@@ -95,4 +95,4 @@ Integration.
 
 On the human's go, set Phase to Integration and Step to Exploration in
 STATE; then stage all changes and
-commit them as `dev43: <increment> — Implementation`.
+commit them as `[<increment>] Implementation`.

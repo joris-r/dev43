@@ -43,6 +43,9 @@ Work without interrupting.
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
   tests.
+- A new test that already passes must be a legitimate negative check
+  (e.g. "does not show X"), not a vacuous one (e.g. a loop over
+  elements that do not exist yet). Name each in your hand-over.
 - Write only the minimum non-test code needed for tests to compile
   (stubs, signatures), and tag it if it fixes an interface.
 
@@ -68,7 +71,7 @@ Checks:
 - Every rule ID cited in tests exists in `spec/main/` or the change
   page.
 - The new tests fail for the right reason (missing behavior, not syntax
-  or setup errors).
+  or setup errors), or are legitimate negative checks.
 
 The human's review deserves particular care: checking behavior through
 tests is cheaper than through code. Does each part of the change have
@@ -81,4 +84,4 @@ phase: Implementation. From now on, tests are read-only.
 
 On the human's go, set Phase to Implementation and Step to
 Exploration in STATE; then stage all changes and
-commit them as `dev43: <increment> — Tests`.
+commit them as `[<increment>] Tests`.
