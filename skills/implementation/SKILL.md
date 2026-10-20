@@ -15,8 +15,31 @@ with every deviation tagged for the human.
    and technical choices that will be needed (libraries, algorithms,
    interfaces). These are important decisions: they are hard to reverse.
 
-End when the human says Exploration is over; then set Step to
-Production in STATE.
+One point per message; raise only what you cannot settle with
+confidence, and settle the rest yourself in Production (see
+`CLAUDE.md`, Working with the human).
+
+After a return from Tests or Specification, raise only what the return
+changed; if nothing, say so and move on at the human's approval.
+
+When you have nothing left to raise, propose to end Exploration. It
+ends when the human agrees; then set Step to Production in STATE.
+
+## Amendment
+
+When the human wants a small addition to the specification during
+Implementation (a rule or an example that one or two new tests can
+check), skip the return loop:
+
+1. Write the addition in the change page and its new tests, tagged as
+   usual. Existing tests stay unchanged.
+2. Run the new tests: they must fail for the right reason.
+3. Hand over both together; the human reviews them in one gate.
+4. On approval, commit only the change page and the new tests as
+   `dev43: <increment> — Amendment`. Phase and Step stay as they were.
+
+Anything larger, or a change to an existing rule or test, goes through
+a return to Specification or Tests.
 
 ## Production
 
@@ -25,14 +48,16 @@ ones.
 
 - Never modify a test. If one seems wrong, leave it, tag it `unsure`,
   and continue. This is a disputed test.
-- Tag every interpretation of the specification and every technical
-  choice it does not dictate.
+- Tag the interpretations of the specification and the technical
+  choices you are unsure of.
 - Cite a rule ID in code only where it explains something the reader
   would not otherwise see.
 - If a decision calls into question what was agreed, stop and propose a
   return to Exploration (or to Specification).
 
-Stage all changes (`git add -A`) and hand over with: test results, the
+Run the Verification checks and fix what fails, except disputed
+tests. Then mark new files (`git add -N .`), set Step to Verification
+in STATE, and hand over with: the check results, the
 disputed tests with your reasoning, and the list of tags.
 
 ## Ruling on disputed tests
@@ -42,18 +67,18 @@ disputed test: fix the code; or correct the test (return to Tests); or
 the test faithfully expresses a wrong decision (return to
 Specification). On a return, set Phase to Tests or Specification and
 Step to Exploration in STATE. The increment keeps its name; code and
-tests already written stay unless the human decides otherwise.
+tests already written stay unless the human decides otherwise. The
+commits of the phases done again end with ` (return)`.
 
 ## Verification
 
-Starts when the human declares Production over: set Step to
-Verification in STATE.
+Starts at your hand-over, once the checks below pass.
 
-1. Run the checks below and report the results, with the list of
-   remaining tags.
-2. The human reviews every produced artifact (`git diff --cached`) and
-   rules on each tag or edits the artifacts directly. Apply the rulings,
-   remove the tags, and run the checks again.
+1. The human reviews the changes (`git diff`), staging each file or
+   hunk once read, and rules on each tag or edits the artifacts
+   directly.
+2. Apply the rulings, remove the tags, and run the checks again. The
+   review is done when `git diff` is empty.
 
 Checks:
 

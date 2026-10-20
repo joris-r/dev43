@@ -19,10 +19,15 @@ during it.
    of the policy; once the human agrees, write it in the change page.
 4. Flag rules that cannot be tested; propose to make them testable
    or to accept them as not testable. Mark each accepted one
-   "(not testable)" in the change page.
+   "(not testable)" in the change page. If only part of a rule is not
+   testable, name that part, e.g. "(interrupted write not testable)".
 
-End when the human says Exploration is over; then set Step to
-Production in STATE.
+One point per message; raise only what you cannot settle with
+confidence, and settle the rest yourself in Production (see
+`CLAUDE.md`, Working with the human).
+
+When you have nothing left to raise, propose to end Exploration. It
+ends when the human agrees; then set Step to Production in STATE.
 
 ## Production
 
@@ -41,20 +46,20 @@ Work without interrupting.
 - Write only the minimum non-test code needed for tests to compile
   (stubs, signatures), and tag it if it fixes an interface.
 
-Tag every choice the spec does not dictate. Stage all changes
-(`git add -A`) and hand over with the list of tags,
-with one line on each `unsure` tag saying why.
+Tag the choices you are unsure of. Run the Verification checks and
+fix what fails. Then mark new files (`git add -N .`), set Step to
+Verification in STATE, and hand over with the check results and the
+list of tags, with one line on each saying why.
 
 ## Verification
 
-Starts when the human declares Production over: set Step to
-Verification in STATE.
+Starts at your hand-over, once the checks below pass.
 
-1. Run the checks below and report the results, with the list of
-   remaining tags.
-2. The human reviews every produced artifact (`git diff --cached`) and
-   rules on each tag or edits the artifacts directly. Apply the rulings,
-   remove the tags, and run the checks again.
+1. The human reviews the changes (`git diff`), staging each file or
+   hunk once read, and rules on each tag or edits the artifacts
+   directly.
+2. Apply the rulings, remove the tags, and run the checks again. The
+   review is done when `git diff` is empty.
 
 Checks:
 

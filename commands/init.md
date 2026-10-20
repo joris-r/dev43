@@ -11,9 +11,9 @@ Set up the Dev-4-3 process in the current project. Templates are in
 2. Look for source code in the project. If there is any, stop: adopting
    Dev-4-3 on existing code (Retro-Specification) is not supported yet.
    Tell the human and do nothing else.
-3. If the project is not a git repository, propose `git init` to the
-   human and run it on approval. Dev-4-3 relies on git; do not go on
-   without it.
+3. If the project is not a git repository, run `git init`; the
+   permission prompt is the human's approval, do not ask separately.
+   Dev-4-3 relies on git; do not go on without it.
 4. `CLAUDE.md`:
    - absent → copy the template;
    - present → never overwrite it. Show the human a merge proposal
@@ -21,7 +21,9 @@ Set up the Dev-4-3 process in the current project. Templates are in
      it only on approval.
 5. Create `spec/main/` and `spec/changes/` (with `.gitkeep` files).
 6. Copy the STATE template to `spec/STATE.md` and fill it in:
-   increment `framing`, phase Initial Framing, step Exploration.
+   increment `framing`, phase Initial Framing, step Exploration, and
+   scope "Set the stack, conventions and a running skeleton. No feature
+   is delivered."
 7. Stage and commit only the files you created or changed, as
    `dev43: init`, so that later phases can diff against it.
 8. List what you created, then start Exploration with the

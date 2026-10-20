@@ -22,8 +22,12 @@ Goal: a minimal change specification for one increment, on one page.
 5. If the change needs a new feature-area page in `spec/main/`, agree
    on its name with the human.
 
-End when the human says Exploration is over; then set Step to
-Production in STATE.
+One point per message; raise only what you cannot settle with
+confidence, and settle the rest yourself in Production (see
+`CLAUDE.md`, Working with the human).
+
+When you have nothing left to raise, propose to end Exploration. It
+ends when the human agrees; then set Step to Production in STATE.
 
 ## Production
 
@@ -40,24 +44,27 @@ technical.
 
 Follow the specification rules of `CLAUDE.md`: write the minimum,
 examples first, lists not tables, rule IDs only where needed, no
-reasons. Leave edge cases to the Tests phase. Tag every choice the
-human did not make.
+reasons. Leave edge cases to the Tests phase. Tag the choices you
+are unsure of.
 
 [example.md](example.md), next to this skill, is a change page of the
 target shape: the first increment of a small HTTP link shortener. Match
-its length and level of detail, not its content. Stage all changes (`git add -A`) and hand over with the list of tags,
-with one line on each `unsure` tag saying why.
+its length and level of detail, not its content.
+
+Run the Verification checks and fix what fails. Then mark new files
+(`git add -N .`), set Step to Verification in STATE, and hand over
+with the check results and the list of tags, with one line on each
+saying why.
 
 ## Verification
 
-Starts when the human declares Production over: set Step to
-Verification in STATE.
+Starts at your hand-over, once the checks below pass.
 
-1. Run the checks below and report the results, with the list of
-   remaining tags.
-2. The human reviews every produced artifact (`git diff --cached`) and
-   rules on each tag or edits the artifacts directly. Apply the rulings,
-   remove the tags, and run the checks again.
+1. The human reviews the changes (`git diff`), staging each file or
+   hunk once read, and rules on each tag or edits the artifacts
+   directly.
+2. Apply the rulings, remove the tags, and run the checks again. The
+   review is done when `git diff` is empty.
 
 Checks:
 

@@ -22,21 +22,25 @@ If the project has no `spec/STATE.md`, ask the human to run
 
 ## Exploration
 
-Peer discussion with the human. Cover, one topic at a time:
+Peer discussion with the human. Your agenda, not a message template:
 
 1. Purpose: what the software is for, for whom, the main use cases.
 2. Constraints: technical, legal, platform, budget, hosting.
 3. Out of scope: what it will explicitly not do.
-4. Stack: compare candidate languages, frameworks, databases and key
-   libraries. Give trade-offs and a recommendation. Build throwaway
+4. Stack: the structuring choices (language, framework, database).
+   Raise a real trade-off when there is one; build throwaway
    prototypes (outside the repo or in a scratch folder) if a choice
    needs evidence.
 5. Conventions: repo layout, naming, the test and quality policy, and
-   repository files: what `.gitignore` excludes, whether lock files are
-   committed.
+   repository files. Most are choices you can make with confidence:
+   make them in Production rather than asking.
 
-Surface decisions; don't settle them alone. End when the human says
-Exploration is over; then set Step to Production in STATE.
+One point per message; raise only what you cannot settle with
+confidence, and settle the rest yourself in Production (see
+`CLAUDE.md`, Working with the human).
+
+When you have nothing left to raise, propose to end Exploration. It
+ends when the human agrees; then set Step to Production in STATE.
 
 ## Production
 
@@ -49,26 +53,28 @@ specification: no IDs.
 Write a short `spec/main/technical.md`: the stack, the conventions, and
 the test and quality policy. Write nothing else in `spec/main/`: the
 data model and the features come with the increments, starting with
-the first one. Tag every choice the human did not explicitly make.
+the first one.
 
 Then set up the repository (`.gitignore`, lock files as agreed),
 tooling, CI, and a minimal skeleton that runs with one trivial test,
 following `technical.md`.
-Tag every choice they do not dictate.
 
-Stage all changes (`git add -A`) and hand over with the list of tags,
-with one line on each `unsure` tag saying why.
+In both, tag the choices you are unsure of.
+
+Run the Verification checks and fix what fails. Then mark new files
+(`git add -N .`), set Step to Verification in STATE, and hand over
+with the check results and the list of tags, with one line on each
+saying why.
 
 ## Verification
 
-Starts when the human declares Production over: set Step to
-Verification in STATE.
+Starts at your hand-over, once the checks below pass.
 
-1. Run the checks below and report the results, with the list of
-   remaining tags.
-2. The human reviews every produced artifact (`git diff --cached`) and
-   rules on each tag or edits the artifacts directly. Apply the rulings,
-   remove the tags, and run the checks again.
+1. The human reviews the changes (`git diff`), staging each file or
+   hunk once read, and rules on each tag or edits the artifacts
+   directly.
+2. Apply the rulings, remove the tags, and run the checks again. The
+   review is done when `git diff` is empty.
 
 Checks:
 

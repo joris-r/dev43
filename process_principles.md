@@ -114,27 +114,45 @@ single page.
 ### Working with Agents
 
 The Exploration step is a discussion between peers, the human and the
-agent. The subject is approached gradually until the important decisions
-surface. The step ends when both consider the subject mature; the human
+agent: short messages that answer each other, one point at a time, not
+a finished survey that the human answers by numbers. The subject is
+approached gradually until the important decisions surface. A point
+the human does not react to counts as accepted. The step ends when both
+consider the subject mature: the agent may propose to end it, the human
 has the final say.
 
+Exploration stays coarse. It raises only what the agent cannot settle
+with confidence: the human's goals and preferences, real trade-offs,
+choices the agent is unsure of. A choice the agent would recommend with
+confidence is not asked; it is made in Production, where reviewing it
+is cheap. The split between Exploration and Production
+exists to reduce the discussion.
+
 In the Production step, the agent works without interruption and tags
-each place where it made a choice, directly on the relevant line of
-the specification, tests or source code. Then it hands over.
+each choice it is unsure of, directly on the relevant line of the
+specification, tests or source code. Before handing over, it runs the
+checks of the phase and fixes what fails, so that the human reviews
+only work that passes them. The hand-over moves the phase to
+Verification: there is nothing for the human to decide at that point.
 
-A tag draws the human's attention and records that they must act. It
-carries only the agent's confidence: sure (a quick look is enough) or
-unsure (look closely). The artifact itself stays complete without the
-tag; the human accepts a choice by removing its tag, and rejects it by
-changing the content.
+A tag draws the human's attention to a doubt and records that they must
+act. A choice the agent is confident of is not tagged: tagging it
+would cost a ruling for nothing, and the human sees it in the review
+anyway. The artifact itself stays complete without the tag; the human
+accepts a choice by removing its tag, and rejects it by changing the
+content. A choice is tagged once, at its most
+authoritative place (specification, then tests, then code).
 
-In the Verification step, the agent first runs the checks of the phase.
-A check is kept only if it is cheap to run and has an obvious use; some
-phases have almost none. Then the human reviews every produced artifact
+In the Verification step, the human reviews every produced artifact
 once, with particular attention to the tagged choices, and rules on
 each tag or edits the artifacts directly. The agent applies the rulings
 and runs the checks again. The step is complete when the checks pass,
-no tags remain and the human approves.
+no tags remain and the human approves. A check is kept only if it is
+cheap to run and has an obvious use; some phases have almost none.
+
+Gates between steps and phases cost a human message each. A plain
+approval with no change request passes the gate in front of the agent,
+which says which gate it passed.
 
 Reviewing afterward, in context, is more efficient than interrupting the
 agent, since the main decisions have normally already surfaced during
@@ -149,15 +167,18 @@ The project is a git repository. Git gives the history and the current
 changes for free, so the process relies on it instead of keeping its own
 records.
 
-- At the end of Production, the agent stages all changes. During
-  Verification, `git diff --cached` shows what the agent produced and
-  `git diff` what changed during the review.
+- The index belongs to the human. At the end of Production, the agent
+  only marks new files as intended to be added, so that they show in
+  `git diff`. During Verification, the human stages each file or hunk
+  once read: `git diff --cached` shows what is reviewed and `git diff`
+  what remains. The goal of the review is agreement on the content,
+  not a record of who wrote what.
 - At the end of each phase, on the human's go, the agent commits. Each
   commit holds one phase of one increment, so `git diff HEAD` shows the
   work of the current phase.
 
-Apart from one commit when Dev-4-3 is set up, nothing is staged or
-committed at any other time.
+Apart from one commit when Dev-4-3 is set up, and the Amendment commit
+of the Implementation phase, nothing is committed at any other time.
 
 
 ## Initial Framing Phase
@@ -250,6 +271,13 @@ Specification phase.
 
 A disputed test is always tagged unsure: it contradicts a suite the
 human approved.
+
+A small addition to the specification during Implementation (a rule or
+an example that one or two new tests can check) does not need a full
+return: the agent writes the specification line and its tests together,
+checks that the tests fail for the right reason, and the human approves
+both in one gate. It is committed as an Amendment. Anything larger goes
+back through Specification or Tests.
 
 
 ## Integration Phase
