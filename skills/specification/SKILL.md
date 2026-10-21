@@ -11,7 +11,8 @@ Goal: a minimal change specification for one increment, on one page.
 ## Exploration
 
 1. Agree with the human on the increment's scope; record it in STATE
-   with a short slug once they approve. On a return from a later phase,
+   with a short slug once they approve. You may propose a scope from
+   `spec/BACKLOG.md`. On a return from a later phase,
    keep the slug and amend the existing change page.
 2. Read the relevant parts of `spec/main/`, the code and tests. Search
    the web or documents when the topic needs it.
@@ -27,7 +28,7 @@ confidence, and settle the rest yourself in Production (see
 `CLAUDE.md`, Working with the human).
 
 When you have nothing left to raise, propose to end Exploration. It
-ends when the human agrees; then set Step to Production in STATE.
+ends on `next`; then set Step to Production in STATE.
 
 ## Production
 
@@ -51,8 +52,7 @@ are unsure of.
 target shape: the first increment of a small HTTP link shortener. Match
 its length and level of detail, not its content.
 
-Run the Verification checks and fix what fails. Then mark new files
-(`git add -N .`), set Step to Verification in STATE, and hand over
+Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and hand over
 with the check results and the list of tags, with one line on each
 saying why.
 
@@ -64,7 +64,7 @@ Starts at your hand-over, once the checks below pass.
    hunk once read, and rules on each tag or edits the artifacts
    directly.
 2. Apply the rulings, remove the tags, and run the checks again. The
-   review is done when `git diff` is empty.
+   review is done when all changes are staged, new files included.
 
 Checks:
 
@@ -78,6 +78,6 @@ becomes a later increment.
 
 No tags remain and the human approves. Next phase: Tests.
 
-On the human's go, set Phase to Tests and Step to Exploration in
+On `next`, set Phase to Tests and Step to Exploration in
 STATE; then stage all changes and
 commit them as `[<increment>] Specification`.

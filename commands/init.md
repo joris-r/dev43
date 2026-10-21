@@ -19,7 +19,8 @@ Set up the Dev43 process in the current project. Templates are in
    - present → never overwrite it. Show the human a merge proposal
      (template rules appended under a `# Dev43 rules` section) and apply
      it only on approval.
-5. Create `spec/main/` and `spec/changes/` (with `.gitkeep` files).
+5. Create `spec/main/` and `spec/changes/` (with `.gitkeep` files),
+   and `spec/BACKLOG.md` holding only the title `# Backlog`.
 6. Copy the STATE template to `spec/STATE.md` and fill it in:
    increment `framing`, phase Initial Framing, step Exploration, and
    scope "Set the stack, conventions and a running skeleton. No feature

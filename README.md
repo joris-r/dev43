@@ -50,4 +50,6 @@ code (Retro-Specification) is future work.
 This copies `CLAUDE.md` (or proposes a merge if one exists), creates the
 `spec/` tree and `spec/STATE.md`, and starts the first Exploration. From
 then on, the agent follows the skill of the current phase, and only you
-move the work to the next step or phase.
+move the work to the next step or phase, by sending `next`. Anything
+else is discussion. Between increments the work is Idle; ask for a new
+increment to start one, possibly from `spec/BACKLOG.md`.

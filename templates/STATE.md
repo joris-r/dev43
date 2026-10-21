@@ -3,7 +3,7 @@
 Updated only on the human's explicit decision.
 
 - Increment: <!-- slug, e.g. framing, login -->
-- Phase: <!-- Initial Framing | Specification | Tests | Implementation | Integration -->
+- Phase: <!-- Initial Framing | Specification | Tests | Implementation | Integration | Idle -->
 - Step: <!-- Exploration | Production | Verification -->
 
 ## Scope of the current increment

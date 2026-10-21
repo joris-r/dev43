@@ -27,7 +27,7 @@ confidence, and settle the rest yourself in Production (see
 `CLAUDE.md`, Working with the human).
 
 When you have nothing left to raise, propose to end Exploration. It
-ends when the human agrees; then set Step to Production in STATE.
+ends on `next`; then set Step to Production in STATE.
 
 ## Production
 
@@ -43,15 +43,15 @@ Work without interrupting.
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
   tests.
-- A new test that already passes must be a legitimate negative check
-  (e.g. "does not show X"), not a vacuous one (e.g. a loop over
-  elements that do not exist yet). Name each in your hand-over.
+- A new test that already passes must not be vacuous (e.g. a loop
+  over elements that do not exist yet): it is a negative check (e.g.
+  "does not show X"), or behavior the existing code already meets.
+  Name each in your hand-over and say why it passes.
 - Write only the minimum non-test code needed for tests to compile
   (stubs, signatures), and tag it if it fixes an interface.
 
 Tag the choices you are unsure of. Run the Verification checks and
-fix what fails. Then mark new files (`git add -N .`), set Step to
-Verification in STATE, and hand over with the check results and the
+fix what fails. Then set Step to Verification in STATE, and hand over with the check results and the
 list of tags, with one line on each saying why.
 
 ## Verification
@@ -62,7 +62,7 @@ Starts at your hand-over, once the checks below pass.
    hunk once read, and rules on each tag or edits the artifacts
    directly.
 2. Apply the rulings, remove the tags, and run the checks again. The
-   review is done when `git diff` is empty.
+   review is done when all changes are staged, new files included.
 
 Checks:
 
@@ -71,7 +71,7 @@ Checks:
 - Every rule ID cited in tests exists in `spec/main/` or the change
   page.
 - The new tests fail for the right reason (missing behavior, not syntax
-  or setup errors), or are legitimate negative checks.
+  or setup errors), or already pass and are named in the hand-over.
 
 The human's review deserves particular care: checking behavior through
 tests is cheaper than through code. Does each part of the change have
@@ -82,6 +82,6 @@ tests, and does each test truly express it?
 Checks pass, no tags remain and the human approves the suite. Next
 phase: Implementation. From now on, tests are read-only.
 
-On the human's go, set Phase to Implementation and Step to
+On `next`, set Phase to Implementation and Step to
 Exploration in STATE; then stage all changes and
 commit them as `[<increment>] Tests`.

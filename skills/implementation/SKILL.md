@@ -10,6 +10,10 @@ with every deviation tagged for the human.
 
 ## Exploration
 
+If STATE notes a stash, first restore it (`git stash pop`). On a
+conflict, keep what the return phases committed (tests are read-only),
+merge the rest, then `git stash drop`. Remove the note from STATE.
+
 1. Read the change spec, the tests, and the code they touch.
 2. Flag to the human fragile areas, divergences between code and spec,
    and technical choices that will be needed (libraries, algorithms,
@@ -20,10 +24,10 @@ confidence, and settle the rest yourself in Production (see
 `CLAUDE.md`, Working with the human).
 
 After a return from Tests or Specification, raise only what the return
-changed; if nothing, say so and move on at the human's approval.
+changed; if nothing, say so and move on at `next`.
 
 When you have nothing left to raise, propose to end Exploration. It
-ends when the human agrees; then set Step to Production in STATE.
+ends on `next`; then set Step to Production in STATE.
 
 ## Amendment
 
@@ -35,7 +39,7 @@ check), skip the return loop:
    usual. Existing tests stay unchanged.
 2. Run the new tests: they must fail for the right reason.
 3. Hand over both together; the human reviews them in one gate.
-4. On approval, commit only the change page and the new tests as
+4. On `next`, commit only the change page and the new tests as
    `[<increment>] Amendment`. Phase and Step stay as they were.
 
 Anything larger, or a change to an existing rule or test, goes through
@@ -56,7 +60,7 @@ ones.
   return to Exploration (or to Specification).
 
 Run the Verification checks and fix what fails, except disputed
-tests. Then mark new files (`git add -N .`), set Step to Verification
+tests. Then set Step to Verification
 in STATE, and hand over with: the check results, the
 disputed tests with your reasoning, and the list of tags.
 
@@ -65,9 +69,17 @@ disputed tests with your reasoning, and the list of tags.
 During Verification, the human rules on each
 disputed test: fix the code; or correct the test (return to Tests); or
 the test faithfully expresses a wrong decision (return to
-Specification). On a return, set Phase to Tests or Specification and
-Step to Exploration in STATE. The increment keeps its name; code and
-tests already written stay unless the human decides otherwise. The
+Specification). On a return:
+
+1. Remove the tags of the disputed tests: the return is the ruling.
+2. Stash the implementation work so that the return starts from a
+   clean tree: `git stash push -u -- ':(exclude)spec'`. Changes to
+   `spec/` stay in place for the return to handle.
+3. Set Phase to Tests or Specification and Step to Exploration in
+   STATE, and add a line `- Stash: implementation work`.
+
+The increment keeps its name; the stashed code comes back when
+Implementation resumes, unless the human decides otherwise. The
 commits of the phases done again end with ` (return)`.
 
 ## Verification
@@ -78,7 +90,7 @@ Starts at your hand-over, once the checks below pass.
    hunk once read, and rules on each tag or edits the artifacts
    directly.
 2. Apply the rulings, remove the tags, and run the checks again. The
-   review is done when `git diff` is empty.
+   review is done when all changes are staged, new files included.
 
 Checks:
 
@@ -93,6 +105,6 @@ Checks:
 Checks pass, no tags remain, the human approves. Next phase:
 Integration.
 
-On the human's go, set Phase to Integration and Step to Exploration in
+On `next`, set Phase to Integration and Step to Exploration in
 STATE; then stage all changes and
 commit them as `[<increment>] Implementation`.

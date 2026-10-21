@@ -150,9 +150,17 @@ and runs the checks again. The step is complete when the checks pass,
 no tags remain and the human approves. A check is kept only if it is
 cheap to run and has an obvious use; some phases have almost none.
 
-Gates between steps and phases cost a human message each. A plain
-approval with no change request passes the gate in front of the agent,
-which says which gate it passed.
+Gates between steps and phases cost a human message each. The human
+passes the gate in front of the agent with one word, `next`; anything
+else is discussion. The agent ends each gate proposal with what `next`
+will do, so that no reply leaves it unclear whether a gate was passed.
+
+Between increments, the work is Idle: no phase constraint applies, but
+the agent changes neither the product code, the specification nor the
+tests, since a change of behavior is an increment. Candidate increments
+are kept in a short backlog, one line each, added only with the
+human's approval. It must stay readable at a glance: agent-written
+text tends to be verbose, and stale notes pile up.
 
 Reviewing afterward, in context, is more efficient than interrupting the
 agent, since the main decisions have normally already surfaced during
@@ -167,18 +175,17 @@ The project is a git repository. Git gives the history and the current
 changes for free, so the process relies on it instead of keeping its own
 records.
 
-- The index belongs to the human. At the end of Production, the agent
-  only marks new files as intended to be added, so that they show in
-  `git diff`. During Verification, the human stages each file or hunk
-  once read: `git diff --cached` shows what is reviewed and `git diff`
-  what remains. The goal of the review is agreement on the content,
+- The index belongs to the human. During Verification, the human
+  stages each file or hunk once read: `git diff --cached` shows what is
+  reviewed, and `git diff` and untracked files what remains. The goal of the review is agreement on the content,
   not a record of who wrote what.
-- At the end of each phase, on the human's go, the agent commits. Each
+- At the end of each phase, on `next`, the agent commits. Each
   commit holds one phase of one increment, so `git diff HEAD` shows the
   work of the current phase.
 
-Apart from one commit when Dev43 is set up, and the Amendment commit
-of the Implementation phase, nothing is committed at any other time.
+Apart from one commit when Dev43 is set up, the Amendment commit of the
+Implementation phase, and commits the human asks for while Idle,
+nothing is committed at any other time.
 
 
 ## Initial Framing Phase
@@ -235,7 +242,8 @@ skeleton runs, and the first increment can start with a small scope.
   specification or by its rule ID.
 - **Verification**: every new or modified rule ID has a test or is
   marked not testable; every rule ID cited in tests exists; the new
-  tests fail for the right reason, or are legitimate negative checks.
+  tests fail for the right reason, or already pass for a stated reason
+  (a negative check, or behavior the existing code already meets).
   Then the human reviews the test suite (does each part of the change
   have tests, and does each test truly express it?). This review
   deserves particular care: checking behavior through tests is more efficient
@@ -267,7 +275,9 @@ test is wrong, it leaves it unchanged, tags it unsure with its
 reasoning in the hand-over, and continues. At review, the human rules: either the code is
 fixed, or the test is corrected in a return to the Tests phase, or, if
 the test faithfully expresses a wrong decision, the work returns to the
-Specification phase.
+Specification phase. On a return, the implementation work is stashed,
+so that the human reviews the return phases on a clean tree, and is
+restored when Implementation resumes.
 
 A disputed test is always tagged unsure: it contradicts a suite the
 human approved.

@@ -14,9 +14,10 @@ Retrospective with the human on the process itself: rules in
 `CLAUDE.md`, agent context, thresholds, skill instructions. Propose
 concrete changes, one per message; the human decides. Label each with
 its target: the project (e.g. `CLAUDE.md`) or the Dev43 plugin.
+Keep each short: what happened, in a sentence or two, and the change.
 
 When you have nothing left to raise, propose to end Exploration. It
-ends when the human agrees; then set Step to Production in STATE.
+ends on `next`; then set Step to Production in STATE.
 
 ## Production
 
@@ -32,9 +33,9 @@ Work without interrupting. Rewrite `spec/main/` in place:
   Record approved skill changes for the plugin maintainer; never edit
   the plugin's skills.
 
-Then delete `spec/changes/<slug>.md`. Tag the choices you are
-unsure of. Run the Verification checks and fix what fails. Then mark
-new files (`git add -N .`), set Step to Verification in STATE, and
+Then delete `spec/changes/<slug>.md`, and remove from
+`spec/BACKLOG.md` the entry the increment did, if any. Tag the choices you are
+unsure of. Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and
 hand over with the check results and the list of tags, with one line
 on each saying why.
 
@@ -46,7 +47,7 @@ Starts at your hand-over, once the checks below pass.
    hunk once read, and rules on each tag or edits the artifacts
    directly.
 2. Apply the rulings, remove the tags, and run the checks again. The
-   review is done when `git diff` is empty.
+   review is done when all changes are staged, new files included.
 
 Checks:
 
@@ -57,10 +58,10 @@ Checks:
 
 ## Exit
 
-Checks pass, no tags remain, the human approves. Next phase:
-Specification.
+Checks pass, no tags remain, the human approves. Next: Idle, until the
+human starts an increment.
 
-On the human's go, set Phase to Specification and Step to Exploration in
-STATE, and clear Increment and Scope; then stage all changes and
+On `next`, set Phase to Idle in STATE, and clear Step, Increment and
+Scope; then stage all changes and
 commit them as `[<increment>] Integration`, where
 `<increment>` is the increment that just ended.
