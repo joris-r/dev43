@@ -53,3 +53,7 @@ then on, the agent follows the skill of the current phase, and only you
 move the work to the next step or phase, by sending `next`. Anything
 else is discussion. Between increments the work is Idle; ask for a new
 increment to start one, possibly from `spec/BACKLOG.md`.
+
+## License
+
+MIT, see [LICENSE](LICENSE).

@@ -1,6 +1,7 @@
 {
   "name": "dev43",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Dev43: a specification-driven development process for humans and LLM agents, one skill per phase.",
-  "author": { "name": "Joris Rehm", "email": "joris@jirm.eu" }
+  "author": { "name": "Joris Rehm", "email": "joris@jirm.eu" },
+  "license": "MIT"
 }
