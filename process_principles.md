@@ -8,12 +8,14 @@ the specification driven development (SDD) ideas.
 There are four main phases:
 
 1. Specification
+   - a refactoring skips Tests
 2. Tests (writing of)
 3. Implementation
+   - may return to an earlier phase, or amend the specification
 4. Integration
 
 They are repeated for each increment. A special phase, Initial Framing,
-comes first in a new project.
+comes first in a new project. We can also abandon an increment.
 
 Each phase, main or special, follows three steps:
 
@@ -184,8 +186,18 @@ records.
   work of the current phase.
 
 Apart from one commit when Dev43 is set up, the Amendment commit of the
-Implementation phase, and commits the human asks for while Idle,
-nothing is committed at any other time.
+Implementation phase, the Abandon commit, and commits the human asks
+for while Idle, nothing is committed at any other time.
+
+Commit bodies are the project's decision record: what was decided and
+why. The agent looks there before reopening a decision.
+
+The human may abandon an increment from any phase. Its commits are
+reverted in one Abandon commit, whose body says why, rather than
+erased: the reasons stay in the history. The backlog entry it came
+from is rewritten as the need it served. Rejected ideas are not
+listed: they would pile up as noise, and once the need is met they
+do not come back.
 
 
 ## Initial Framing Phase
@@ -230,6 +242,13 @@ skeleton runs, and the first increment can start with a small scope.
   Tests phase.
 - **Verification**: `spec/main/` is unchanged; human review, including
   the size of the increment (possible verdict: too big, split it).
+
+A refactoring, a change that leaves behavior unchanged, skips the Tests
+phase: the existing suites must pass unmodified, apart from tagged
+edits that leave what a test checks unchanged, such as a moved import.
+Before its scope is agreed, the agent shows a short before/after
+excerpt of the code: the value of a refactoring is hard to judge in
+the abstract.
 
 
 ## Tests Phase
@@ -298,8 +317,10 @@ phase, while it is fresh.
 
 ## Integration Phase
 
-- **Exploration**: retrospective on the process itself (rules, agent
-  context, thresholds).
+- **Exploration**: retrospective on the project at every increment
+  (technical debt, architecture, what was learned, what follows for
+  the backlog), and on the process (rules, agent context, thresholds)
+  only when something went wrong.
 - **Production**: in-place rewrite of the main specification, each
   part of the change in the page it belongs to, then removal of the
   change specification.

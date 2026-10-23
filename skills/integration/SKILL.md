@@ -6,15 +6,21 @@ description: Dev43 Integration phase, the last phase of each increment. Use when
 # Integration
 
 Goal: `spec/main/` describes the software as it now exists, the change
-page is gone, and the process itself has been reviewed.
+page is gone, and the increment has been looked back on.
 
 ## Exploration
 
-Retrospective with the human on the process itself: rules in
-`CLAUDE.md`, agent context, thresholds, skill instructions. Propose
-concrete changes, one per message; the human decides. Label each with
-its target: the project (e.g. `CLAUDE.md`) or the Dev43 plugin.
-Keep each short: what happened, in a sentence or two, and the change.
+Retrospective with the human, on two topics:
+
+- The project, at every increment: technical debt, architecture, what
+  was learned, and what follows for the backlog.
+- The process, only if something went wrong during the increment:
+  rules in `CLAUDE.md`, agent context, thresholds, skill instructions.
+  Label each change with its target: the project (e.g. `CLAUDE.md`)
+  or the Dev43 plugin.
+
+Propose concrete changes, one per message; the human decides. Keep
+each short: what happened, in a sentence or two, and the change.
 
 When you have nothing left to raise, propose to end Exploration. It
 ends on `next`; then set Step to Production in STATE.
@@ -33,8 +39,8 @@ Work without interrupting. Rewrite `spec/main/` in place:
   Record approved skill changes for the plugin maintainer; never edit
   the plugin's skills.
 
-Then delete `spec/changes/<slug>.md`, and remove from
-`spec/BACKLOG.md` the entry the increment did, if any. Tag the choices you are
+Then delete `spec/changes/<slug>.md`, remove from `spec/BACKLOG.md`
+the entry the increment did, if any, and add the approved entries. Tag the choices you are
 unsure of. Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and
 hand over with the check results and the list of tags, with one line
 on each saying why.

@@ -14,8 +14,14 @@ Goal: a minimal change specification for one increment, on one page.
    with a short slug once they approve. You may propose a scope from
    `spec/BACKLOG.md`. On a return from a later phase,
    keep the slug and amend the existing change page.
-2. Read the relevant parts of `spec/main/`, the code and tests. Search
-   the web or documents when the topic needs it.
+   If the change leaves behavior unchanged, propose to make it a
+   refactoring: no Tests phase, the existing suites must pass
+   unmodified. Before the human approves its scope, show a short
+   before/after excerpt of the code. Once they agree, write
+   "Refactoring." at the start of the Scope in STATE.
+2. Read the relevant parts of `spec/main/`, the code and tests, and
+   the earlier decisions on the topic (`git log --grep=<keyword>`).
+   Search the web or documents when the topic needs it.
 3. Approach the subject gradually: the data model first (which
    entities and fields the change adds or modifies), then the behavior
    with examples, then technical decisions if any.
@@ -76,8 +82,9 @@ becomes a later increment.
 
 ## Exit
 
-No tags remain and the human approves. Next phase: Tests.
+No tags remain and the human approves. Next phase: Tests, or
+Implementation for a refactoring.
 
-On `next`, set Phase to Tests and Step to Exploration in
+On `next`, set Phase to the next phase and Step to Exploration in
 STATE; then stage all changes and
 commit them as `[<increment>] Specification`.

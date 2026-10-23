@@ -51,7 +51,9 @@ Work without interrupting until all tests are green, except disputed
 ones.
 
 - Never modify a test. If one seems wrong, leave it, tag it `unsure`,
-  and continue. This is a disputed test.
+  and continue. This is a disputed test. In a refactoring, you may
+  edit a test without changing what it checks (e.g. a moved import);
+  tag each such edit.
 - Tag the interpretations of the specification and the technical
   choices you are unsure of.
 - Cite a rule ID in code only where it explains something the reader
@@ -98,7 +100,8 @@ Checks:
 - The checks required by the test and quality policy in
   `spec/main/technical.md`, as updated by the change page, pass.
 - Test files are unchanged since the Tests phase (`git diff HEAD` on
-  the test files shows nothing but tags).
+  the test files shows nothing but tags). In a refactoring, it shows
+  only tagged edits that leave what each test checks unchanged.
 
 ## Exit
 
