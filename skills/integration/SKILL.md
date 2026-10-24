@@ -10,14 +10,20 @@ page is gone, and the increment has been looked back on.
 
 ## Exploration
 
-Retrospective with the human, on two topics:
+Retrospective with the human, on three topics:
 
 - The project, at every increment: technical debt, architecture, what
-  was learned, and what follows for the backlog.
+  was learned, and what follows for the backlog. If nothing is worth
+  raising, say so; the topic is then done.
 - The process, only if something went wrong during the increment:
   rules in `CLAUDE.md`, agent context, thresholds, skill instructions.
   Label each change with its target: the project (e.g. `CLAUDE.md`)
   or the Dev43 plugin.
+- Going further: up to three leads drawn from the increment's actual
+  work, never generic, or none if no real one: a concept or pattern at
+  play (e.g. Data Mapper vs Active Record), or a quality or security
+  point worth examining. The human picks one or none; nothing is
+  committed and the gate does not depend on it.
 
 Propose concrete changes, one per message; the human decides. Keep
 each short: what happened, in a sentence or two, and the change.

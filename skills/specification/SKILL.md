@@ -48,6 +48,8 @@ technical.
   (by name or rule ID).
 - Removed content: list it under a `Removed` heading, by name or rule
   ID.
+- State behavior as what a client observes at the interface (a
+  response, a screen, a file), never as internal state.
 
 Follow the specification rules of `CLAUDE.md`: write the minimum,
 examples first, lists not tables, rule IDs only where needed, no
