@@ -1,9 +1,10 @@
 # Dev43 state
 
-Updated only on the human's explicit decision.
+Updated on the human's decisions, and at the agent's hand-over (Step).
 
 - Increment: <!-- slug, e.g. framing, login -->
-- Phase: <!-- Initial Framing | Specification | Tests | Implementation | Integration | Idle -->
+- Shape: <!-- full | refactoring | tests-only | direct -->
+- Phase: <!-- Initial Framing | Specification | Tests | Implementation | Integration | Direct | Pause -->
 - Step: <!-- Exploration | Production | Verification -->
 
 ## Scope of the current increment

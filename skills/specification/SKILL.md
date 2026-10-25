@@ -14,15 +14,8 @@ Goal: a minimal change specification for one increment, on one page.
    with a short slug once they approve. You may propose a scope from
    `spec/BACKLOG.md`. On a return from a later phase,
    keep the slug and amend the existing change page.
-   If the change leaves behavior unchanged, propose to make it a
-   refactoring: no Tests phase, the existing suites must pass
-   unmodified. Before the human approves its scope, show a short
-   before/after excerpt of the code. Once they agree, write
-   "Refactoring." at the start of the Scope in STATE.
-   If the change touches only tests or their tooling, propose a
-   tests-only increment: no Implementation phase; the Tests phase
-   runs the full check. Once the human agrees, write "Tests only." at
-   the start of the Scope in STATE.
+   If the Shape in STATE no longer fits, propose another (see
+   `CLAUDE.md`, State and gates); update it once the human agrees.
 2. Read the relevant parts of `spec/main/`, the code and tests, and
    the earlier decisions on the topic (`git log --grep=<keyword>`).
    Search the web or documents when the topic needs it.
@@ -88,8 +81,8 @@ becomes a later increment.
 
 ## Exit
 
-No tags remain and the human approves. Next phase: Tests, or
-Implementation for a refactoring.
+No tags remain and the human approves. Next phase: the next one of
+the Shape.
 
 On `next`, set Phase to the next phase and Step to Exploration in
 STATE; then stage all changes and

@@ -42,8 +42,9 @@ Work without interrupting. Rewrite `spec/main/` in place:
   history of changes. Keep it minimal: merging is not a reason to add
   detail.
 - Apply the approved process changes to the project (e.g. `CLAUDE.md`).
-  Record approved skill changes for the plugin maintainer; never edit
-  the plugin's skills.
+  Write approved plugin changes for its maintainer in
+  `dev43_notes/<NN>_<increment>/increment_retro.md`, `<NN>` the next
+  number; never edit the plugin's skills.
 
 Then delete `spec/changes/<slug>.md`, remove from `spec/BACKLOG.md`
 the entry the increment did, if any, and add the approved entries. Tag the choices you are
@@ -69,10 +70,10 @@ Checks:
 
 ## Exit
 
-Checks pass, no tags remain, the human approves. Next: Idle, until the
-human starts an increment.
+Checks pass, no tags remain, the human approves. Next: Pause, until
+the human starts an increment.
 
-On `next`, set Phase to Idle in STATE, and clear Step, Increment and
+On `next`, set Phase to Pause in STATE, and clear the other fields and
 Scope; then stage all changes and
 commit them as `[<increment>] Integration`, where
 `<increment>` is the increment that just ended.

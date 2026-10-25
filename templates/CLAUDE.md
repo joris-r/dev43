@@ -15,7 +15,7 @@ would care.
 - Before any work, read `spec/STATE.md`. Start every message with
   `[<Phase> · <Step>]` as recorded there at the end of the message.
 - Do only the work of the current phase and step. Use the matching
-  `dev43:<phase>` skill.
+  `dev43:<phase>` skill (the Direct phase has none).
 - Never advance the step or phase yourself, except from Production to
   Verification at your hand-over. You may say a step looks complete;
   only the human decides.
@@ -46,12 +46,30 @@ would care.
 - If you meet a major decision that calls into question what was agreed,
   stop working, explain it, and propose a return to Exploration. Never
   work around it. If the human agrees, set Step to Exploration in STATE.
-- Between increments, Phase is Idle and no step applies; your messages
-  start with `[Idle]`. You may discuss, edit `spec/BACKLOG.md`, and
-  change tooling or configuration when asked. Never change product
-  code, `spec/main/` or tests: a change of behavior is an increment.
-  When the human starts an increment, set Phase to Specification and
-  Step to Exploration.
+- Between increments, Phase is Pause and no step applies; your
+  messages start with `[Pause]`. Pause is a free discussion: change
+  nothing but `spec/BACKLOG.md`. Any other change, even one line of
+  configuration, is an increment.
+- When the human starts an increment, propose a slug and a shape; on
+  `next`, record them in STATE, with the shape's first phase and step.
+  The shapes:
+  - `full`: Specification, Tests, Implementation, Integration. The
+    change alters behavior.
+  - `refactoring`: Specification, Implementation, Integration. The code
+    changes, behavior does not; the existing suites must pass
+    unmodified. Before the human approves it, show a short before/after
+    excerpt of the code.
+  - `tests-only`: Specification, Tests, Integration. Only tests or
+    their tooling change; the Tests phase runs the full check.
+  - `direct`: one Direct phase, starting at Production. Tooling,
+    configuration, dependencies, `CLAUDE.md` or `spec/main/technical.md`
+    change; behavior and tests do not.
+- Direct phase: no change page, no retrospective. Make the change, run
+  the checks of the test and quality policy, and hand over as usual.
+  On `next` after Verification, set Phase to Pause, clear the other
+  fields and Scope, and commit as `[<increment>] <Kind>`, where
+  `<Kind>` names the work in one word, e.g. Tooling, Config,
+  Dependencies, Fix.
 - Abandon: only the human decides to abandon an increment, from any
   phase. Then:
   1. List what to keep from the increment (e.g. backlog edits) and
@@ -62,7 +80,7 @@ would care.
      first commit. Re-apply what is kept.
   3. Rewrite the backlog entry the increment came from as the need it
      served, or remove it if the need is gone. Record no rejected idea.
-  4. Set Phase to Idle, clear Step, Increment and Scope, then commit
+  4. Set Phase to Pause, clear the other fields and Scope, then commit
      everything as `[<increment>] Abandon`, the body saying why.
 
 ## Tags
@@ -154,7 +172,7 @@ records that they must act on it.
   phase. If such a test seems wrong,
   tag it `unsure`, explain why in your hand-over, and continue. Adding
   the tag, and removing it once the human has ruled, are the only
-  allowed edits. In a refactoring (see the Specification skill), you
+  allowed edits. In a refactoring (see State and gates), you
   may also make edits that leave what a test checks unchanged (e.g. a
   moved import), each tagged.
 - Add no dependency, library, service or interface unless the
@@ -189,10 +207,11 @@ records that they must act on it.
   STATE: `git add -A`, then commit as `[<increment>] <phase>`,
   with a short body giving the reasons for the phase's main decisions.
   A phase done again after a return ends its subject with ` (return)`.
-  The only other commits are an Amendment during Implementation (see
-  its skill), an Abandon (see State and gates) and, while Idle, a
-  commit the human asks for, as `[idle] <subject>`. Never commit at
-  any other time.
+  The only other commits are a Direct phase's (see State and gates),
+  an Amendment during Implementation (see its skill), an Abandon (see
+  State and gates) and, in Pause, a commit of `spec/BACKLOG.md` the
+  human asks for, with a plain subject. Never commit at any other
+  time.
 - Commit bodies are the project's decision record: what was decided
   and why. Before reopening a decision, look for an earlier one with
   `git log --grep=<keyword>`.

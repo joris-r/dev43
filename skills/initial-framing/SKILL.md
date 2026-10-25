@@ -82,9 +82,9 @@ Checks:
 ## Exit
 
 Spec exists, skeleton runs, no tags remain, the human approves. Next:
-Idle, until the human starts the first increment.
+Pause, until the human starts the first increment.
 
-On `next`, set Phase to Idle in STATE, and clear Step, Increment and
+On `next`, set Phase to Pause in STATE, and clear the other fields and
 Scope; then stage all changes and
 commit them as `[<increment>] Initial Framing`, where
 `<increment>` is the increment that just ended.

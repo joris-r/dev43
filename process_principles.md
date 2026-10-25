@@ -8,15 +8,15 @@ the specification driven development (SDD) ideas.
 There are four main phases:
 
 1. Specification
-   - a refactoring skips Tests
-   - a tests-only increment skips Implementation
 2. Tests (writing of)
 3. Implementation
    - may return to an earlier phase, or amend the specification
 4. Integration
 
-They are repeated for each increment. A special phase, Initial Framing,
-comes first in a new project. We can also abandon an increment.
+They are repeated for each increment, but a phase exists only if its
+artifact changes: the shape of an increment follows what changes (see
+Increment Shapes). A special phase, Initial Framing, comes first in a
+new project. We can also abandon an increment.
 
 Each phase, main or special, follows three steps:
 
@@ -158,9 +158,10 @@ passes the gate in front of the agent with one word, `next`; anything
 else is discussion. The agent ends each gate proposal with what `next`
 will do, so that no reply leaves it unclear whether a gate was passed.
 
-Between increments, the work is Idle: no phase constraint applies, but
-the agent changes neither the product code, the specification nor the
-tests, since a change of behavior is an increment. Candidate increments
+Between increments, the work is in Pause: a free discussion in which
+nothing changes but the backlog. Any other change, even one line of
+configuration, is an increment; the `direct` shape keeps a small one
+cheap. Candidate increments
 are kept in a short backlog, one line each, added only with the
 human's approval. It must stay readable at a glance: agent-written
 text tends to be verbose, and stale notes pile up.
@@ -187,8 +188,8 @@ records.
   work of the current phase.
 
 Apart from one commit when Dev43 is set up, the Amendment commit of the
-Implementation phase, the Abandon commit, and commits the human asks
-for while Idle, nothing is committed at any other time.
+Implementation phase, the Abandon commit, and backlog commits the human
+asks for in Pause, nothing is committed outside phase ends.
 
 Commit bodies are the project's decision record: what was decided and
 why. The agent looks there before reopening a decision.
@@ -199,6 +200,27 @@ erased: the reasons stay in the history. The backlog entry it came
 from is rewritten as the need it served. Rejected ideas are not
 listed: they would pile up as noise, and once the need is met they
 do not come back.
+
+
+## Increment Shapes
+
+When an increment starts, the agent proposes its shape and the human
+approves it. Fixed phases suit increments that change behavior, and
+cost too much elsewhere.
+
+- `full`: Specification, Tests, Implementation, Integration.
+- `refactoring`, a change that leaves behavior unchanged: no Tests
+  phase. The existing suites must pass unmodified, apart from tagged
+  edits that leave what a test checks unchanged, such as a moved
+  import. Before its scope is agreed, the agent shows a short
+  before/after excerpt of the code: the value of a refactoring is hard
+  to judge in the abstract.
+- `tests-only`, a change to tests or their tooling only: no
+  Implementation phase; the Tests phase runs the full check instead.
+- `direct`, a change to tooling, configuration, dependencies or
+  technical decisions that leaves behavior and tests unchanged: a
+  single Direct phase, from Production to Verification and one commit
+  named after the kind of work. No change page, no retrospective.
 
 
 ## Initial Framing Phase
@@ -243,16 +265,6 @@ skeleton runs, and the first increment can start with a small scope.
   Tests phase.
 - **Verification**: `spec/main/` is unchanged; human review, including
   the size of the increment (possible verdict: too big, split it).
-
-A refactoring, a change that leaves behavior unchanged, skips the Tests
-phase: the existing suites must pass unmodified, apart from tagged
-edits that leave what a test checks unchanged, such as a moved import.
-Before its scope is agreed, the agent shows a short before/after
-excerpt of the code: the value of a refactoring is hard to judge in
-the abstract.
-
-A tests-only increment, a change to tests or their tooling only, skips
-the Implementation phase: the Tests phase runs the full check instead.
 
 
 ## Tests Phase

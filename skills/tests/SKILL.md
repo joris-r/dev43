@@ -72,7 +72,7 @@ Checks:
   page.
 - The new tests fail for the right reason (missing behavior, not syntax
   or setup errors), or already pass and are named in the hand-over.
-  In a tests-only increment, instead: the full test suite and the
+  In the `tests-only` shape, instead: the full test suite and the
   checks of the test and quality policy pass.
 
 The human's review deserves particular care: checking behavior through
@@ -82,8 +82,7 @@ tests, and does each test truly express it?
 ## Exit
 
 Checks pass, no tags remain and the human approves the suite. Next
-phase: Implementation, or Integration for a tests-only increment. From
-now on, tests are read-only.
+phase: the next one of the Shape. From now on, tests are read-only.
 
 On `next`, set Phase to the next phase and Step to
 Exploration in STATE; then stage all changes and
