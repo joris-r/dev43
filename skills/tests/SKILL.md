@@ -38,7 +38,8 @@ Work without interrupting.
 - Every example and every testable rule of the change has at least one
   test.
 - Update or delete existing tests that check something the change
-  modifies or removes.
+  modifies or removes; find them by searching the tests for the names
+  and rule IDs it modifies or removes.
 - Tests must fail for the right reason before implementation (missing
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
@@ -67,7 +68,7 @@ Starts at your hand-over, once the checks below pass.
 Checks:
 
 - Every new or modified rule ID of the change is cited by a test,
-  unless marked "(not testable)".
+  unless marked "(not testable)" (search ignoring case and separators).
 - Every rule ID cited in tests exists in `spec/main/` or the change
   page.
 - The new tests fail for the right reason (missing behavior, not syntax

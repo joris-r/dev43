@@ -167,7 +167,9 @@ records that they must act on it.
 ## Tests and code
 
 - Tests cite what they check: a name from the specification (in the
-  test name or its grouping) or a rule ID.
+  test name or its grouping) or a rule ID, written as the specification
+  writes it; case and separators may follow the language's conventions
+  (`test_r5`, `TestR5`). Search citations ignoring both.
 - Code cites a rule ID only where it explains something the reader
   would not otherwise see.
 - Never copy specification text into tests or code.
