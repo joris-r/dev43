@@ -5,6 +5,8 @@ description: Dev43 Implementation phase of an increment. Use when spec/STATE.md 
 
 # Implementation
 
+Load `dev43:core` first if it is not loaded.
+
 Goal: code that makes the tests green and follows the specification,
 with every deviation tagged for the human.
 
@@ -22,7 +24,7 @@ merge the rest, then `git stash drop`. Clear Stash in STATE.
 
 One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see
-`CLAUDE.md`, Working with the human).
+`dev43:core`, Working with the human).
 
 After a return from Tests or Specification, raise only what the return
 changed; if nothing, say so and move on at `next`.

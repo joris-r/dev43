@@ -16,12 +16,13 @@ Set up the Dev43 process in the current project. Templates are in
    Dev43 relies on git; do not go on without it.
 4. `CLAUDE.md`:
    - absent → copy the template;
-   - present → never overwrite it. Show the human a merge proposal
-     (template rules appended under a `# Dev43 rules` section) and apply
-     it only on approval.
+   - present → append the template's lines, unchanged, after showing
+     them to the human. The Dev43 rules stay in the `dev43:core` skill,
+     never in `CLAUDE.md`.
 5. Create `spec/main/` and `spec/changes/` (with `.gitkeep` files),
    and `spec/BACKLOG.md` holding only the title `# Backlog`.
 6. Copy the STATE template to `spec/STATE.md` and fill it in:
+   Dev43 the `version` in `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`,
    increment `framing`, phase Initial Framing, step Exploration, and
    scope "Set the stack, conventions and a running skeleton. No feature
    is delivered."

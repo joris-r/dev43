@@ -5,6 +5,8 @@ description: Dev43 Initial Framing phase for a new project with no code yet. Use
 
 # Initial Framing
 
+Load `dev43:core` first if it is not loaded.
+
 Goal: `spec/main/technical.md` exists, a minimal skeleton runs with one
 trivial test, and the first increment can start with a small scope.
 Decide only what is costly to change later.
@@ -37,7 +39,7 @@ Peer discussion with the human. Your agenda, not a message template:
 
 One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see
-`CLAUDE.md`, Working with the human).
+`dev43:core`, Working with the human).
 
 When you have nothing left to raise, propose to end Exploration. It
 ends on `next`; then set Step to Production in STATE.

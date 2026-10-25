@@ -5,6 +5,8 @@ description: Dev43 Specification phase, the first phase of each increment. Use w
 
 # Specification
 
+Load `dev43:core` first if it is not loaded.
+
 Goal: a minimal change specification for one increment, on one page.
 `spec/main/` stays untouched.
 
@@ -15,7 +17,7 @@ Goal: a minimal change specification for one increment, on one page.
    `spec/BACKLOG.md`. On a return from a later phase,
    keep the slug and amend the existing change page.
    If the Shape in STATE no longer fits, propose another (see
-   `CLAUDE.md`, State and gates); update it once the human agrees.
+   `dev43:core`, State and gates); update it once the human agrees.
 2. Read the relevant parts of `spec/main/`, the code and tests, and
    the earlier decisions on the topic (`git log --grep=<keyword>`).
    Search the web or documents when the topic needs it.
@@ -28,7 +30,7 @@ Goal: a minimal change specification for one increment, on one page.
 
 One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see
-`CLAUDE.md`, Working with the human).
+`dev43:core`, Working with the human).
 
 When you have nothing left to raise, propose to end Exploration. It
 ends on `next`; then set Step to Production in STATE.
@@ -49,7 +51,7 @@ technical.
   response, a screen, a file), never as internal state; an absence
   only when a test can observe it.
 
-Follow the specification rules of `CLAUDE.md`: write the minimum,
+Follow the specification rules of `dev43:core`: write the minimum,
 examples first, lists not tables, rule IDs only where needed, no
 reasons. Leave edge cases to the Tests phase. Tag the choices you
 are unsure of.

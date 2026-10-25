@@ -5,6 +5,8 @@ description: Dev43 Integration phase, the last phase of each increment. Use when
 
 # Integration
 
+Load `dev43:core` first if it is not loaded.
+
 Goal: `spec/main/` describes the software as it now exists, the change
 page is gone, and the increment has been looked back on.
 
@@ -16,9 +18,9 @@ Retrospective with the human, on three topics:
   was learned, and what follows for the backlog. If nothing is worth
   raising, say so; the topic is then done.
 - The process, only if something went wrong during the increment:
-  rules in `CLAUDE.md`, agent context, thresholds, skill instructions.
-  Label each change with its target: the project (e.g. `CLAUDE.md`)
-  or the Dev43 plugin.
+  rules, agent context, thresholds, skill instructions. Label each
+  change with its target: the project (e.g. its `CLAUDE.md`) or the
+  Dev43 plugin.
 - Going further: up to three leads drawn from the increment's actual
   work, never generic, or none if no real one: a concept or pattern at
   play (e.g. Data Mapper vs Active Record), or a quality or security

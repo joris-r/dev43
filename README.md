@@ -6,12 +6,13 @@ packaged as a Claude Code plugin. The process itself is described in
 
 ## Contents
 
-- `templates/CLAUDE.md`: the rules agents must follow in a Dev43 project
+- `skills/core/`: the rules agents must follow in a Dev43 project
   (step gates, tags, spec layout, test protection).
-- `templates/STATE.md`: tracks the current increment, phase and step.
-- `commands/init.md`: `/dev43:init`, sets up a project.
 - `skills/`: one skill per phase: `initial-framing`, `specification`,
   `tests`, `implementation`, `integration`.
+- `templates/CLAUDE.md`: the stub that makes a project load the rules.
+- `templates/STATE.md`: tracks the current increment, phase and step.
+- `commands/init.md`: `/dev43:init`, sets up a project.
 
 ## Install
 
@@ -47,7 +48,8 @@ In a project, run:
 Only new projects are supported for now: adopting Dev43 on existing
 code is future work.
 
-This copies `CLAUDE.md` (or proposes a merge if one exists), creates the
+This adds a short stub to `CLAUDE.md` that loads the rules from the
+plugin (so updates need no merge), creates the
 `spec/` tree and `spec/STATE.md`, and starts the first Exploration. From
 then on, the agent follows the skill of the current phase, and only you
 move the work to the next step or phase, by sending `next`. Anything

@@ -5,6 +5,8 @@ description: Dev43 Tests phase of an increment. Use when spec/STATE.md says Phas
 
 # Tests
 
+Load `dev43:core` first if it is not loaded.
+
 Goal: a test suite that faithfully expresses the change specification.
 Tests are written before the implementation and will be read-only
 during it.
@@ -24,7 +26,7 @@ during it.
 
 One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see
-`CLAUDE.md`, Working with the human).
+`dev43:core`, Working with the human).
 
 When you have nothing left to raise, propose to end Exploration. It
 ends on `next`; then set Step to Production in STATE.
