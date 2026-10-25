@@ -350,10 +350,4 @@ phase, while it is fresh.
 
 ## Future Work
 
-### Retro-Specification Phase
-
-Adopting Dev43 on a project that already has code is not supported
-yet. A Retro-Specification phase would replace Initial Framing: it would
-write the main specification from the existing software, telling
-intended behavior apart from accidental behavior, so that the
-specification describes what is needed, not just what the code does.
+See [BACKLOG.md](BACKLOG.md).

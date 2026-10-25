@@ -45,7 +45,7 @@ In a project, run:
 ```
 
 Only new projects are supported for now: adopting Dev43 on existing
-code (Retro-Specification) is future work.
+code is future work.
 
 This copies `CLAUDE.md` (or proposes a merge if one exists), creates the
 `spec/` tree and `spec/STATE.md`, and starts the first Exploration. From

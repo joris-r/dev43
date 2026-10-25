@@ -9,7 +9,7 @@ Set up the Dev43 process in the current project. Templates are in
 1. If `spec/STATE.md` already exists, stop: Dev43 is already set up.
    Show the current state and do nothing else.
 2. Look for source code in the project. If there is any, stop: adopting
-   Dev43 on existing code (Retro-Specification) is not supported yet.
+   Dev43 on existing code is not supported yet.
    Tell the human and do nothing else.
 3. If the project is not a git repository, run `git init`; the
    permission prompt is the human's approval, do not ask separately.
