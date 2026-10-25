@@ -50,10 +50,11 @@ a return to Specification or Tests.
 Work without interrupting until all tests are green, except disputed
 ones.
 
-- Never modify a test. If one seems wrong, leave it, tag it `unsure`,
-  and continue. This is a disputed test. In a refactoring, you may
-  edit a test without changing what it checks (e.g. a moved import);
-  tag each such edit.
+- Never modify a test written in a Tests phase. If one seems wrong,
+  leave it, tag it `unsure`, and continue. This is a disputed test.
+  In a refactoring, you may edit a test without changing what it
+  checks (e.g. a moved import); tag each such edit. Tests that the
+  test and quality policy leaves to Implementation are code.
 - Tag the interpretations of the specification and the technical
   choices you are unsure of.
 - Cite a rule ID in code only where it explains something the reader
@@ -99,8 +100,8 @@ Checks:
 - The full test suite passes, except disputed tests.
 - The checks required by the test and quality policy in
   `spec/main/technical.md`, as updated by the change page, pass.
-- Test files are unchanged since the Tests phase (`git diff HEAD` on
-  the test files shows nothing but tags). In a refactoring, it shows
+- Tests written in a Tests phase are unchanged (`git diff HEAD` on
+  them shows nothing but tags). In a refactoring, it shows
   only tagged edits that leave what each test checks unchanged.
 
 ## Exit

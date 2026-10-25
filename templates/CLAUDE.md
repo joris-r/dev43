@@ -150,7 +150,8 @@ records that they must act on it.
 - Code cites a rule ID only where it explains something the reader
   would not otherwise see.
 - Never copy specification text into tests or code.
-- During Implementation, never change test code. If a test seems wrong,
+- During Implementation, never change test code written in a Tests
+  phase. If such a test seems wrong,
   tag it `unsure`, explain why in your hand-over, and continue. Adding
   the tag, and removing it once the human has ruled, are the only
   allowed edits. In a refactoring (see the Specification skill), you

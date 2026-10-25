@@ -19,6 +19,10 @@ Goal: a minimal change specification for one increment, on one page.
    unmodified. Before the human approves its scope, show a short
    before/after excerpt of the code. Once they agree, write
    "Refactoring." at the start of the Scope in STATE.
+   If the change touches only tests or their tooling, propose a
+   tests-only increment: no Implementation phase; the Tests phase
+   runs the full check. Once the human agrees, write "Tests only." at
+   the start of the Scope in STATE.
 2. Read the relevant parts of `spec/main/`, the code and tests, and
    the earlier decisions on the topic (`git log --grep=<keyword>`).
    Search the web or documents when the topic needs it.

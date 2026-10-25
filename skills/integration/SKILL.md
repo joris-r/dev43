@@ -63,7 +63,6 @@ Starts at your hand-over, once the checks below pass.
 
 Checks:
 
-- The full test suite passes.
 - No rule ID is defined twice in `spec/main/`.
 - Every rule ID cited in tests or code exists in `spec/main/`.
 - `spec/changes/<slug>.md` no longer exists.

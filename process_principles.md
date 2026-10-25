@@ -9,6 +9,7 @@ There are four main phases:
 
 1. Specification
    - a refactoring skips Tests
+   - a tests-only increment skips Implementation
 2. Tests (writing of)
 3. Implementation
    - may return to an earlier phase, or amend the specification
@@ -250,6 +251,9 @@ Before its scope is agreed, the agent shows a short before/after
 excerpt of the code: the value of a refactoring is hard to judge in
 the abstract.
 
+A tests-only increment, a change to tests or their tooling only, skips
+the Implementation phase: the Tests phase runs the full check instead.
+
 
 ## Tests Phase
 
@@ -281,15 +285,17 @@ increment brings new needs.
 - **Production**: autonomous coding until tests are green, deviations
   tagged.
 - **Verification**: the full test suite passes, the checks required by
-  the test and quality policy pass, and the test files are unchanged
-  since the Tests phase (`git diff HEAD`); the human handles the tags
+  the test and quality policy pass, and the tests written in a Tests
+  phase are unchanged (`git diff HEAD`); the human handles the tags
   and reviews the produced code.
 
 Technical choices (stack, libraries, algorithms, communication
 interfaces) are important decisions like any other, because they are
 hard to reverse.
 
-Tests are never modified during Implementation. If the agent believes a
+Tests written in a Tests phase are never modified during
+Implementation; tests that the project's test and quality policy
+leaves to Implementation are code. If the agent believes a
 test is wrong, it leaves it unchanged, tags it unsure with its
 reasoning in the hand-over, and continues. At review, the human rules: either the code is
 fixed, or the test is corrected in a return to the Tests phase, or, if
@@ -324,10 +330,10 @@ phase, while it is fresh.
 - **Production**: in-place rewrite of the main specification, each
   part of the change in the page it belongs to, then removal of the
   change specification.
-- **Verification**: the full test suite passes, no rule ID is defined
-  twice in the main specification, every rule ID cited in tests or code
-  exists,
-  and the change specification is removed; human review.
+- **Verification**: no rule ID is defined twice in the main
+  specification, every rule ID cited in tests or code exists, and the
+  change specification is removed; human review. The test suite is not
+  run again: Integration changes no code.
 
 
 ## Future Work
