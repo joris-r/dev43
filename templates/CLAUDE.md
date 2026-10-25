@@ -13,7 +13,8 @@ would care.
 ## State and gates
 
 - Before any work, read `spec/STATE.md`. Start every message with
-  `[<Phase> · <Step>]` as recorded there at the end of the message.
+  `[<Phase> · <Step>]`, as STATE will record them once the message's
+  changes are made.
 - Do only the work of the current phase and step. Use the matching
   `dev43:<phase>` skill (the Direct phase has none).
 - Never advance the step or phase yourself, except from Production to
@@ -33,6 +34,8 @@ would care.
   ends that Exploration and starts its Production, e.g. "`next`: make
   the exit commit, skip Tests Exploration, start Production." Any
   other answer keeps that Exploration open.
+- After an exit commit, load the next phase's skill and start its
+  Exploration (or its Production, if skipped) in the same message.
 - Production ends when you hand over. First run the checks of the
   phase (see its skill) and fix what fails: the human reviews only work
   that passes them. Then set Step to Verification in STATE, and hand

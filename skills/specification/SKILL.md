@@ -46,7 +46,8 @@ technical.
 - Removed content: list it under a `Removed` heading, by name or rule
   ID.
 - State behavior as what a client observes at the interface (a
-  response, a screen, a file), never as internal state.
+  response, a screen, a file), never as internal state; an absence
+  only when a test can observe it.
 
 Follow the specification rules of `CLAUDE.md`: write the minimum,
 examples first, lists not tables, rule IDs only where needed, no
@@ -73,7 +74,8 @@ Starts at your hand-over, once the checks below pass.
 
 Checks:
 
-- `spec/main/` is unchanged (`git diff HEAD -- spec/main` is empty).
+- `spec/main/` is unchanged: `git diff HEAD -- spec/main` and
+  `git ls-files -o --exclude-standard spec/main` print nothing.
 
 The human also judges the size of the increment. If they decide to
 split it, return to Exploration and narrow the Scope in STATE; the rest

@@ -10,9 +10,10 @@ with every deviation tagged for the human.
 
 ## Exploration
 
-If STATE notes a stash, first restore it (`git stash pop`). On a
+If STATE notes a stash, first restore it with `git stash pop --index`,
+which keeps the human's staging; if that fails, `git stash pop`. On a
 conflict, keep what the return phases committed (tests are read-only),
-merge the rest, then `git stash drop`. Remove the note from STATE.
+merge the rest, then `git stash drop`. Clear Stash in STATE.
 
 1. Read the change spec, the tests, and the code they touch.
 2. Flag to the human fragile areas, divergences between code and spec,
@@ -79,7 +80,7 @@ Specification). On a return:
    clean tree: `git stash push -u -- ':(exclude)spec'`. Changes to
    `spec/` stay in place for the return to handle.
 3. Set Phase to Tests or Specification and Step to Exploration in
-   STATE, and add a line `- Stash: implementation work`.
+   STATE, and set Stash to `implementation work`.
 
 The increment keeps its name; the stashed code comes back when
 Implementation resumes, unless the human decides otherwise. The

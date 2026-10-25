@@ -49,8 +49,9 @@ Work without interrupting. Rewrite `spec/main/` in place:
 Then delete `spec/changes/<slug>.md`, remove from `spec/BACKLOG.md`
 the entry the increment did, if any, and add the approved entries. Tag the choices you are
 unsure of. Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and
-hand over with the check results and the list of tags, with one line
-on each saying why.
+hand over with the check results, the list of tags with one line on
+each saying why, and where each item of the change page landed (a
+page of `spec/main/`, or removed).
 
 ## Verification
 

@@ -55,7 +55,8 @@ the test and quality policy. Write nothing else in `spec/main/`: the
 data model and the features come with the increments, starting with
 the first one.
 
-Then set up the repository (`.gitignore`, lock files as agreed),
+Then set up the repository (a `.gitignore` that keeps out secrets and
+build output, lock files as agreed),
 tooling, CI, and a minimal skeleton that runs with one trivial test,
 following `technical.md`.
 
