@@ -55,8 +55,8 @@ ones.
 
 - Never modify a test written in a Tests phase. If one seems wrong,
   leave it, tag it `unsure`, and continue. This is a disputed test.
-  In a refactoring, you may edit a test without changing what it
-  checks (e.g. a moved import); tag each such edit. Tests that the
+  In a `code-only` increment, you may edit a test without changing
+  what it checks (e.g. a moved import); tag each such edit. Tests that the
   test and quality policy leaves to Implementation are code.
 - Tag the interpretations of the specification and the technical
   choices you are unsure of.
@@ -104,7 +104,7 @@ Checks:
 - The checks required by the test and quality policy in
   `spec/main/technical.md`, as updated by the change page, pass.
 - Tests written in a Tests phase are unchanged (`git diff HEAD` on
-  them shows nothing but tags). In a refactoring, it shows
+  them shows nothing but tags). In a `code-only` increment, it shows
   only tagged edits that leave what each test checks unchanged.
 
 ## Exit

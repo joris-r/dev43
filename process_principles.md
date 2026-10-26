@@ -209,12 +209,13 @@ approves it. Fixed phases suit increments that change behavior, and
 cost too much elsewhere.
 
 - `full`: Specification, Tests, Implementation, Integration.
-- `refactoring`, a change that leaves behavior unchanged: no Tests
-  phase. The existing suites must pass unmodified, apart from tagged
-  edits that leave what a test checks unchanged, such as a moved
-  import. Before its scope is agreed, the agent shows a short
-  before/after excerpt of the code: the value of a refactoring is hard
-  to judge in the abstract.
+- `code-only`, a change to code that leaves the specified behavior
+  unchanged, such as a refactoring or a new implementation of an
+  existing specification: no Tests phase. The existing suites must
+  pass unmodified, apart from tagged edits that leave what a test
+  checks unchanged, such as a moved import. When existing code changes, the agent shows a short
+  before/after excerpt of the code before its scope is agreed: the
+  value of a refactoring is hard to judge in the abstract.
 - `tests-only`, a change to tests or their tooling only: no
   Implementation phase; the Tests phase runs the full check instead.
 - `direct`, a change to tooling, configuration, dependencies or

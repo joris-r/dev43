@@ -66,10 +66,11 @@ would care.
   The shapes:
   - `full`: Specification, Tests, Implementation, Integration. The
     change alters behavior.
-  - `refactoring`: Specification, Implementation, Integration. The code
-    changes, behavior does not; the existing suites must pass
-    unmodified. Before the human approves it, show a short before/after
-    excerpt of the code.
+  - `code-only`: Specification, Implementation, Integration. The
+    specified behavior does not change; the code does, including a new
+    implementation of an existing specification. The existing suites
+    must pass unmodified. When existing code changes, show a short
+    before/after excerpt before the human approves the shape.
   - `tests-only`: Specification, Tests, Integration. Only tests or
     their tooling change; the Tests phase runs the full check.
   - `direct`: one Direct phase, starting at Production. Tooling,
@@ -185,7 +186,7 @@ records that they must act on it.
   phase. If such a test seems wrong,
   tag it `unsure`, explain why in your hand-over, and continue. Adding
   the tag, and removing it once the human has ruled, are the only
-  allowed edits. In a refactoring (see State and gates), you
+  allowed edits. In a `code-only` increment (see State and gates), you
   may also make edits that leave what a test checks unchanged (e.g. a
   moved import), each tagged.
 - Add no dependency, library, service or interface unless the
