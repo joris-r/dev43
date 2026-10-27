@@ -44,9 +44,9 @@ Work happens in phases, each with three steps:
    Remove a tag if you agree with the choice, or discuss it with the agent.
    When everything is staged and no tags remain, say "next".
 
-The first phase, Initial Framing, sets up the stack. Then you are in Pause:
-ask for something and the agent starts an increment, which can go through
-these phases:
+The first increment sets up the stack with a trivial feature, such as a
+health check. Then you are in Pause: ask for something and the agent starts
+an increment, which can go through these phases:
 
 1. Specification
 2. Tests

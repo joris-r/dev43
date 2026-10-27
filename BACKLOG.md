@@ -2,7 +2,7 @@
 
 ## Adoption on existing code
 
-Replaces Initial Framing for a project that has code. Prototype on a
+For a project that has code; the first increment assumes none. Prototype on a
 real messy project before writing it into the skills.
 
 - Start from an empty specification; derive `technical.md` from the

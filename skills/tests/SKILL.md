@@ -51,7 +51,9 @@ Work without interrupting.
   "does not show X"), or behavior the existing code already meets.
   Name each in your hand-over and say why it passes.
 - Write only the minimum non-test code needed for tests to compile
-  (stubs, signatures), and tag it if it fixes an interface.
+  (stubs, signatures), and tag it if it fixes an interface. If the
+  project has no code yet, also set up the project and the test
+  tooling, as the technical part of the change page says.
 
 Tag the choices you are unsure of. Run the Verification checks and
 fix what fails. Then set Step to Verification in STATE, and hand over with the check results and the

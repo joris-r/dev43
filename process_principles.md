@@ -15,10 +15,10 @@ There are four main phases:
 
 They are repeated for each increment, but a phase exists only if its
 artifact changes: the shape of an increment follows what changes (see
-Increment Shapes). A special phase, Initial Framing, comes first in a
-new project. We can also abandon an increment.
+Increment Shapes). The first increment of a new project also frames
+it. We can also abandon an increment.
 
-Each phase, main or special, follows three steps:
+Each phase follows three steps:
 
 1. Exploration
 2. Production
@@ -224,36 +224,33 @@ cost too much elsewhere.
   named after the kind of work. No change page, no retrospective.
 
 
-## Initial Framing Phase
+## First Increment
 
-This phase sets up a new project before the first increment: a short
-README, the technical stack, the conventions and a minimal running
-skeleton. It delivers no feature, and specifies none.
+The first increment of a new project also sets up the project: a short
+README, the technical stack, the conventions, and the tooling. Its
+feature is trivial but runs through the whole stack, such as a hello
+world or a health check; the real features come in later increments.
+It goes through the normal cycle, so its technical choices are
+reviewed before any code exists, and no phase is exempt from the rules.
 
-It is a bootstrap phase, and the only exception to two rules: it writes
-the main specification directly, and its code is not written test-first.
-The normal cycle needs a stack and test tooling, so they cannot go
-through it. The exception is bounded: the skeleton implements only
-technical decisions, and its trivial test checks the tooling, not a
-behavior.
+- **Specification**: Exploration first discusses the overall scope
+  (what the software is for, for whom, technical, legal and platform
+  constraints, out of scope) and compares structuring stacks, with
+  throwaway prototypes if useful. The change page holds the whole
+  future technical page (technical choices, conventions, the test and
+  quality policy), with only what is costly to change later, beside
+  the trivial feature. The README is written with it.
+- **Tests**: the project and its test tooling are set up with the
+  stubs the tests need.
+- **Implementation**: repository files (ignore rules, lock files) and
+  CI, if any, are set up with the code.
+- **Integration**: the technical page of the main specification is
+  created from the change page, like any other.
 
-- **Exploration**: peer-to-peer discussion of the overall scope (what
-  the software is for, for whom, technical, legal and platform
-  constraints, out of scope). The agent compares structuring stacks and
-  libraries, with throwaway prototypes if useful.
-- **Production**: a README of a few lines (what the software is for,
-  for whom, how to run it), then a short draft of the technical page
-  of the specification with tags: technical choices, project
-  conventions including the test and quality policy. Nothing else is
-  specified: the data model and the features come with the increments.
-  Only what is costly to change later is decided. Then concrete setup:
-  repository (ignore rules, lock files), tooling, CI, a minimal
-  skeleton that runs with a trivial test.
-- **Verification**: the skeleton runs with its trivial test; human
-  review.
-
-Exit: the technical page of the main specification exists, the
-skeleton runs, and the first increment can start with a small scope.
+A later increment that changes the project's purpose, stack or
+conventions goes through the same framing topics in its Specification
+phase. A structural change (a new framework, a new repo layout) never
+takes the `direct` shape.
 
 
 ## Specification Phase
@@ -286,8 +283,8 @@ skeleton runs, and the first increment can start with a small scope.
   than through the code they constrain.
 
 The test and quality policy is a project decision, recorded in the
-technical page of the specification: a first version in Initial
-Framing, updated in the Tests phase when an
+technical page of the specification: a first version in the first
+increment, updated in the Tests phase when an
 increment brings new needs.
 
 

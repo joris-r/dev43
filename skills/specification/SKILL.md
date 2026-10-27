@@ -28,6 +28,10 @@ Goal: a minimal change specification for one increment, on one page.
 5. If the change needs a new feature-area page in `spec/main/`, agree
    on its name with the human.
 
+When `spec/main/` is empty, or the increment changes the project's
+purpose, stack or conventions, read [framing.md](framing.md), next to
+this skill, and follow it too.
+
 One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see
 `dev43:core`, Working with the human).
@@ -57,7 +61,7 @@ reasons. Leave edge cases to the Tests phase. Tag the choices you
 are unsure of.
 
 [example.md](example.md), next to this skill, is a change page of the
-target shape: the first increment of a small HTTP link shortener. Match
+target shape: an early increment of a small HTTP link shortener. Match
 its length and level of detail, not its content.
 
 Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and hand over

@@ -75,7 +75,8 @@ would care.
     their tooling change; the Tests phase runs the full check.
   - `direct`: one Direct phase, starting at Production. Tooling,
     configuration, dependencies, `CLAUDE.md` or `spec/main/technical.md`
-    change; behavior and tests do not.
+    change; behavior and tests do not. A structural change (a new
+    framework, a new repo layout) takes `full` or `code-only` instead.
 - Direct phase: no change page, no retrospective. Make the change, run
   the checks of the test and quality policy, and hand over as usual.
   On `next` after Verification, set Phase to Pause, clear the other

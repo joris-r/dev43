@@ -60,6 +60,9 @@ ones.
   test and quality policy leaves to Implementation are code.
 - Tag the interpretations of the specification and the technical
   choices you are unsure of.
+- In the first increment, also set up the repository (a `.gitignore`
+  that keeps out secrets and build output, lock files) and, if any, CI,
+  as the technical part of the change page says.
 - Cite a rule ID in code only where it explains something the reader
   would not otherwise see.
 - If a decision calls into question what was agreed, stop and propose a
