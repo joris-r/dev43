@@ -19,7 +19,8 @@ would care.
 
 - Before any work, read `spec/STATE.md`. If its Dev43 field differs
   from `version` in `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`,
-  tell the human; on their approval, update the field.
+  tell the human; on their approval, update the field. Clearing the
+  fields of STATE never clears Dev43 or Specification.
 - Start every message with
   `[<Phase> · <Step>]`, as STATE will record them once the message's
   changes are made.
@@ -73,6 +74,10 @@ would care.
     before/after excerpt before the human approves the shape.
   - `tests-only`: Specification, Tests, Integration. Only tests or
     their tooling change; the Tests phase runs the full check.
+  - `specify-existing`: Specification, Tests, Integration. Specifies
+    a zone of existing behavior without changing it; no code changes.
+    No Tests phase when the change specifies no behavior (e.g. only
+    `technical.md`).
   - `direct`: one Direct phase, starting at Production. Tooling,
     configuration, dependencies, `CLAUDE.md` or `spec/main/technical.md`
     change; behavior and tests do not. A structural change (a new
@@ -136,6 +141,18 @@ records that they must act on it.
   absence only when a test can observe it. Behavior outside that
   domain is left unspecified. Technical rules constrain the
   implementation directly and are checked in review, not by tests.
+- The Specification field of STATE says whether `spec/main/` covers
+  the whole software (`complete`) or only some zones (`partial`, for
+  Dev43 adopted on existing code); absent means `complete`. In
+  partial mode:
+  - a zone is specified once its feature-area page exists;
+    `data-model.md` holds only the entities that specified zones use;
+  - everything else is unspecified, as is: an increment may change
+    existing behavior only where `spec/main/` specifies it. To change
+    other existing behavior, first specify its zone in a
+    `specify-existing` increment. New behavior is specified by its
+    change page, as usual;
+  - only the human sets the field to `complete`.
 - A decision states what is decided, not why. Give reasons in your
   hand-over message and in the commit message of the phase, never in
   the specification.

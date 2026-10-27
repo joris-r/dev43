@@ -30,7 +30,8 @@ Goal: a minimal change specification for one increment, on one page.
 
 When `spec/main/` is empty, or the increment changes the project's
 purpose, stack or conventions, read [framing.md](framing.md), next to
-this skill, and follow it too.
+this skill, and follow it too. When the Shape is `specify-existing`,
+read [existing.md](existing.md) and follow it too.
 
 One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see

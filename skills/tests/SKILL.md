@@ -50,6 +50,11 @@ Work without interrupting.
   over elements that do not exist yet): it is a negative check (e.g.
   "does not show X"), or behavior the existing code already meets.
   Name each in your hand-over and say why it passes.
+- In the `specify-existing` shape, instead of the two points above:
+  every new test passes on the current code, with no need to name
+  them. A test that fails reveals a counterexample: tell the human. On
+  a bug, the rule leaves the change page, its test is deleted, and you
+  propose a backlog entry to fix it.
 - Write only the minimum non-test code needed for tests to compile
   (stubs, signatures), and tag it if it fixes an interface. If the
   project has no code yet, also set up the project and the test
@@ -77,8 +82,8 @@ Checks:
   page.
 - The new tests fail for the right reason (missing behavior, not syntax
   or setup errors), or already pass and are named in the hand-over.
-  In the `tests-only` shape, instead: the full test suite and the
-  checks of the test and quality policy pass.
+  In the `tests-only` and `specify-existing` shapes, instead: the full
+  test suite and the checks of the test and quality policy pass.
 
 The human's review deserves particular care: checking behavior through
 tests is cheaper than through code. Does each part of the change have

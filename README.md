@@ -23,7 +23,7 @@ From a Claude Code panel in VSCode:
 
 ## Usage
 
-In an empty project (only new projects are supported for now), run:
+In a new or existing project, run:
 
 ```
 /dev43:init
@@ -45,7 +45,9 @@ Work happens in phases, each with three steps:
    When everything is staged and no tags remain, say "next".
 
 The first increment sets up the stack with a trivial feature, such as a
-health check. Then you are in Pause: ask for something and the agent starts
+health check. On existing code, it describes the existing stack instead,
+and you then specify the software zone by zone, as you need to change it.
+Then you are in Pause: ask for something and the agent starts
 an increment, which can go through these phases:
 
 1. Specification

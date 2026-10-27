@@ -218,6 +218,9 @@ cost too much elsewhere.
   value of a refactoring is hard to judge in the abstract.
 - `tests-only`, a change to tests or their tooling only: no
   Implementation phase; the Tests phase runs the full check instead.
+- `specify-existing`, the specification of a zone of existing behavior
+  (see Existing Code): no Implementation phase, and no Tests phase
+  when the change specifies no behavior.
 - `direct`, a change to tooling, configuration, dependencies or
   technical decisions that leaves behavior and tests unchanged: a
   single Direct phase, from Production to Verification and one commit
@@ -251,6 +254,30 @@ A later increment that changes the project's purpose, stack or
 conventions goes through the same framing topics in its Specification
 phase. A structural change (a new framework, a new repo layout) never
 takes the `direct` shape.
+
+
+## Existing Code
+
+Dev43 adopted on existing code starts with a partial specification:
+`spec/main/` covers some zones of the software, and the rest is
+unspecified, as is. The main specification still describes the
+software as it exists, only not all of it. STATE records the mode,
+and only the human declares the specification complete.
+
+The specification grows zone by zone, never all at once: an agent
+cannot tell intended behavior from accidental behavior. An increment
+may change existing behavior only where it is specified; to change
+another zone, a `specify-existing` increment specifies it first.
+
+Specification still comes first. The human states claims about a
+zone; the agent looks for counterexamples in the code and tests, and
+the human rules on each: a bug for the backlog, an exception specified
+or left unspecified, or a refined claim. The tests then express the
+specification as usual, and already pass.
+
+The first increment frames the project like a new one, except that
+the stack and conventions are read from the code: its scope is the
+technical page alone.
 
 
 ## Specification Phase
