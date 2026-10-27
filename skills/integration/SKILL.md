@@ -44,16 +44,19 @@ Work without interrupting. Rewrite `spec/main/` in place:
   history of changes. Keep it minimal: merging is not a reason to add
   detail.
 - Apply the approved process changes to the project (e.g. `CLAUDE.md`).
-  Write approved plugin changes for its maintainer in
-  `dev43_notes/<NN>_<increment>/increment_retro.md`, `<NN>` the next
-  number; never edit the plugin's skills.
+  Never edit the plugin's skills, and write no file for approved plugin
+  changes.
 
 Then delete `spec/changes/<slug>.md`, remove from `spec/BACKLOG.md`
 the entry the increment did, if any, and add the approved entries. Tag the choices you are
 unsure of. Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and
 hand over with the check results, the list of tags with one line on
 each saying why, and where each item of the change page landed (a
-page of `spec/main/`, or removed).
+page of `spec/main/`, or removed). If plugin changes were approved,
+invite the human to send them to Dev43
+(https://github.com/joris-r/dev43/issues), with the text ready to
+send: the project, the increment, the Dev43 version, and each change in
+a sentence or two.
 
 ## Verification
 

@@ -68,7 +68,8 @@ ones.
 Run the Verification checks and fix what fails, except disputed
 tests. Then set Step to Verification
 in STATE, and hand over with: the check results, the
-disputed tests with your reasoning, and the list of tags.
+disputed tests with your reasoning, the list of tags, and the
+routine libraries added, in one line.
 
 ## Ruling on disputed tests
 

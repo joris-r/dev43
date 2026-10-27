@@ -189,8 +189,11 @@ records that they must act on it.
   allowed edits. In a `code-only` increment (see State and gates), you
   may also make edits that leave what a test checks unchanged (e.g. a
   moved import), each tagged.
-- Add no dependency, library, service or interface unless the
-  specification names it or you tag it.
+- Add no dependency, service or interface unless the specification
+  names it or you tag it. Tag only a real choice: a new capability,
+  framework or service, or a library a competent agent might not pick.
+  Routine utility libraries of the stack (e.g. serialization, hashing,
+  UUIDs) need no tag; list them in one line in your hand-over.
 
 ## Working with the human
 
