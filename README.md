@@ -4,57 +4,58 @@ A specification-driven development process for humans and LLM agents,
 packaged as a Claude Code plugin. The process itself is described in
 [process_principles.md](process_principles.md).
 
-## Contents
-
-- `skills/core/`: the rules agents must follow in a Dev43 project
-  (step gates, tags, spec layout, test protection).
-- `skills/`: one skill per phase: `initial-framing`, `specification`,
-  `tests`, `implementation`, `integration`.
-- `templates/CLAUDE.md`: the stub that makes a project load the rules.
-- `templates/STATE.md`: tracks the current increment, phase and step.
-- `commands/init.md`: `/dev43:init`, sets up a project.
 
 ## Install
 
-From a terminal, with the Claude Code CLI:
+From a Claude Code panel in VSCode:
 
-```sh
-claude plugin marketplace add /path/to/dev43
-claude plugin install dev43@dev43
-```
+- open the "/" menu
+- go to "Manage plugins" (Customize section)
+- in the "Marketplaces" tab:
+  - paste `joris-r/dev43`
+  - click "Add"
+- in the "Plugins" tab:
+  - dev43 should show up
+  - click "Install"
+  - choose "Install for you" (or any other option)
+  - "dev43@dev43" should appear with a green dot
 
-The plugin is installed for your user, so it is also available in the
-VS Code extension (which shares `~/.claude/`). Reload the VS Code window
-afterwards.
-
-If `claude` is not on your PATH, the VS Code extension ships its own copy:
-`~/.vscode/extensions/anthropic.claude-code-<version>/resources/native-binary/claude`.
-The `/plugin` slash command is not available inside the VS Code extension.
-
-To try the plugin without installing it:
-
-```sh
-claude --plugin-dir /path/to/dev43
-```
 
 ## Usage
 
-In a project, run:
+In an empty project (only new projects are supported for now), run:
 
 ```
 /dev43:init
 ```
 
-Only new projects are supported for now: adopting Dev43 on existing
-code is future work.
+This creates and commits:
 
-This adds a short stub to `CLAUDE.md` that loads the rules from the
-plugin (so updates need no merge), creates the
-`spec/` tree and `spec/STATE.md`, and starts the first Exploration. From
-then on, the agent follows the skill of the current phase, and only you
-move the work to the next step or phase, by sending `next`. Anything
-else is discussion. Between increments the work is in Pause; ask for
-a new increment to start one, possibly from `spec/BACKLOG.md`.
+- `CLAUDE.md`, telling the agent to use Dev43 (add your own directives below)
+- `spec/BACKLOG.md`, for future work
+- `spec/STATE.md`, where the agent records the current phase, step and topic
+
+Work happens in phases, each with three steps:
+
+1. **Exploration**: you discuss with the agent. When you're ready, say "next".
+2. **Production**: the agent does the work in one go. It tags any important
+   choice that you didn't discuss together.
+3. **Verification**: you review the work and stage the reviewed files with git.
+   Remove a tag if you agree with the choice, or discuss it with the agent.
+   When everything is staged and no tags remain, say "next".
+
+The first phase, Initial Framing, sets up the stack. Then you are in Pause:
+ask for something and the agent starts an increment, which can go through
+these phases:
+
+1. Specification
+2. Tests
+3. Implementation
+4. Integration
+
+The agent proposes to skip phases or steps that add nothing, and there are
+shorter paths for bug fixes, refactoring and tool updates.
+
 
 ## License
 
