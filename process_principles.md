@@ -222,7 +222,9 @@ cost too much elsewhere.
   (see Existing Code): no Implementation phase, and no Tests phase
   when the change specifies no behavior.
 - `direct`, a change to tooling, configuration, dependencies or
-  technical decisions that leaves behavior and tests unchanged: a
+  technical decisions, or a small code change outside the
+  specification (appearance, assets, unspecified wording), that leaves
+  specified behavior and tests unchanged: a
   single Direct phase, from Production to Verification and one commit
   named after the kind of work. No change page, no retrospective.
 
