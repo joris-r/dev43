@@ -12,10 +12,10 @@ with every deviation tagged for the human.
 
 ## Exploration
 
-If STATE notes a stash, first restore it with `git stash pop --index`,
-which keeps the human's staging; if that fails, `git stash pop`. On a
-conflict, keep what the return phases committed (tests are read-only),
-merge the rest, then `git stash drop`. Clear Stash in STATE.
+If STATE notes a stash, first restore it, keeping the human's staging
+where possible. On a conflict, what the return phases committed wins
+(tests are read-only); merge the rest. Leave no stash behind, and clear
+Stash in STATE.
 
 1. Read the change spec, the tests, and the code they touch.
 2. Flag to the human fragile areas, divergences between code and spec,
@@ -82,9 +82,9 @@ the test faithfully expresses a wrong decision (return to
 Specification). On a return:
 
 1. Remove the tags of the disputed tests: the return is the ruling.
-2. Stash the implementation work so that the return starts from a
-   clean tree: `git stash push -u -- ':(exclude)spec'`. Changes to
-   `spec/` stay in place for the return to handle.
+2. Stash the implementation work, untracked files included, so that
+   the return starts from a clean tree. Changes to `spec/` stay in
+   place for the return to handle, and stay out of the stash entirely.
 3. Set Phase to Tests or Specification and Step to Exploration in
    STATE, and set Stash to `implementation work`.
 
