@@ -1,378 +1,172 @@
 # Dev43: A Software Development Process
 
+This document gives the context and the principles of Dev43. The
+operational rules are in the skills ([skills/](skills/)), which apply
+these principles.
+
+
 ## Context and Goal
 
-Dev43 is a software development methodology for human and LLM agents based on
-the specification driven development (SDD) ideas.
-
-There are four main phases:
-
-1. Specification
-2. Tests (writing of)
-3. Implementation
-   - may return to an earlier phase, or amend the specification
-4. Integration
-
-They are repeated for each increment, but a phase exists only if its
-artifact changes: the shape of an increment follows what changes (see
-Increment Shapes). The first increment of a new project also frames
-it. We can also abandon an increment.
-
-Each phase follows three steps:
-
-1. Exploration
-2. Production
-3. Verification
-
-The golden rule of Dev43 is: humans must be involved in every
-important or impactful decision.
-
-The silver rule is its dual, and limits how much humans are involved: a
-statement belongs in the specification only if a competent agent could
-reasonably have chosen otherwise and the human would care.
+Dev43 is a software development methodology for human and LLM agents,
+combining specification driven development (SDD) with test driven
+development (TDD).
 
 The main goal is to ensure that the user needs are correctly identified
-and fulfilled by the produced software.
+and fulfilled by the produced software. The process does not prioritize
+production speed and explicitly limits the agents' freedom.
 
-This process does not prioritize the production speed and explicitly
-limits the AI agents' freedom.
+The golden rule: humans must be involved in every important or
+impactful decision.
+
+The silver rule: a statement belongs in the specification only if a competent
+agent could reasonably have chosen otherwise and the human would care.
+
+These rules keep humans in the loop, but only on important topics.
 
 
 ## Rationale
 
 LLM agents are highly effective at deriving patterns from their training
-data. They can also generalize and recombine these patterns, which gives
-them a form of logical inference.
+data, and at generalizing and recombining them. But they lack some
+qualities essential to software authors:
 
-However, they lack some qualities essential to software authors:
+- they do not retain what they learn across sessions: their only memory
+  is the context window
+- their knowledge comes from written material, not lived experience:
+  they get feedback from the software itself (tests, compilers, program
+  output), but have no direct access to the human context
 
-- they cannot retain what they learn across sessions
-  - at the time of writing, their only memory is the context window of
-    the current session
-- their knowledge comes from written training material, not lived experience
-  - in an agentic setting, they can get feedback from the software itself
-    (tests, compiler errors, program output)
-  - but they have no direct access to the human context
+So we must:
 
-This means we must:
+- give agents an accurate, human-validated specification of what is
+  being built, which also serves as their persistent memory
+- keep humans in control of the decisions that require context
 
-- give agents an accurate, human-validated specification of what is being built
-  - which also serves as their persistent memory
-- keep humans in control of decisions that require context
+Human attention is the scarce resource. Every principle below either
+protects a human decision or saves human effort.
 
 
 ## Principles
 
-### Incremental Development
+### Specification first
 
-The software is developed incrementally, in change sets of manageable size
-and complexity. Small increments let humans review each change properly and
-let agents hold the whole change within their context window.
+All work starts with the specification, because a specification
+written after the code describes what the code does rather than what
+was needed.
 
-Each increment's changes are described in a dedicated change specification,
-separate from the main specification. The main specification remains
-untouched during the increment, so it always describes the software as it
-currently exists.
-
-In the Integration phase, the change specification is merged into the main
-documents, and the next increment can start.
+Behavior then flows in one direction: specification, tests, code. Each
+step is reviewed before the next is derived from it, and an artifact
+never bends a more authoritative one. When a later step reveals an
+error in an earlier one, the work returns to it.
 
 
-### Specification
+### A minimal specification
 
-The specification is minimal, by the silver rule. Agents are good at
-deriving details, so it records only the decisions where the human
-matters. Everything else is derived by the agents in the tests and
-the code, and brought to the human's attention by tags when they are
-unsure. The specification must remain shorter and more abstract than
-the tests and the source code, and easy for a human to read.
+By the silver rule, the specification records only the decisions where
+the human matters. Agents derive the rest, in the tests and the code.
+The specification stays shorter and more abstract than them, and easy
+for a human to read.
 
-A decision states what is decided, not why: reasoning goes stale as the
-project moves on. The reasons are discussed in Exploration and kept in
-the commit message of the phase.
-
-All work starts with the specification. Writing it after the code tends
-to describe what the code does rather than what was needed, and bakes in
-accidental decisions.
-
-The specification is a living document: it evolves through change
-specifications, which are merged into the main specification at Integration.
-
-The specification starts from the data model. It settles many
-decisions on its own and defines the vocabulary: everything else refers
-to things by their names. It favors examples (a terminal session, a
-request and its response, a sample file) over prose, with a few rules
-for what the examples do not show, and uses nested lists rather than
-tables, which are hard to read, edit and diff.
-
-Tests and code refer to the specification by these names, never by
-repeating it. Only a free-text rule that has no natural name, and that a
-test or code must cite, gets a short unique ID.
-
-The main specification is a few pages: the data model, the technical
-decisions, and one page per feature area. A change specification is a
-single page.
+It records what is decided, not why: reasoning goes stale. The reasons
+live in the history.
 
 
-### Working with Agents
+### Tests as the guarantee
 
-The Exploration step is a discussion between peers, the human and the
-agent: short messages that answer each other, one point at a time, not
-a finished survey that the human answers by numbers. The subject is
-approached gradually until the important decisions surface. A point
-the human does not react to counts as accepted. The step ends when both
-consider the subject mature: the agent may propose to end it, the human
-has the final say.
+The test suite is what ensures that the code respects the
+specification. Tests are written before the code, from the
+specification, and the code is then written to make them pass, without
+modifying them.
 
-Exploration stays coarse. It raises only what the agent cannot settle
-with confidence: the human's goals and preferences, real trade-offs,
-choices the agent is unsure of. A choice the agent would recommend with
-confidence is not asked; it is made in Production, where reviewing it
-is cheap. The split between Exploration and Production
-exists to reduce the discussion.
+Every test cites what it checks in the specification, and every
+specified rule has a test or is marked not testable. This downward
+traceability lets the human check that the specification is fully
+covered.
 
-In the Production step, the agent works without interruption and tags
-each choice it is unsure of, directly on the relevant line of the
-specification, tests or source code. Before handing over, it runs the
-checks of the phase and fixes what fails, so that the human reviews
-only work that passes them. The hand-over moves the phase to
-Verification: there is nothing for the human to decide at that point.
+Tests are also the agent's feedback loop: it knows it is done when they
+pass.
 
-A tag draws the human's attention to a doubt and records that they must
-act. A choice the agent is confident of is not tagged: tagging it
-would cost a ruling for nothing, and the human sees it in the review
-anyway. The artifact itself stays complete without the tag; the human
-accepts a choice by removing its tag, and rejects it by changing the
-content. A choice is tagged once, at its most
-authoritative place (specification, then tests, then code).
-
-In the Verification step, the human reviews every produced artifact
-once, with particular attention to the tagged choices, and rules on
-each tag or edits the artifacts directly. The agent applies the rulings
-and runs the checks again. The step is complete when the checks pass,
-no tags remain and the human approves. A check is kept only if it is
-cheap to run and has an obvious use; some phases have almost none.
-
-Gates between steps and phases cost a human message each. The human
-passes the gate in front of the agent with one word, `next`; anything
-else is discussion. The agent ends each gate proposal with what `next`
-will do, so that no reply leaves it unclear whether a gate was passed.
-
-Between increments, the work is in Pause: a free discussion in which
-nothing changes but the backlog. Any other change, even one line of
-configuration, is an increment; the `direct` shape keeps a small one
-cheap. Candidate increments
-are kept in a short backlog, one line each, added only with the
-human's approval. It must stay readable at a glance: agent-written
-text tends to be verbose, and stale notes pile up.
-
-Reviewing afterward, in context, is more efficient than interrupting the
-agent, since the main decisions have normally already surfaced during
-Exploration. If the agent nevertheless meets a major decision, one that
-calls into question what was agreed, it stops and the work returns to
-Exploration.
+Tests deserve the most careful review: they make explicit the cases
+that code leaves implicit, and checking behavior through them is
+cheaper than through the code.
 
 
-### Version Control
+### Small increments
 
-The project is a git repository. Git gives the history and the current
-changes for free, so the process relies on it instead of keeping its own
-records.
+The software grows in increments small enough for a human to review
+properly and for an agent to hold in its context.
 
-- The index belongs to the human. During Verification, the human
-  stages each file or hunk once read: `git diff --cached` shows what is
-  reviewed, and `git diff` and untracked files what remains. The goal of the review is agreement on the content,
-  not a record of who wrote what.
-- At the end of each phase, on `next`, the agent commits. Each
-  commit holds one phase of one increment, so `git diff HEAD` shows the
-  work of the current phase.
-
-Apart from one commit when Dev43 is set up, the Amendment commit of the
-Implementation phase, the Abandon commit, and backlog commits the human
-asks for in Pause, nothing is committed outside phase ends.
-
-Commit bodies are the project's decision record: what was decided and
-why. The agent looks there before reopening a decision.
-
-The human may abandon an increment from any phase. Its commits are
-reverted in one Abandon commit, whose body says why, rather than
-erased: the reasons stay in the history. The backlog entry it came
-from is rewritten as the need it served. Rejected ideas are not
-listed: they would pile up as noise, and once the need is met they
-do not come back.
+Each increment is described by a change specification, separate from the
+main one, so the main specification always describes the software as it
+exists. The change is merged at the end of the increment.
 
 
-## Increment Shapes
+### Four phases
 
-When an increment starts, the agent proposes its shape and the human
-approves it. Fixed phases suit increments that change behavior, and
-cost too much elsewhere.
+An increment goes through four phases, each producing one artifact:
 
-- `full`: Specification, Tests, Implementation, Integration.
-- `code-only`, a change to code that leaves the specified behavior
-  unchanged, such as a refactoring or a new implementation of an
-  existing specification: no Tests phase. The existing suites must
-  pass unmodified, apart from tagged edits that leave what a test
-  checks unchanged, such as a moved import. When existing code changes, the agent shows a short
-  before/after excerpt of the code before its scope is agreed: the
-  value of a refactoring is hard to judge in the abstract.
-- `tests-only`, a change to tests or their tooling only: no
-  Implementation phase; the Tests phase runs the full check instead.
-- `specify-existing`, the specification of a zone of existing behavior
-  (see Existing Code): no Implementation phase, and no Tests phase
-  when the change specifies no behavior.
-- `direct`, a change to tooling, configuration, dependencies or
-  technical decisions, or a small code change outside the
-  specification (appearance, assets, unspecified wording), that leaves
-  specified behavior and tests unchanged: a
-  single Direct phase, from Production to Verification and one commit
-  named after the kind of work. No change page, no retrospective.
+1. **Specification**: the change specification.
+2. **Tests**: tests that express it.
+3. **Implementation**: code that makes the tests pass.
+4. **Integration**: the change merged into the main specification, and
+   a retrospective.
+
+An increment goes through only the phases whose artifact changes: a
+refactoring needs no new tests, a tooling update needs no specification.
 
 
-## First Increment
+### Discuss, then produce, then review
 
-The first increment of a new project also sets up the project: a short
-README, the technical stack, the conventions, and the tooling. Its
-feature is trivial but runs through the whole stack, such as a hello
-world or a health check; the real features come in later increments.
-It goes through the normal cycle, so its technical choices are
-reviewed before any code exists, and no phase is exempt from the rules.
+Each phase follows three steps:
 
-- **Specification**: Exploration first discusses the overall scope
-  (what the software is for, for whom, technical, legal and platform
-  constraints, out of scope) and compares structuring stacks, with
-  throwaway prototypes if useful. The change page holds the whole
-  future technical page (technical choices, conventions, the test and
-  quality policy), with only what is costly to change later, beside
-  the trivial feature. The README is written with it.
-- **Tests**: the project and its test tooling are set up with the
-  stubs the tests need.
-- **Implementation**: repository files (ignore rules, lock files) and
-  CI, if any, are set up with the code.
-- **Integration**: the technical page of the main specification is
-  created from the change page, like any other.
+1. **Exploration**: a discussion between peers, one point at a time,
+   raising only what the agent cannot settle with confidence.
+2. **Production**: the agent works without interruption, and marks
+   each choice it is unsure of with a tag on the artifact.
+3. **Verification**: the human reviews the result, rules on the tags,
+   and approves.
 
-A later increment that changes the project's purpose, stack or
-conventions goes through the same framing topics in its Specification
-phase. A structural change (a new framework, a new repo layout) never
-takes the `direct` shape.
+The steps regulate the interaction between human and agent: important
+topics are discussed first, then the agent works unsupervised, and its
+tags keep the human aware and involved at Verification.
 
 
-## Existing Code
+### Version control as the record
 
-Dev43 adopted on existing code starts with a partial specification:
-`spec/main/` covers some zones of the software, and the rest is
-unspecified, as is. The main specification still describes the
-software as it exists, only not all of it. STATE records the mode,
-and only the human declares the specification complete.
-
-The specification grows zone by zone, never all at once: an agent
-cannot tell intended behavior from accidental behavior. An increment
-may change existing behavior only where it is specified; to change
-another zone, a `specify-existing` increment specifies it first.
-
-Specification still comes first. The human states claims about a
-zone; the agent looks for counterexamples in the code and tests, and
-the human rules on each: a bug for the backlog, an exception specified
-or left unspecified, or a refined claim. The tests then express the
-specification as usual, and already pass.
-
-The first increment frames the project like a new one, except that
-the stack and conventions are read from the code: its scope is the
-technical page alone.
+The project is a git repository, and the process relies on it instead
+of keeping its own records. Each phase ends in one commit, and the
+commit bodies are the decision record: what was decided and why. An
+abandoned increment is reverted, not erased, so its reasons stay in the
+history.
 
 
-## Specification Phase
+### Starting a project
 
-- **Exploration**: frame the topic, explore the web, documents, existing
-  code and tests.
-- **Production**: a minimal change specification on one page: data
-  model first, then behavior with examples, then technical decisions.
-  It names what it modifies or removes. Edge cases are left to the
-  Tests phase.
-- **Verification**: `spec/main/` is unchanged; human review, including
-  the size of the increment (possible verdict: too big, split it).
+The first increment frames the project: its scope, stack and
+conventions, through a trivial feature that runs through the whole
+stack. Technical choices are hard to reverse, so they are reviewed
+before any code exists.
 
-
-## Tests Phase
-
-- **Exploration**: what to test; edge cases are settled here, by
-  tests, and raised to the human only when a test cannot choose; flag
-  rules that cannot be tested; propose an update of the test and quality policy
-  if the increment brings new needs.
-- **Production**: tests, each citing what it checks by its name in the
-  specification or by its rule ID.
-- **Verification**: every new or modified rule ID has a test or is
-  marked not testable; every rule ID cited in tests exists; the new
-  tests fail for the right reason, or already pass for a stated reason
-  (a negative check, or behavior the existing code already meets).
-  Then the human reviews the test suite (does each part of the change
-  have tests, and does each test truly express it?). This review
-  deserves particular care: checking behavior through tests is more efficient
-  than through the code they constrain.
-
-The test and quality policy is a project decision, recorded in the
-technical page of the specification: a first version in the first
-increment, updated in the Tests phase when an
-increment brings new needs.
+On existing code, the specification starts partial and grows zone by
+zone, as the zones need to change. An agent cannot tell intended
+behavior from accidental behavior, so the human states what a zone
+should do, and the agent confronts it with the code.
 
 
-## Implementation Phase
+### Avoiding specification drift
 
-- **Exploration**: read the existing code, flag fragile areas and
-  divergences.
-- **Production**: autonomous coding until tests are green, deviations
-  tagged.
-- **Verification**: the full test suite passes, the checks required by
-  the test and quality policy pass, and the tests written in a Tests
-  phase are unchanged (`git diff HEAD`); the human handles the tags
-  and reviews the produced code.
+A specification drifts when the code changes without it. Dev43 keeps
+them consistent:
 
-Technical choices (stack, libraries, algorithms, communication
-interfaces) are important decisions like any other, because they are
-hard to reverse.
+- every change, however small, goes through an increment, and a change
+  of behavior updates the main specification at its end
+- the specification is minimal, so there is little to go stale
+- traceability makes drift visible: a test that no longer matches the
+  code fails, and a rule without a test, or a test citing a missing
+  rule, is caught
 
-Tests written in a Tests phase are never modified during
-Implementation; tests that the project's test and quality policy
-leaves to Implementation are code. If the agent believes a
-test is wrong, it leaves it unchanged, tags it unsure with its
-reasoning in the hand-over, and continues. At review, the human rules: either the code is
-fixed, or the test is corrected in a return to the Tests phase, or, if
-the test faithfully expresses a wrong decision, the work returns to the
-Specification phase. On a return, the implementation work is stashed,
-so that the human reviews the return phases on a clean tree, and is
-restored when Implementation resumes.
-
-A disputed test is always tagged unsure: it contradicts a suite the
-human approved.
-
-A small addition to the specification during Implementation (a rule or
-an example that one or two new tests can check) does not need a full
-return: the agent writes the specification line and its tests together,
-checks that the tests fail for the right reason, and the human approves
-both in one gate. It is committed as an Amendment. Anything larger goes
-back through Specification or Tests.
-
-Points are often discovered after the Specification phase. One the
-human would not care about stays in the code. One that belongs in the
-specification but needs no new test, such as a technical decision, is
-written in the change page right away and reviewed with the current
-phase, while it is fresh.
-
-
-## Integration Phase
-
-- **Exploration**: retrospective on the project at every increment
-  (technical debt, architecture, what was learned, what follows for
-  the backlog), and on the process (rules, agent context, thresholds)
-  only when something went wrong.
-- **Production**: in-place rewrite of the main specification, each
-  part of the change in the page it belongs to, then removal of the
-  change specification.
-- **Verification**: no rule ID is defined twice in the main
-  specification, every rule ID cited in tests or code exists, and the
-  change specification is removed; human review. The test suite is not
-  run again: Integration changes no code.
+What remains is drift in meaning, such as a test that cites a rule
+without truly checking it. Only the human review catches it.
 
 
 ## Future Work
