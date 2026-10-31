@@ -41,7 +41,8 @@ Work without interrupting.
   test.
 - Update or delete existing tests that check something the change
   modifies or removes; find them by searching the tests for the names
-  and rule IDs it modifies or removes.
+  and rule IDs it modifies or removes, and for the entry points whose
+  behavior it changes (e.g. an endpoint path, a screen route).
 - Tests must fail for the right reason before implementation (missing
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
