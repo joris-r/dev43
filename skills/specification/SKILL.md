@@ -1,23 +1,21 @@
 ---
 name: specification
-description: Dev43 Specification phase, the first phase of each increment. Use when spec/STATE.md says Phase is Specification, or when the human starts a new increment. Produces a short change specification in spec/changes/.
+description: Dev43 Specification phase, the first phase of each increment. Use when the plan of the increment reaches the Specification phase. Produces the change of the specification, in place in spec/main/ or on a change page in spec/changes/.
 ---
 
 # Specification
 
 Load `dev43:core` first if it is not loaded.
 
-Goal: a minimal change specification for one increment, on one page.
-`spec/main/` stays untouched.
+Goal: a minimal change of the specification for one increment: in
+place in `spec/main/`, or on one change page when the plan has an
+Integration phase.
 
 ## Exploration
 
-1. Agree with the human on the increment's scope; record it in STATE
-   with a short slug once they approve. You may propose a scope from
-   `spec/BACKLOG.md`. On a return from a later phase,
-   keep the slug and amend the existing change page.
-   If the Shape in STATE no longer fits, propose another (see
-   `dev43:core`, State and gates); update it once the human agrees.
+1. The plan set the scope. On a return from a later phase, keep the
+   slug and amend the existing change. If the plan no longer fits,
+   propose another (see `dev43:planning`).
 2. Read the relevant parts of `spec/main/`, the code and tests, and
    the earlier decisions on the topic (`git log --grep=<keyword>`).
    Search the web or documents when the topic needs it.
@@ -37,24 +35,29 @@ One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see
 `dev43:core`, Working with the human).
 
-When you have nothing left to raise, propose to end Exploration. It
-ends on `next`; then set Step to Production in STATE.
+When you have nothing left to raise, propose to end Exploration.
 
 ## Production
 
-Work without interrupting. Write `spec/changes/<slug>.md`: a title
-with the scope in one sentence, then only what changes, in the order of
-the main specification: data model first, then behavior, then
-technical.
+Work without interrupting.
+
+In place: edit `spec/main/` directly. Rewrite the affected passages so
+they read as one document, and keep it minimal.
+
+With a change page: leave `spec/main/` untouched, and write
+`spec/changes/<slug>.md`: a title with the scope in one sentence, then
+only what changes, in the order of the main specification: data model
+first, then behavior, then technical.
 
 - New content: write it as it will read in `spec/main/`.
 - Modified content: write its new version and name what it replaces
   (by name or rule ID).
 - Removed content: list it under a `Removed` heading, by name or rule
   ID.
-- State behavior as what a client observes at the interface (a
-  response, a screen, a file), never as internal state; an absence
-  only when a test can observe it.
+
+In both cases, state behavior as what a client observes at the
+interface (a response, a screen, a file), never as internal state; an
+absence only when a test can observe it.
 
 Follow the specification rules of `dev43:core`: write the minimum,
 examples first, lists not tables, rule IDs only where needed, no
@@ -65,9 +68,9 @@ are unsure of.
 target shape: an early increment of a small HTTP link shortener. Match
 its length and level of detail, not its content.
 
-Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and hand over
-with the check results and the list of tags, with one line on each
-saying why.
+Run the Verification checks and fix what fails. Then hand over with the
+check results and the list of tags, with one line on each saying why;
+or, where Verification has no gate, make the exit commit.
 
 ## Verification
 
@@ -81,18 +84,18 @@ Starts at your hand-over, once the checks below pass.
 
 Checks:
 
-- `spec/main/` is unchanged: `git diff HEAD -- spec/main` and
+- With a change page: `spec/main/` is unchanged:
+  `git diff HEAD -- spec/main` and
   `git ls-files -o --exclude-standard spec/main` print nothing.
+- In place: no rule ID is defined twice in `spec/main/`.
 
 The human also judges the size of the increment. If they decide to
-split it, return to Exploration and narrow the Scope in STATE; the rest
-becomes a later increment.
+split it, return to Exploration and narrow the scope, recorded in the
+next commit; the rest becomes a later increment.
 
 ## Exit
 
-No tags remain and the human approves. Next phase: the next one of
-the Shape.
+No tags remain and the human approves, or the checks pass where
+Verification has no gate. Next phase: the next one of the plan.
 
-On `next`, set Phase to the next phase and Step to Exploration in
-STATE; then stage all changes and
-commit them as `[<increment>] Specification`.
+Commit as `[<increment>] Specification` (see `dev43:core`, Git).

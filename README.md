@@ -33,7 +33,10 @@ This creates and commits:
 
 - `CLAUDE.md`, telling the agent to use Dev43 (add your own directives below)
 - `spec/BACKLOG.md`, for future work
-- `spec/STATE.md`, where the agent records the current phase, step and topic
+
+The agent records where the process stands in trailers at the end of
+each commit message. So never clear the agent's
+context while work is uncommitted.
 
 Work happens in phases, each with three steps:
 
@@ -44,6 +47,8 @@ Work happens in phases, each with three steps:
    Remove a tag if you agree with the choice, or discuss it with the agent.
    When everything is staged and no tags remain, say "next".
 
+You only meet the steps the plan of the increment stops at (see below).
+
 The first increment sets up the stack with a trivial feature, such as a
 health check. On existing code, it describes the existing stack instead,
 and you then specify the software zone by zone, as you need to change it.
@@ -53,10 +58,15 @@ an increment, which can go through these phases:
 1. Specification
 2. Tests
 3. Implementation
-4. Integration
 
-The agent proposes to skip phases or steps that add nothing, and there are
-shorter paths for bug fixes, refactoring and tool updates.
+Each increment starts with a plan: the agent analyzes the potential impact
+of the change and proposes its phases and its gates, the points where it
+stops for you. A change of appearance may need only a review at the end; a
+new rule, a discussion before it is specified. The agent goes through the
+other steps alone, committing each phase, and you review those commits at
+the end. It still stops whenever it is unsure. Small changes edit the
+specification in place; large ones get a change page, merged in a fourth
+phase, Integration.
 
 
 ## License

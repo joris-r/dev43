@@ -21,5 +21,5 @@ skill.
 
 ## Production
 
-The change page holds the claims, as refined. What it does not state
+The change holds the claims, as refined. What it does not state
 stays unspecified. No code changes.

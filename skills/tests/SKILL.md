@@ -1,35 +1,35 @@
 ---
 name: tests
-description: Dev43 Tests phase of an increment. Use when spec/STATE.md says Phase is Tests. Writes tests, each citing what it checks in the specification, before any implementation.
+description: Dev43 Tests phase of an increment. Use when the plan of the increment reaches the Tests phase. Writes tests, each citing what it checks in the specification, before any implementation.
 ---
 
 # Tests
 
 Load `dev43:core` first if it is not loaded.
 
-Goal: a test suite that faithfully expresses the change specification.
+Goal: a test suite that faithfully expresses the change of the
+specification (see `dev43:core`, Specification).
 Tests are written before the implementation and will be read-only
 during it.
 
 ## Exploration
 
-1. Read the change specification and the test and quality policy in
+1. Read the change and the test and quality policy in
    `spec/main/technical.md`.
 2. Discuss with the human: what to test, at which level. Edge cases are
    settled here, by tests: raise one only when a test cannot choose.
 3. If the change brings new test or quality needs, propose an update
-   of the policy; once the human agrees, write it in the change page.
+   of the policy; once the human agrees, write it in the change.
 4. Flag rules that cannot be tested; propose to make them testable
    or to accept them as not testable. Mark each accepted one
-   "(not testable)" in the change page. If only part of a rule is not
+   "(not testable)" in the change. If only part of a rule is not
    testable, name that part, e.g. "(interrupted write not testable)".
 
 One point per message; raise only what you cannot settle with
 confidence, and settle the rest yourself in Production (see
 `dev43:core`, Working with the human).
 
-When you have nothing left to raise, propose to end Exploration. It
-ends on `next`; then set Step to Production in STATE.
+When you have nothing left to raise, propose to end Exploration.
 
 ## Production
 
@@ -46,7 +46,8 @@ Work without interrupting.
 - Tests must fail for the right reason before implementation (missing
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
-  tests.
+  tests, and the wip code is in place: one may already pass because
+  of it; name it in your hand-over.
 - A new test that already passes must not be vacuous (e.g. a loop
   over elements that do not exist yet): it is a negative check (e.g.
   "does not show X"), or behavior the existing code already meets.
@@ -54,16 +55,17 @@ Work without interrupting.
 - In the `specify-existing` shape, instead of the two points above:
   every new test passes on the current code, with no need to name
   them. A test that fails reveals a counterexample: tell the human. On
-  a bug, the rule leaves the change page, its test is deleted, and you
+  a bug, the rule leaves the change, its test is deleted, and you
   propose a backlog entry to fix it.
 - Write only the minimum non-test code needed for tests to compile
   (stubs, signatures), and tag it if it fixes an interface. If the
   project has no code yet, also set up the project and the test
-  tooling, as the technical part of the change page says.
+  tooling, as the technical part of the change says.
 
 Tag the choices you are unsure of. Run the Verification checks and
-fix what fails. Then set Step to Verification in STATE, and hand over with the check results and the
-list of tags, with one line on each saying why.
+fix what fails. Then hand over with the check results and the list of
+tags, with one line on each saying why; or, where Verification has no
+gate, make the exit commit.
 
 ## Verification
 
@@ -80,7 +82,7 @@ Checks:
 - Every new or modified rule ID of the change is cited by a test,
   unless marked "(not testable)" (search ignoring case and separators).
 - Every rule ID cited in tests exists in `spec/main/` or the change
-  page.
+  page, if any.
 - The new tests fail for the right reason (missing behavior, not syntax
   or setup errors), or already pass and are named in the hand-over.
   In the `tests-only` and `specify-existing` shapes, instead: the full
@@ -92,9 +94,8 @@ tests, and does each test truly express it?
 
 ## Exit
 
-Checks pass, no tags remain and the human approves the suite. Next
-phase: the next one of the Shape. From now on, tests are read-only.
+Checks pass, no tags remain and the human approves the suite, or the
+checks pass where Verification has no gate. Next phase: the next one
+of the plan. From now on, tests are read-only.
 
-On `next`, set Phase to the next phase and Step to
-Exploration in STATE; then stage all changes and
-commit them as `[<increment>] Tests`.
+Commit as `[<increment>] Tests` (see `dev43:core`, Git).

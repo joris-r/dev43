@@ -1,6 +1,6 @@
 ---
 name: implementation
-description: Dev43 Implementation phase of an increment. Use when spec/STATE.md says Phase is Implementation. Writes code until the tests pass, never modifying tests, tagging every deviation.
+description: Dev43 Implementation phase of an increment. Use when the plan of the increment reaches the Implementation phase. Writes code until the tests pass, never modifying tests, tagging every deviation.
 ---
 
 # Implementation
@@ -12,12 +12,11 @@ with every deviation tagged for the human.
 
 ## Exploration
 
-If STATE notes a stash, first restore it, keeping the human's staging
-where possible. On a conflict, what the return phases committed wins
-(tests are read-only); merge the rest. Leave no stash behind, and clear
-Stash in STATE.
+When Implementation resumes after a return, its wip commit is in the
+history (see `dev43:core`, Returns): build on it. Where it disagrees
+with what the return phases committed, they win (tests are read-only).
 
-1. Read the change spec, the tests, and the code they touch.
+1. Read the change, the tests, and the code they touch.
 2. Flag to the human fragile areas, divergences between code and spec,
    and technical choices that will be needed (libraries, algorithms,
    interfaces). These are important decisions: they are hard to reverse.
@@ -27,10 +26,10 @@ confidence, and settle the rest yourself in Production (see
 `dev43:core`, Working with the human).
 
 After a return from Tests or Specification, raise only what the return
-changed; if nothing, say so and move on at `next`.
+changed, and the tags of the wip commit that still apply; if
+nothing, say so and move on at `next`.
 
-When you have nothing left to raise, propose to end Exploration. It
-ends on `next`; then set Step to Production in STATE.
+When you have nothing left to raise, propose to end Exploration.
 
 ## Amendment
 
@@ -38,12 +37,13 @@ When the human wants a small addition to the specification during
 Implementation (a rule or an example that one or two new tests can
 check), skip the return loop:
 
-1. Write the addition in the change page and its new tests, tagged as
+1. Write the addition in the change and its new tests, tagged as
    usual. Existing tests stay unchanged.
 2. Run the new tests: they must fail for the right reason.
 3. Hand over both together; the human reviews them in one gate.
-4. On `next`, commit only the change page and the new tests as
-   `[<increment>] Amendment`. Phase and Step stay as they were.
+4. On `next`, commit only the specification and the new tests as
+   `[<increment>] Amendment`, with the state trailers; Next stays
+   Implementation.
 
 Anything larger, or a change to an existing rule or test, goes through
 a return to Specification or Tests.
@@ -62,35 +62,27 @@ ones.
   choices you are unsure of.
 - In the first increment, also set up the repository (a `.gitignore`
   that keeps out secrets and build output, lock files) and, if any, CI,
-  as the technical part of the change page says.
+  as the technical part of the change says.
 - Cite a rule ID in code only where it explains something the reader
   would not otherwise see.
 - If a decision calls into question what was agreed, stop and propose a
   return to Exploration (or to Specification).
 
 Run the Verification checks and fix what fails, except disputed
-tests. Then set Step to Verification
-in STATE, and hand over with: the check results, the
-disputed tests with your reasoning, the list of tags, and the
-routine libraries added, in one line.
+tests. Then hand over with: the check results, the disputed tests with
+your reasoning, the list of tags, and the routine libraries added, in
+one line. A disputed test is a tag: it always stops you.
 
 ## Ruling on disputed tests
 
 During Verification, the human rules on each
 disputed test: fix the code; or correct the test (return to Tests); or
 the test faithfully expresses a wrong decision (return to
-Specification). On a return:
-
-1. Remove the tags of the disputed tests: the return is the ruling.
-2. Stash the implementation work, untracked files included, so that
-   the return starts from a clean tree. Changes to `spec/` stay in
-   place for the return to handle, and stay out of the stash entirely.
-3. Set Phase to Tests or Specification and Step to Exploration in
-   STATE, and set Stash to `implementation work`.
-
-The increment keeps its name; the stashed code comes back when
-Implementation resumes, unless the human decides otherwise. The
-commits of the phases done again end with ` (return)`.
+Specification). A return follows `dev43:core`, Returns: the tags of the
+disputed tests are removed, as the return is the ruling, and the
+implementation work goes into the wip commit. The increment keeps its
+name, and Implementation resumes on that commit, unless the human
+decides otherwise.
 
 ## Verification
 
@@ -106,16 +98,15 @@ Checks:
 
 - The full test suite passes, except disputed tests.
 - The checks required by the test and quality policy in
-  `spec/main/technical.md`, as updated by the change page, pass.
-- Tests written in a Tests phase are unchanged (`git diff HEAD` on
-  them shows nothing but tags). In a `code-only` increment, it shows
+  `spec/main/technical.md`, as updated by the change, pass.
+- Tests written in a Tests phase are unchanged since the last Tests
+  commit (`git diff <that commit>` on them shows nothing but tags). In a `code-only` increment, it shows
   only tagged edits that leave what each test checks unchanged.
 
 ## Exit
 
-Checks pass, no tags remain, the human approves. Next phase:
-Integration.
+Checks pass, no tags remain, the human approves, or the checks pass
+where Verification has no gate. Next phase: the next one of the plan,
+Integration when the increment has a change page.
 
-On `next`, set Phase to Integration and Step to Exploration in
-STATE; then stage all changes and
-commit them as `[<increment>] Implementation`.
+Commit as `[<increment>] Implementation` (see `dev43:core`, Git).

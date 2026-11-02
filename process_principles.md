@@ -96,9 +96,10 @@ cheaper than through the code.
 The software grows in increments small enough for a human to review
 properly and for an agent to hold in its context.
 
-Each increment is described by a change specification, separate from the
-main one, so the main specification always describes the software as it
-exists. The change is merged at the end of the increment.
+A small increment changes the main specification in place. A large one
+is described by a change specification, separate from the main one, so
+the main specification keeps describing the software as it exists; the
+change is merged at the end of the increment.
 
 
 ### Four phases
@@ -108,11 +109,12 @@ An increment goes through four phases, each producing one artifact:
 1. **Specification**: the change specification.
 2. **Tests**: tests that express it.
 3. **Implementation**: code that makes the tests pass.
-4. **Integration**: the change merged into the main specification, and
-   a retrospective.
+4. **Integration**: the change specification merged into the main one.
 
 An increment goes through only the phases whose artifact changes: a
-refactoring needs no new tests, a tooling update needs no specification.
+refactoring needs no new tests, a tooling update needs no specification,
+an increment without a change specification needs no Integration. Every
+increment ends with a retrospective.
 
 
 ### Discuss, then produce, then review
@@ -131,13 +133,32 @@ topics are discussed first, then the agent works unsupervised, and its
 tags keep the human aware and involved at Verification.
 
 
+### Gates follow the impact
+
+The human stops the agent only where the change can do harm. At the
+start of an increment, the agent analyzes the potential impact of the
+change and proposes the gates: the steps where it waits for the human.
+Elsewhere it goes on alone, and the human reviews its work at the end
+of the increment, which is always a gate. The size of a change does
+not set its gates: a large refactoring under unchanged tests may need
+fewer than a one-line change of a rule.
+
+An agent unsure of a choice stops anyway, gate or not: the plan sets
+the minimum of human attention, never the maximum.
+
+
 ### Version control as the record
 
 The project is a git repository, and the process relies on it instead
 of keeping its own records. Each phase ends in one commit, and the
-commit bodies are the decision record: what was decided and why. An
-abandoned increment is reverted, not erased, so its reasons stay in the
-history.
+commit bodies are the decision record: what was decided and why. The
+commits also record the state of the process, so an agent learns where
+it stands from the last one.
+
+The history is never rewritten. An abandoned increment is reverted, not
+erased, so its reasons stay in the history. Work rejected after its
+commit is redone in new commits, so the history shows where the gates
+fell short.
 
 
 ### Starting a project

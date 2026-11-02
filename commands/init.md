@@ -1,15 +1,17 @@
 ---
-description: Set up Dev43 in the current project (CLAUDE.md, spec/ tree, STATE.md)
+description: Set up Dev43 in the current project (CLAUDE.md, spec/ tree)
 allowed-tools: Bash, Read, Write, Edit, Skill
 ---
 
 Set up the Dev43 process in the current project. Templates are in
 `${CLAUDE_PLUGIN_ROOT}/templates/`.
 
-1. If `spec/STATE.md` already exists, stop: Dev43 is already set up.
-   Show the current state and do nothing else.
+1. If a commit records the Dev43 state
+   (`git log -1 --grep='^Dev43-Next: '`), or `spec/STATE.md` exists,
+   stop: Dev43 is already set up. Show the current state and do
+   nothing else.
 2. Look for source code in the project, and tell the human whether you
-   found any: it sets the mode (step 6).
+   found any: it sets the mode (steps 6 and 7).
 3. If the project is not a git repository, run `git init`; the
    permission prompt is the human's approval, do not ask separately.
    Dev43 relies on git; do not go on without it.
@@ -20,13 +22,15 @@ Set up the Dev43 process in the current project. Templates are in
      never in `CLAUDE.md`.
 5. Create `spec/main/` and `spec/changes/` (with `.gitkeep` files),
    and `spec/BACKLOG.md` holding only the title `# Backlog`.
-6. Copy the STATE template to `spec/STATE.md` and fill it in:
-   Dev43 the `version` in `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`,
-   phase Specification, step Exploration. Without source code:
-   Specification `complete`, shape `full`. With source code:
-   Specification `partial`, shape `specify-existing`. Leave Increment
-   and Scope empty: the first increment sets them.
-7. Stage and commit only the files you created or changed, as
-   `[init] Dev43 setup`, so that later phases can diff against it.
-8. List what you created, then start the first increment's Exploration
-   with the `dev43:specification` skill.
+6. Stage and commit only the files you created or changed, as
+   `[init] Dev43 setup`, so that later phases can diff against it. End
+   the message with the state trailers (see `dev43:core`, State):
+   `Dev43:` the `version` in
+   `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`,
+   `Dev43-Specification:` `complete` without source code, `partial`
+   with it, and `Dev43-Next: Pause`.
+7. List what you created, then load `dev43:planning` and propose the
+   plan of the first increment, which frames the project (see the
+   `dev43:specification` skill, framing): shape `full` without source
+   code, `specify-existing` with it, and the Exploration and
+   Verification of Specification as gates.

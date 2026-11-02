@@ -1,6 +1,6 @@
 ---
 name: integration
-description: Dev43 Integration phase, the last phase of each increment. Use when spec/STATE.md says Phase is Integration. Merges the change specification into the main specification and runs a retrospective.
+description: Dev43 Integration phase, the last phase of an increment that has a change page. Use when the plan of the increment reaches the Integration phase. Merges the change page into the main specification and runs a retrospective. Its retrospective also applies at the final review of any increment.
 ---
 
 # Integration
@@ -9,6 +9,10 @@ Load `dev43:core` first if it is not loaded.
 
 Goal: `spec/main/` describes the software as it now exists, the change
 page is gone, and the increment has been looked back on.
+
+An increment without a change page has no Integration phase: its
+retrospective goes into the final review (see `dev43:core`, Plan and
+gates). So does this one's when its Exploration has no gate.
 
 ## Exploration
 
@@ -30,8 +34,7 @@ Retrospective with the human, on three topics:
 Propose concrete changes, one per message; the human decides. Keep
 each short: what happened, in a sentence or two, and the change.
 
-When you have nothing left to raise, propose to end Exploration. It
-ends on `next`; then set Step to Production in STATE.
+When you have nothing left to raise, propose to end Exploration.
 
 ## Production
 
@@ -49,7 +52,7 @@ Work without interrupting. Rewrite `spec/main/` in place:
 
 Then delete `spec/changes/<slug>.md`, remove from `spec/BACKLOG.md`
 the entry the increment did, if any, and add the approved entries. Tag the choices you are
-unsure of. Run the Verification checks and fix what fails. Then set Step to Verification in STATE, and
+unsure of. Run the Verification checks and fix what fails. Then
 hand over with the check results, the list of tags with one line on
 each saying why, and where each item of the change page landed (a
 page of `spec/main/`, or removed). If plugin changes were approved,
@@ -76,10 +79,9 @@ Checks:
 
 ## Exit
 
-Checks pass, no tags remain, the human approves. Next: Pause, until
-the human starts an increment.
+Checks pass, no tags remain, the human approves. Integration is the
+last phase, so this Verification is the final review. Next: Pause,
+until the human starts an increment.
 
-On `next`, set Phase to Pause in STATE, and clear the other fields and
-Scope; then stage all changes and
-commit them as `[<increment>] Integration`, where
-`<increment>` is the increment that just ended.
+Commit as `[<increment>] Integration` (see `dev43:core`, Git), with
+Next `Pause`.
