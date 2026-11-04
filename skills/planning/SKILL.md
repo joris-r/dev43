@@ -10,6 +10,11 @@ Load `dev43:core` first if it is not loaded.
 Goal: a plan the human approves, which spends their attention where the
 change can do harm.
 
+Planning settles the plan, not the solution, and produces no file. If
+the solution needs discussing or showing first (a screen design, a
+preview), plan a Specification phase with its Exploration as a gate,
+and do it there.
+
 ## Impact analysis
 
 Read the relevant parts of `spec/main/`, the tests and the code, and

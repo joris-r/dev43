@@ -11,9 +11,8 @@ Discuss first, before the scope:
 2. Constraints: technical, legal, platform, budget, hosting.
 3. Out of scope: what it will explicitly not do.
 4. Stack: the structuring choices (language, framework, database).
-   Raise a real trade-off when there is one; build throwaway
-   prototypes (outside the repo or in a scratch folder) if a choice
-   needs evidence.
+   Raise a real trade-off when there is one; build a throwaway preview
+   (see the Specification skill) if a choice needs evidence.
 5. Conventions: repo layout, naming, the test and quality policy, and
    repository files. Most are choices you can make with confidence:
    make them in Production rather than asking.

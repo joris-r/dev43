@@ -25,6 +25,10 @@ Integration phase.
 4. Surface decisions; flag early if the scope looks too big.
 5. If the change needs a new feature-area page in `spec/main/`, agree
    on its name with the human.
+6. If a point needs evidence, or the human wants to see something
+   first, build a throwaway preview outside the repo (e.g. in a
+   `git worktree`). Delete it when Exploration ends: it never enters a
+   commit, and the real code comes in its phase.
 
 When `spec/main/` is empty, or the increment changes the project's
 purpose, stack or conventions, read [framing.md](framing.md), next to
