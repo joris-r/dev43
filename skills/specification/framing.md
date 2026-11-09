@@ -19,23 +19,25 @@ Discuss first, before the scope:
 
 On a project already framed, raise only the topics the change touches.
 
-When `spec/main/` is empty, propose as scope a trivial feature that
+When `docs/` is empty, propose as scope a trivial feature that
 runs through the whole stack, such as a hello world or a health check.
 The real features come in later increments.
 
 On existing code (`Dev43-Specification: partial`), the stack and
 conventions already exist: read them from the project and propose
 them, rather than comparing options. Raise only what the code cannot
-tell (e.g. a convention it breaks often). The scope is the technical
-page alone, with no feature; a change to the stack or conventions is a
+tell (e.g. a convention it breaks often). The scope is `technical.md` alone,
+with no feature; a change to the stack or conventions is a
 later increment.
 
 ## Production
 
-- When `spec/main/technical.md` does not exist, the technical part of
-  the change holds all of it: the stack, the conventions, and the
+- When `docs/technical.md` does not exist, the change writes it in
+  full: the stack, the conventions, and the
   test and quality policy. Decide only what is costly to change later.
   On existing code, it describes them as they are.
-- Write or update `README.md`: a few lines on what the software is for
-  and for whom, and how to run it and its tests. It is context, not
-  specification: no IDs.
+- Write `docs/overview.md`: what the software is for, for whom, and
+  its non-goals.
+- Write or update the project's `README.md`: a few lines on what the
+  software is for, and how to run it and its tests. It is context, not
+  specification: no tags.

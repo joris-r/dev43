@@ -1,6 +1,6 @@
 ---
 name: tests
-description: Dev43 Tests phase of an increment. Use when the plan of the increment reaches the Tests phase. Writes tests, each citing what it checks in the specification, before any implementation.
+description: Dev43 Tests phase of an increment. Use when the plan of the increment reaches the Tests phase. Writes tests, each citing the paths it checks in the specification, before any implementation.
 ---
 
 # Tests
@@ -8,94 +8,78 @@ description: Dev43 Tests phase of an increment. Use when the plan of the increme
 Load `dev43:core` first if it is not loaded.
 
 Goal: a test suite that faithfully expresses the change of the
-specification (see `dev43:core`, Specification).
-Tests are written before the implementation and will be read-only
-during it.
+specification (see `dev43:core`, Specification). Tests are written
+before the implementation and are read-only during it.
 
 ## Exploration
 
 1. Read the change and the test and quality policy in
-   `spec/main/technical.md`.
-2. Discuss with the human: what to test, at which level. Edge cases are
-   settled here, by tests: raise one only when a test cannot choose.
-3. If the change brings new test or quality needs, propose an update
-   of the policy; once the human agrees, write it in the change.
-4. Flag rules that cannot be tested; propose to make them testable
-   or to accept them as not testable. Mark each accepted one
-   "(not testable)" in the change. If only part of a rule is not
-   testable, name that part, e.g. "(interrupted write not testable)".
-
-One point per message; raise only what you cannot settle with
-confidence, and settle the rest yourself in Production (see
-`dev43:core`, Working with the human).
-
-When you have nothing left to raise, propose to end Exploration.
+   `docs/technical.md`.
+2. Decide what to test, and at which level. Edge cases are settled
+   here, by tests.
+3. Raise to the human only what the specification must settle: an
+   edge case no test can choose, a statement that cannot be tested, a
+   new test or quality need for the policy. Each one is a change of
+   the specification (see `dev43:core`, Specification); a statement
+   accepted as not testable ends with `(not testable)`.
 
 ## Production
 
 Work without interrupting.
 
-- Each test cites what it checks: a name from the specification (in
-  the test name or its grouping) or a rule ID.
-- Every example and every testable rule of the change has at least one
-  test.
-- Update or delete existing tests that check something the change
-  modifies or removes; find them by searching the tests for the names
-  and rule IDs it modifies or removes, and for the entry points whose
-  behavior it changes (e.g. an endpoint path, a screen route).
-- Tests must fail for the right reason before implementation (missing
+- Each test cites, in a comment, the paths it checks. A scenario has
+  one end-to-end test, citing its section path.
+- Every tag and scenario added or changed by the change has a test.
+- Update or delete the existing tests that check something the change
+  modifies or removes; find them by the paths they cite, and by the
+  entry points whose behavior changes (e.g. a command, a route).
+- New tests fail for the right reason before implementation (missing
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
   tests, and the wip code is in place: one may already pass because
   of it; name it in your hand-over.
-- A new test that already passes must not be vacuous (e.g. a loop
-  over elements that do not exist yet): it is a negative check (e.g.
-  "does not show X"), or behavior the existing code already meets.
-  Name each in your hand-over and say why it passes.
+- A new test that already passes is not vacuous (e.g. a loop over
+  elements that do not exist yet): it is a negative check, or behavior
+  the existing code already meets. Name each in your hand-over and say
+  why it passes.
 - In the `specify-existing` shape, instead of the two points above:
-  every new test passes on the current code, with no need to name
-  them. A test that fails reveals a counterexample: tell the human. On
-  a bug, the rule leaves the change, its test is deleted, and you
-  propose a backlog entry to fix it.
-- Write only the minimum non-test code needed for tests to compile
-  (stubs, signatures), and tag it if it fixes an interface. If the
-  project has no code yet, also set up the project and the test
-  tooling, as the technical part of the change says.
+  every new test passes on the current code. A test that fails reveals
+  a counterexample: tell the human. On a bug, the statement leaves the
+  change, its test is deleted, and you propose an entry in
+  `docs_future/BACKLOG.md` to fix it.
+- Write only the minimum non-test code the tests need to compile
+  (stubs, signatures); mark it if it fixes an interface. If the project
+  has no code yet, also set up the project and the test tooling, as
+  `docs/technical.md` says.
 
-Tag the choices you are unsure of. Run the Verification checks and
-fix what fails. Then hand over with the check results and the list of
-tags, with one line on each saying why; or, where Verification has no
-gate, make the exit commit.
+Mark the choices you are unsure of. Run the checks and fix what fails.
+Then make the exit commit, after the agent checks where Verification
+has a gate or a mark remains.
 
-## Verification
+## Checks
 
-Starts at your hand-over, once the checks below pass.
+Script: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" tests`.
 
-1. The human reviews the changes (`git diff`), staging each file or
-   hunk once read, and rules on each tag or edits the artifacts
-   directly.
-2. Apply the rulings, remove the tags, and run the checks again. The
-   review is done when all changes are staged, new files included.
+- [coverage] Every tag and every scenario has a test, or is marked
+  `(not testable)`; every test path resolves.
 
-Checks:
+Run:
 
-- Every new or modified rule ID of the change is cited by a test,
-  unless marked "(not testable)" (search ignoring case and separators).
-- Every rule ID cited in tests exists in `spec/main/` or the change
-  page, if any.
-- The new tests fail for the right reason (missing behavior, not syntax
-  or setup errors), or already pass and are named in the hand-over.
-  In the `tests-only` and `specify-existing` shapes, instead: the full
-  test suite and the checks of the test and quality policy pass.
+- The new tests fail for the right reason, or already pass and are
+  named in the hand-over. In the `tests-only` and `specify-existing`
+  shapes, instead: the full test suite and the checks of the test and
+  quality policy pass.
 
-The human's review deserves particular care: checking behavior through
-tests is cheaper than through code. Does each part of the change have
-tests, and does each test truly express it?
+Agent checks, in a fresh context (see `dev43:core`, Agent checks), on
+the tests added or changed by the increment:
+
+- [faithful] Each new or changed test checks what its statement says.
+- [cases] The test cases of each added or changed tag cover what it
+  says.
 
 ## Exit
 
-Checks pass, no tags remain and the human approves the suite, or the
-checks pass where Verification has no gate. Next phase: the next one
-of the plan. From now on, tests are read-only.
+Checks pass and no marks remain. Next phase: the next one of the plan.
+From now on, tests are read-only.
 
 Commit as `[<increment>] Tests` (see `dev43:core`, Git).

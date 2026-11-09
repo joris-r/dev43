@@ -141,13 +141,13 @@ Each phase follows three steps:
 1. **Exploration**: a discussion between peers, one point at a time,
    raising only what the agent cannot settle with confidence.
 2. **Production**: the agent works without interruption, and marks
-   each choice it is unsure of with a tag on the artifact.
+   on the artifact each choice it is unsure of.
 3. **Verification**: the reviewer, the human for the specification,
-   rules on the tags and approves.
+   rules on the marks and approves.
 
 The steps regulate the interaction between human and agent: important
 topics are discussed first, then the agent works unsupervised, and its
-tags keep the human aware and involved at Verification.
+marks keep the human aware and involved at Verification.
 
 
 ### Gates follow the impact

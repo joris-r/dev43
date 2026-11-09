@@ -14,7 +14,15 @@
   steps. Integration is removed.
 - Planning has no commit of its own; the plan goes in the trailers of
   the increment's first commit.
+- A `Dev43-Feature` trailer names the feature whose outline the
+  increment carries out.
+- The human decides a return to Specification; an agent check may
+  decide a return to Tests.
 - Every increment ends with a retrospective.
+- A `future` shape: Specification only, writing, updating or deleting
+  `docs_future/<feature>/`.
+- Tests and Implementation have no Exploration gate; their
+  Verification gate is an agent check.
 
 ## Future specification
 
@@ -73,6 +81,9 @@
   human.
 - The orchestrator waits only for escalations, never for a review of
   tests or code.
+- A phase with a Verification gate, or with a mark, runs its agent
+  checks before its exit commit; any other phase at the end of the
+  increment, before the final review.
 - At the end of a feature, the human tries the software, guided by
   its scenarios.
 - An orchestrator runs one sub-agent at a time, one per increment.
@@ -82,6 +93,9 @@
   the gates.
 - It reads its state from the commits and
   `docs_future/<feature>/BACKLOG.md`, so it can restart at any point.
+- The retrospective points on the project and the process wait for
+  the human in `docs_future/<feature>/BACKLOG.md`; the last increment
+  moves them to the project backlog.
 
 ## Layout
 
@@ -129,6 +143,7 @@
   steps carry no tags.
 - `design/` and `design.md` have no tags; they are checked by eye at
   review.
+- A choice the agent is unsure of carries a mark, `@dev43:unsure`.
 
 ## Migration from v3
 
@@ -145,6 +160,9 @@
 - The migration starts in Pause, and is one increment whatever the
   size: Specification, Tests, and Implementation only if a new test
   fails.
+- An increment in progress finishes under v3 first.
+- A new test that fails on the current code is a counterexample for
+  the human; Implementation fixes the code only on their ruling.
 - Tests phase: existing tests change only their citations, to paths;
   each tag without a test gets one. An agent checks, in a fresh
   context, that each new citation matches what its test checks.
@@ -159,6 +177,9 @@
 ## Skill changes
 
 - Skills state goals and limits, and leave the choices to the agent.
+- The script checks are one Python script in the plugin, standard
+  library only.
+- The orchestrator is a skill of its own, `dev43:supervise`.
 
 ### Specification checks
 
@@ -192,6 +213,8 @@ Agent:
   lines it is sure fail it.
 - [why] No line gives a reason; reasons go to the commit body.
 
+The author of the change runs the agent checks of the specification.
+
 ### Tests checks
 
 Script:
@@ -202,6 +225,16 @@ Agent, fresh context:
 - [faithful] Each new or changed test checks what its rule says.
 - [cases] The test cases of each added or changed tag cover what it
   says.
+
+### Implementation checks
+
+Agent, fresh context:
+- [technical] The code follows `technical.md`.
+- [choices] Every dependency, service or interface the specification
+  does not name is marked, or is a routine library of the stack.
+
+The checking agent rules on disputed tests; one that faithfully
+expresses a wrong decision goes to the human.
 
 ### Retrospective
 

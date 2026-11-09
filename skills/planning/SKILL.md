@@ -15,19 +15,36 @@ the solution needs discussing or showing first (a screen design, a
 preview), plan a Specification phase with its Exploration as a gate,
 and do it there.
 
+## Open features
+
+Each folder of `docs_future/` other than its `BACKLOG.md` is an open
+feature. When the human starts an increment without naming its work,
+list the open features, each with the next increment of its outline,
+and the project backlog.
+
+An increment of a feature takes the first increment of its outline,
+with the lessons of `docs_future/<feature>/BACKLOG.md`. If a lesson
+calls the outline into question, propose a `future` increment first.
+
 ## Impact analysis
 
-Read the relevant parts of `spec/main/`, the tests and the code, and
-the earlier decisions on the topic (`git log --grep=<keyword>`). Find
-what the change touches: specified behavior, the data model, tests,
-code, tooling; and what it could break.
+Read the relevant parts of `docs/` and `docs_future/`, the tests and
+the code, and the earlier decisions on the topic
+(`git log --grep=<keyword>`). Find what the change touches: statements
+of behavior, the model, the domains that depend on them (their
+`README.md`), tests, code, tooling; and what it could break, open
+features included.
+
+A change too large for one increment (a new domain, a reshaped model,
+statements spread over several documents) is first written ahead, in
+a `future` increment.
 
 ## The plan
 
-Propose it in one message: a slug, the scope in one sentence, the
-shape, the phases, and the gates, with a few words on why for each
-gate. If something in the impact cannot be settled from the project,
-raise it first, one point per message.
+Propose it in one message: a slug, the feature if any, the scope in
+one sentence, the shape, the phases, and the gates, with a few words
+on why for each gate. If something in the impact cannot be settled
+from the project, raise it first, one point per message.
 
 Approving the plan is the first gate: on `next`, start the first phase
 with its skill. The plan is recorded in the trailers of the first
@@ -48,39 +65,44 @@ commit (see `dev43:core`, State).
   existing behavior without changing it; no code changes. No Tests
   phase when the change specifies no behavior (e.g. only
   `technical.md`).
+- `future`: Specification. Writes, updates or deletes
+  `docs_future/<feature>/`: a new feature, an important lesson, or an
+  abandoned feature. `docs/` does not change.
 - `direct`: one Direct phase, starting at Production. Tooling,
-  configuration, dependencies, `CLAUDE.md` or `spec/main/technical.md`
+  configuration, dependencies, `CLAUDE.md` or `docs/technical.md`
   change, or a small code change outside the specification
   (appearance, assets, unspecified wording); specified behavior and
   tests do not. A structural change (a new framework, a new repo
   layout) or a refactoring takes `full` or `code-only` instead.
 
-### Change page
-
-The specification changes in place, in `spec/main/`, unless the change
-is large (a new feature area, a reshaped data model, rules spread over
-several pages): then it gets a change page, and the plan ends with an
-Integration phase that merges it.
+An increment of a feature usually takes `full`; its Specification
+only moves the increment's sections from `docs_future/<feature>/` into
+`docs/`.
 
 ### Gates
 
-Each phase has two possible gates: its Exploration (discuss before
-producing) and its Verification (review before its commit). The last
-phase's Verification is always a gate, the final review; do not list
-it.
+The final review is always a gate; do not list it. The other gates:
+
+- Specification Exploration: the human discusses before the change is
+  written;
+- Specification Verification: the human reviews the change before
+  tests and code build on it;
+- Tests Verification, Implementation Verification: an agent check
+  before the next phase builds on it.
 
 Choose the gates from the potential impact of the change, not from its
 size:
 
 - no specified behavior changes: the final review alone;
-- behavior changes, but the plan already settles what: the final
-  review alone, which then covers the specification, the tests and the
-  code;
-- a phase holds a decision the human may not share (a rule open to
-  debate, a new entity, a choice hard to reverse): that phase's
-  Exploration;
-- a phase produces what later work builds on and would be costly to
-  redo (the data model, the stack, a new interface): that phase's
+- behavior changes, but the plan or the future specification already
+  settles what: no Specification gate;
+- the change holds a decision the human may not share (a statement
+  open to debate, a new concept, a choice hard to reverse):
+  Specification Exploration;
+- the change is what later work builds on and would be costly to redo
+  (the model, the stack, a new interface): Specification Verification;
+- the tests or the code are where the change can do harm (a delicate
+  migration, a subtle invariant, a security point): their
   Verification.
 
 Follow the project's `CLAUDE.md` where it says more.
