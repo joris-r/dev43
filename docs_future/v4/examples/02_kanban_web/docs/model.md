@@ -2,8 +2,10 @@
 
 ## Column
 
-One of three fixed stages: `todo` (shown "To do"), `doing` ("Doing"),
-`done` ("Done"), in that order.
+One of three fixed stages.
+
+- [stages] `todo` (shown "To do"), `doing` ("Doing"), `done`
+  ("Done"), in that order.
 
 ## Card
 
@@ -13,9 +15,10 @@ Something the user has to do.
   - [unique] Assigned at creation, one above the highest ever assigned.
 - `title: string`, what to do.
   - [nonempty] Trimmed and not empty.
-- `column: Column`, the card's stage.
+- `column: /model/column`, the card's stage.
   - [fresh] `todo` at creation.
-- `position: integer`, the card's place in its column, 1 at the top.
+- `position: integer`, the card's place in its column.
+  - [top] 1 at the top.
   - [contiguous] In each column, positions run from 1 to the number
     of cards in it.
 

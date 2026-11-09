@@ -13,7 +13,7 @@ Shows, top to bottom:
 Shows, by state:
 - [hidden] Page opened: hidden.
 - [message] Operation refused or failed: its message.
-  - Next operation succeeds: hidden.
+  - [cleared] Next operation succeeds: hidden.
 
 ## Column
 
@@ -48,8 +48,8 @@ Shows, by state:
 - [closed] Page opened: hidden.
 - [open] Opened on a card: next to it, four arrows in a cross, "↑"
   above, "↓" below, "←" left, "→" right.
-  - Opened on another card: moves to it.
-  - An arrow clicked, Esc, or a click outside: hidden.
+  - [moved] Opened on another card: moves to it.
+  - [dismissed] An arrow clicked, Esc, or a click outside: hidden.
 
 Actions:
 - [up] "↑": runs /operations/move-card one position up; disabled at

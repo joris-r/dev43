@@ -3,6 +3,7 @@
 ## Task
 
 - `text: string` …
+  - [nonempty] Not empty. …
   - [hash] Contains no `#`.
 - `tags: set of /model/tag`, the tags given to it.
 

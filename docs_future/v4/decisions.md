@@ -21,35 +21,53 @@
 - A large change is written ahead in `docs_future/<feature>/`, by
   increments of its own.
 - `docs_future/<feature>/` mirrors the layout of `docs/` and holds only
-  what changes: plain lines are added, a line starting with `×` is
-  removed (code blocks included), a line ending with `…` is existing
-  context that locates a change.
-- The future specification is written along parts that can move
-  separately.
-- A path in `docs_future/<feature>/` points to the feature's section if
-  it has one, else to `docs/`.
-- A commit that changes a section with a future version in
-  `docs_future/` updates that version too.
-- `docs_future/<feature>/` settles every decision where the human
-  matters; later refinement settles only what an agent can decide.
-- Before any increment builds it, fresh agents stress it with
-  Specification passes until one finds nothing important.
-- An increment that meets a decision needing the human stops and
-  escalates.
-- Planning picks the part the next increment builds, closed under its
-  dependencies, cited or not. Specification
-  moves it into `docs/` unchanged in a first commit, then refines it
-  in place in a second.
+  what changes:
+  - a plain line is added, right after the line above it;
+  - a line starting with `×` is removed (code blocks included);
+  - a line ending with `…` stands for the existing line that starts
+    with the same text, as context;
+  - a heading that exists in `docs/` is context; a new section goes
+    after the section above it, or at the end of the file.
+- `docs_future/<feature>/BACKLOG.md` is the only file outside the
+  mirror. It holds the feature's description, its outline and its
+  lessons.
+- `docs_future/<feature>/BACKLOG.md` outlines the increments that
+  build the feature, in order, each with the sections it integrates
+  and closed under its dependencies, cited or not. It is part of the
+  feature's design, reviewed by the human.
+- A path in `docs_future/<feature>/` resolves against `docs/` with the
+  feature applied.
+- Every future version stays applicable to `docs/`: a commit that
+  changes `docs/` updates the future versions it breaks.
+- Supervised work starts only once `docs_future/<feature>/` settles
+  every decision where the human matters.
+- Work that raises a decision needing the human pauses the supervised
+  work.
+- Planning takes the next increment of the outline. Specification
+  only integrates its sections into `docs/`, in one commit.
 - The retrospective writes what the increment taught about the rest of
-  the feature to `docs_future/<feature>/BACKLOG.md`. The next
-  Specification takes it into account; a major change gets an
-  increment of its own that updates `docs_future/<feature>/`.
-- `docs_future/<feature>/` shrinks to what remains, deleted when empty.
+  the feature to `docs_future/<feature>/BACKLOG.md`. The next Planning
+  takes it into account; an important lesson pauses the supervised
+  work, and an increment of its own updates `docs_future/<feature>/`.
+- `docs_future/<feature>/` shrinks to what remains. The last increment
+  of the outline deletes it, moving any open lesson to the project
+  backlog.
 - Planning lists the open features. Abandoning one is an increment that
   deletes its folder.
 
 ## Supervised increments
 
+- Dev43 draws the line of responsibility between human and agent: the
+  human reviews only the specification, and tries the software.
+- Tests and code are checked by agents only, each check in a fresh
+  context.
+- An increment changes no decision the human approved; such a change
+  escalates and goes into `docs_future/<feature>/`, reviewed by the
+  human.
+- The orchestrator waits only for escalations, never for a review of
+  tests or code.
+- At the end of a feature, the human tries the software, guided by
+  its scenarios.
 - An orchestrator runs one sub-agent at a time, one per increment.
 - The orchestrator plans each increment from the future
   specification, answers what an agent can decide, relays to the
@@ -63,6 +81,10 @@
 - Documents, each only when needed: README, overview, technical,
   design, design/, model, operations, ui, scenarios. Top level spans
   domains; a domain folder holds what is specific to it.
+- A domain's `README.md` declares the domains it depends on:
+  `Depends on: /tasks, /users.`
+- An operation extending another domain's operation starts with
+  `Extends <path>.`
 - `operations.md`: the actions on `model.md` data, queries included.
   `ui.md` refers to them, adding only trigger and display.
 - An operation: purpose only if the name and cases leave it unclear,
@@ -74,7 +96,7 @@
 - `ui.md`: one `##` section per element the user meets (page,
   component, command), its binding first, then:
   - what it shows, in order; one tagged case per state or outcome,
-    each transition as a sub-point;
+    each transition as a tagged sub-point;
   - what the user can do: each trigger, the operation it runs, and
     when it is unavailable.
 - An exact text the user sees is written with placeholders:
@@ -95,6 +117,7 @@
   punctuation dropped.
 - Bindings (route, command, HTTP) carry no tag.
 - Tests cite paths in a comment; documents cite them as plain text.
+- A statement no test can check ends with `(not testable)`.
 - A scenario is one end-to-end test, cited by its section path; its
   steps carry no tags.
 - `design/` and `design.md` have no tags; they are checked by eye at
@@ -111,8 +134,12 @@ Script:
   in `docs_future/`.
 - [names] A concept or operation has the same section name in every
   document.
-- [overlap] A commit changing a section of `docs/` that has a future
-  version changes that version too.
+- [overlap] Every future version applies to `docs/`: each `×` and `…`
+  line matches an existing line.
+- [depends] A domain cites only itself, top level and the domains it
+  declares; dependencies have no cycle; each `Extends` path is an
+  operation of a declared domain. The script lists, for each changed
+  operation, its dependent domains and its extensions.
 
 Agent:
 - [invariants] Invariants are only in the model; each operation states
@@ -123,6 +150,8 @@ Agent:
 - [examples] Every example illustrates a rule ambiguous without it.
 - [dependents] An added or changed operation keeps the invariants of
   every domain that depends on its domain.
+- [complete] The cases of an operation do not overlap and cover every
+  input.
 - [extension] An extension of another domain's operation keeps or
   weakens its precondition, and keeps or strengthens its effects.
 - [tags] Every statement of behavior has a tag.
@@ -133,20 +162,18 @@ Agent:
 ### Tests checks
 
 Script:
-- [coverage] Every tag and every scenario has a test, or is marked not
-  testable; every test path resolves.
+- [coverage] Every tag and every scenario has a test, or is marked
+  `(not testable)`; every test path resolves.
 
 Agent, fresh context:
 - [faithful] Each new or changed test checks what its rule says.
-
-Human:
-- [cases] A summary, one line per test case of each added or changed
-  tag, covers what the human meant.
+- [cases] The test cases of each added or changed tag cover what it
+  says.
 
 ### Retrospective
 
-- Moves into `core`, at the final review, for every increment, direct
-  ones included; the integration skill is deleted.
+- Moves into `core`, at the final review; the integration skill is
+  deleted.
 - New topic: what the increment taught about the rest of the feature,
   written to `docs_future/<feature>/BACKLOG.md`.
 - Its result goes in the increment's last commit, never in the spec.
