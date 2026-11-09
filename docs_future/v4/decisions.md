@@ -54,6 +54,7 @@
   backlog.
 - Planning lists the open features. Abandoning one is an increment that
   deletes its folder.
+- The project backlog is `docs_future/BACKLOG.md`.
 
 ## Supervised increments
 
@@ -122,6 +123,32 @@
   steps carry no tags.
 - `design/` and `design.md` have no tags; they are checked by eye at
   review.
+
+## Migration from v3
+
+- The migration changes the form of the specification, never a
+  decision, except the deletions the human approves.
+- The agent applies the deletions of [duplicate] and [why], and
+  proposes those of [silver] and [examples] to the human.
+- A statement v4 requires and v3 left open states the current
+  behavior of the code, tagged `@dev43:unsure` for the human.
+- An agent checks, in a fresh context, that every v3 statement maps
+  to a v4 line and that v4 adds only the tagged lines. The mapping
+  goes in the commit body.
+- The human reviews the whole new specification.
+- The migration starts in Pause, and is one increment whatever the
+  size: Specification, Tests, and Implementation only if a new test
+  fails.
+- Tests phase: existing tests change only their citations, to paths;
+  each tag without a test gets one. An agent checks, in a fresh
+  context, that each new citation matches what its test checks.
+- A `migrate` skill, loaded by `core` when the major version of the
+  `Dev43` trailer is below the plugin's. It migrates from v3 only;
+  the v2 migration is removed from `core`.
+- `spec/BACKLOG.md` moves to `docs_future/BACKLOG.md`. Files the
+  process does not own stay as they are.
+- The skill lists the CLAUDE.md project rules naming a removed phase
+  or step; the human rewords them at the Specification review.
 
 ## Skill changes
 
