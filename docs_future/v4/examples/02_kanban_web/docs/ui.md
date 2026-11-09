@@ -2,38 +2,58 @@
 
 ## Board page
 
-The only page, at `/`. Opening it runs /operations/board.
+At `/`.
 
-Contains, top to bottom:
-
-- an Error banner;
-- the three Columns, side by side, in column order.
-
-Every action updates the page without a reload.
+Shows, top to bottom:
+- [banner] the Error banner;
+- [columns] the three Columns, side by side, in column order.
 
 ## Error banner
 
-- [show] Shows the message of a refused action, until the next action.
-- [hidden] Hidden while there is no message.
+Shows, by state:
+- [hidden] Page opened: hidden.
+- [message] Operation refused or failed: its message.
+  - Next operation succeeds: hidden.
 
 ## Column
 
-- Header: the column's name.
-- An Add form, in To do only.
-- Its Cards, in board order.
+Shows, top to bottom:
+- [name] its name;
+- [add] the Add form, in To do only;
+- [cards] its Cards, in board order.
 
 ## Add form
 
-A text field and an "Add" button.
+Shows:
+- [field] a text field, emptied once a card is added.
 
-- "Add" runs /operations/add with the field's text.
-- [cleared] The field is emptied after a success.
+Actions:
+- [add] Enter, or focus leaving the field with text in it: runs
+  /operations/add-card with the field's text.
+- [cancel] Esc in the field: empties it; nothing is added.
 
 ## Card
 
-The card's title, then its buttons:
+Shows:
+- [title] its title, then a "×" button.
 
-- "←" runs /operations/move to the previous column.
-- "→" runs /operations/move to the next column.
-- "×" runs /operations/delete, at once.
-- [edges] A card in To do has no "←"; a card in Done has no "→".
+Actions:
+- [delete] "×" clicked: runs /operations/delete-card, without
+  confirmation.
+- [pad] Clicked elsewhere: opens the Move pad on it.
+
+## Move pad
+
+Shows, by state:
+- [closed] Page opened: hidden.
+- [open] Opened on a card: next to it, four arrows in a cross, "↑"
+  above, "↓" below, "←" left, "→" right.
+  - Opened on another card: moves to it.
+  - An arrow clicked, Esc, or a click outside: hidden.
+
+Actions:
+- [up] "↑": runs /operations/move-card one position up; disabled at
+  the top.
+- [down] "↓": one position down; disabled at the bottom.
+- [left] "←": to the end of the previous column; disabled in To do.
+- [right] "→": to the end of the next column; disabled in Done.

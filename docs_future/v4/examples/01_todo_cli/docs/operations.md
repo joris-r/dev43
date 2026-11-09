@@ -1,28 +1,32 @@
 # Operations
 
-## Add
+## General
 
-Adds a task with the given text at the end of the list.
+- [refused] A refused operation changes nothing and gives a message.
 
-- [first] Empty list, add "buy milk": the list holds task 1, "buy milk", not
-  done.
-- [empty] Add an empty text: refused, nothing changes.
+## Add task
 
-## List
+- [stored] Text not empty:
+  - a new task with the text is stored, at the end of the list;
+  - returns the new task.
+- [empty] Empty text: refused, `Text is empty.`
 
-Returns all tasks, in list order.
+## List tasks
 
-## Done
+- [result] Returns the list.
 
-Marks a task as done.
+## Mark done
 
-- [open] Task 2 open, done 2: task 2 is done.
-- [again] Task 2 already done, done 2: nothing changes, not an error.
-- [missing] No task 7, done 7: refused.
+- [done] Open task: it is done; returns it.
+- [again] Task already done: nothing changes, not an error; returns
+  it.
+- [missing] Unknown number: refused, `No task <number>.`
 
-## Remove
+## Remove task
 
-Removes a task, done or not. The tasks after it move up one number.
-
-- [shift] Tasks 1 "buy milk", 2 "call Ann", remove 1: "call Ann" is now task 1.
-- [missing] No task 7, remove 7: refused.
+- [removed] Known number:
+  - the task is removed, done or not;
+  - the tasks after it move up one number: tasks 1 "buy milk", 2
+    "call Ann", remove 1: "call Ann" is now task 1;
+  - returns the removed task.
+- [missing] Unknown number: refused, `No task <number>.`

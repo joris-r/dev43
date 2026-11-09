@@ -12,10 +12,14 @@ Something the user has to do.
 - `id: integer`, identifies the card.
   - [unique] Assigned at creation, one above the highest ever assigned.
 - `title: string`, what to do.
-  - [nonempty] Not empty.
+  - [nonempty] Trimmed and not empty.
 - `column: Column`, the card's stage.
   - [fresh] `todo` at creation.
+- `position: integer`, the card's place in its column, 1 at the top.
+  - [contiguous] In each column, positions run from 1 to the number
+    of cards in it.
 
 ## Board
 
-All cards, grouped by column, oldest first within each.
+All cards, grouped by column in column order, each column ordered by
+position: the board order.

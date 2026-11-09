@@ -51,14 +51,29 @@
 ## Layout
 
 - Documents, each only when needed: README, overview, technical,
-  design, model, operations, ui, scenarios. Top level spans domains;
-  a domain folder holds what is specific to it.
+  design, design/, model, operations, ui, scenarios. Top level spans
+  domains; a domain folder holds what is specific to it.
 - `operations.md`: the actions on `model.md` data, queries included.
   `ui.md` refers to them, adding only trigger and display.
+- An operation: purpose only if the name and cases leave it unclear,
+  API binding if any, then one tagged case per condition, errors
+  included, each with all its outcomes. A refused case states its
+  message.
 - One `##` section per concept or operation, same name across
   documents.
-- Web `ui.md`: one `##` section per page or component; `design.md`
-  uses the same names.
+- `ui.md`: one `##` section per element the user meets (page,
+  component, command), its binding first, then:
+  - what it shows, in order; one tagged case per state or outcome,
+    each transition as a sub-point;
+  - what the user can do: each trigger, the operation it runs, and
+    when it is unavailable.
+- An exact text the user sees is written with placeholders:
+  `No task <number>.`
+- `design/`: mockups, one per page, named after its `ui.md` section,
+  showing every state, values included. `design.md` holds the look
+  rules they cannot show.
+- The form for each kind of UI (web, CLI) is an example in a separate
+  file, loaded by the skill on demand.
 
 ## Traceability
 
@@ -68,7 +83,12 @@
 - Path: `/<file>/<section>/<tag>` or `/<file>/<section>`, prefixed by
   `/<domain>` if any. Segments: lowercase, spaces to hyphens,
   punctuation dropped.
+- Bindings (route, command, HTTP) carry no tag.
 - Tests cite paths in a comment; documents cite them as plain text.
+- A scenario is one end-to-end test, cited by its section path; its
+  steps carry no tags.
+- `design/` and `design.md` have no tags; they are checked by eye at
+  review.
 
 ## Skill changes
 
@@ -103,8 +123,8 @@ Agent:
 ### Tests checks
 
 Script:
-- [coverage] Every tag has a test or is marked not testable; every
-  test path resolves.
+- [coverage] Every tag and every scenario has a test, or is marked not
+  testable; every test path resolves.
 
 Agent, fresh context:
 - [faithful] Each new or changed test checks what its rule says.
@@ -120,13 +140,3 @@ Human:
 - New topic: what the increment taught about the rest of the feature,
   written to `docs_future/<feature>/BACKLOG.md`.
 - Its result goes in the increment's last commit, never in the spec.
-
-## Examples
-
-- Work from examples, not rules. `examples/01_todo_cli/`: a short
-  terminal to-do list.
-
-## Migration from v3
-
-- `spec/main/` becomes `docs/`; `spec/changes/` becomes `docs_future/`.
-- Rule IDs (`R5`) become tags, cited by path.

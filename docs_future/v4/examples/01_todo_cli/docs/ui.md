@@ -4,54 +4,38 @@
 
 One command, `todo`, with a subcommand per operation.
 
-- [errors] Errors go to stderr with exit code 1; otherwise exit code 0.
-- [usage] Without a subcommand, or with an unknown one, `todo` prints
-  its usage and exits with code 1.
+- [errors] Operation refused: its message on stderr, exit code 1.
+- [success] Operation succeeded: exit code 0.
+- [usage] No subcommand, or an unknown one: prints the usage, exit
+  code 1.
 
-## Add
+## Add task
 
-`todo add <text>` runs /operations/add. The text is the rest of the
-line, words joined by spaces.
+Command: `todo add <text>` runs /operations/add-task; the text is the
+rest of the line, words joined by spaces.
 
-```
-$ todo add buy milk
-Added 1: buy milk
-```
+Prints:
+- [added] `Added <number>: <text>`
 
-## List
+## List tasks
 
-`todo list` runs /operations/list. One line per task: its number, a
-done mark, then its text.
+Command: `todo list` runs /operations/list-tasks.
 
-```
-$ todo list
-1  [ ] buy milk
-2  [x] call Ann
-```
+Prints, by outcome:
+- [lines] Some tasks: one line per task, `<number>  [<mark>] <text>`,
+  the mark `x` when done, a space otherwise.
+- [empty] No task: `Nothing to do.`
 
-- [empty] Empty list: one line saying so.
+## Mark done
 
-```
-$ todo list
-Nothing to do.
-```
+Command: `todo done <number>` runs /operations/mark-done.
 
-## Done
+Prints:
+- [done] `Done <number>: <text>`, also when it was already done.
 
-`todo done <number>` runs /operations/done.
+## Remove task
 
-```
-$ todo done 2
-Done 2: call Ann
-$ todo done 7
-No task 7.
-```
+Command: `todo rm <number>` runs /operations/remove-task.
 
-## Remove
-
-`todo rm <number>` runs /operations/remove.
-
-```
-$ todo rm 1
-Removed 1: buy milk
-```
+Prints:
+- [removed] `Removed <number>: <text>`

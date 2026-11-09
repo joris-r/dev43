@@ -11,6 +11,7 @@ Something the user has to do.
 
 ## List
 
-The ordered sequence of all tasks, oldest first.
+The ordered sequence of all tasks.
 
+- [order] Oldest first.
 - [number] A task's number is its position in the list, starting at 1.

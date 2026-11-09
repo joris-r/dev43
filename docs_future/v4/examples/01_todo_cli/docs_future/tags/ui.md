@@ -1,43 +1,32 @@
 # UI
 
-## List
+## List tasks
 
-× `todo list` runs /operations/list. One line per task: its number, a
-× done mark, then its text.
-`todo list [<tag>]` runs /operations/list. One line per task: its
-number, a done mark, its text, then its tags, each after a `#`.
+× Command: `todo list` runs /operations/list-tasks.
+Command: `todo list [<tag>]` runs /operations/list-tasks.
 
-- [order] Tags in alphabetical order.
+× - [lines] Some tasks: one line per task, `<number>  [<mark>] <text>`,
+×   the mark `x` when done, a space otherwise.
+- [lines] Some tasks: one line per task,
+  `<number>  [<mark>] <text>  <tags>`, the mark `x` when done, a space
+  otherwise, the tags in alphabetical order, each as `#<tag>`,
+  separated by a space.
+× - [empty] No task: `Nothing to do.`
+- [empty] No tag given, no task: `Nothing to do.`
+- [nomatch] Tag given, no task has it: `No task tagged <tag>.`
 
-```
-$ todo list
-1  [ ] buy milk  #shop #urgent
-2  [x] call Ann  #work
-$ todo list shop
-1  [ ] buy milk  #shop #urgent
-```
+## Tag task
 
-- [nomatch] No task has the tag: one line saying so.
+Command: `todo tag <number> <tag>` runs /operations/tag-task.
 
-```
-$ todo list garden
-No task tagged garden.
-```
+Prints:
+- [tagged] `Tagged <number>: <tag>`, the tag as stored, also when the
+  task already had it.
 
-## Tag
+## Untag task
 
-`todo tag <number> <tag>` runs /operations/tag.
+Command: `todo untag <number> <tag>` runs /operations/untag-task.
 
-```
-$ todo tag 1 Shop
-Tagged 1: shop
-```
-
-## Untag
-
-`todo untag <number> <tag>` runs /operations/untag.
-
-```
-$ todo untag 1 shop
-Untagged 1: shop
-```
+Prints:
+- [untagged] `Untagged <number>: <tag>`, also when the task did not
+  have it.
