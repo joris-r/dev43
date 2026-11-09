@@ -45,6 +45,10 @@ So we must:
 Human attention is the scarce resource. Every principle below either
 protects a human decision or saves human effort.
 
+Agents produce more tests and code than a human can review, and a
+human does not truly review work they did not invest in. So the human
+reviews only the specification, the one artifact they shape.
+
 
 ## Principles
 
@@ -70,6 +74,10 @@ for a human to read.
 It records what is decided, not why: reasoning goes stale. The reasons
 live in the history.
 
+It is organized by domain, around the data model and the operations on
+it. Each operation states one case per condition, so that gaps and
+overlaps show.
+
 
 ### Tests as the guarantee
 
@@ -78,17 +86,25 @@ specification. Tests are written before the code, from the
 specification, and the code is then written to make them pass, without
 modifying them.
 
-Every test cites what it checks in the specification, and every
-specified rule has a test or is marked not testable. This downward
-traceability lets the human check that the specification is fully
+Every statement of behavior in the specification carries a tag. Every
+test cites the tags it checks, and every tag has a test or is marked
+not testable. This traceability shows that the specification is fully
 covered.
 
 Tests are also the agent's feedback loop: it knows it is done when they
 pass.
 
-Tests deserve the most careful review: they make explicit the cases
-that code leaves implicit, and checking behavior through them is
-cheaper than through the code.
+
+### The line of responsibility
+
+The human reviews the specification and tries the software. Agents
+check the tests and the code, each check in a fresh context, so that
+it does not share the blind spots of the author.
+
+An agent never changes a decision the human approved: such a change
+goes back to the human, as a change of the specification.
+
+This line holds in every increment, supervised or not.
 
 
 ### Small increments
@@ -96,25 +112,26 @@ cheaper than through the code.
 The software grows in increments small enough for a human to review
 properly and for an agent to hold in its context.
 
-A small increment changes the main specification in place. A large one
-is described by a change specification, separate from the main one, so
-the main specification keeps describing the software as it exists; the
-change is merged at the end of the increment.
+A small increment changes the main specification in place. A large
+change is first written ahead as a future specification, separate from
+the main one, with the outline of the increments that carry it out.
+Each of them then moves its part into the main specification, which
+keeps describing the software as it exists. What an increment teaches
+about the rest of the change updates the future specification.
 
 
 ### Four phases
 
 An increment goes through four phases, each producing one artifact:
 
-1. **Specification**: the change specification.
-2. **Tests**: tests that express it.
-3. **Implementation**: code that makes the tests pass.
-4. **Integration**: the change specification merged into the main one.
+1. **Planning**: the plan of the increment.
+2. **Specification**: the change of the specification.
+3. **Tests**: tests that express it.
+4. **Implementation**: code that makes the tests pass.
 
 An increment goes through only the phases whose artifact changes: a
-refactoring needs no new tests, a tooling update needs no specification,
-an increment without a change specification needs no Integration. Every
-increment ends with a retrospective.
+refactoring needs no new tests, a tooling update needs no specification.
+Every increment ends with a retrospective.
 
 
 ### Discuss, then produce, then review
@@ -125,8 +142,8 @@ Each phase follows three steps:
    raising only what the agent cannot settle with confidence.
 2. **Production**: the agent works without interruption, and marks
    each choice it is unsure of with a tag on the artifact.
-3. **Verification**: the human reviews the result, rules on the tags,
-   and approves.
+3. **Verification**: the reviewer, the human for the specification,
+   rules on the tags and approves.
 
 The steps regulate the interaction between human and agent: important
 topics are discussed first, then the agent works unsupervised, and its
@@ -135,25 +152,43 @@ tags keep the human aware and involved at Verification.
 
 ### Gates follow the impact
 
-The human stops the agent only where the change can do harm. At the
-start of an increment, the agent analyzes the potential impact of the
-change and proposes the gates: the steps where it waits for the human.
-Elsewhere it goes on alone, and the human reviews its work at the end
-of the increment, which is always a gate. The size of a change does
+The agent stops only where the change can do harm. At the start of
+an increment, the agent analyzes the potential impact of the change and
+proposes the gates: the steps where it waits for review, by the human
+for the specification, by an agent for tests and code. Elsewhere it
+goes on alone, and its work is reviewed at the end of the increment,
+which is always a gate: the human reviews the specification change
+and tries the software. The size of a change does
 not set its gates: a large refactoring under unchanged tests may need
 fewer than a one-line change of a rule.
 
 An agent unsure of a choice stops anyway, gate or not: the plan sets
-the minimum of human attention, never the maximum.
+the minimum of attention, never the maximum.
+
+
+### Supervised increments
+
+Without supervision, the human acts as the orchestrator: approves the
+plan, answers the agent, and reviews the specification. Once the human has approved a future specification that settles every
+decision where the human matters, its increments run without the
+human. An orchestrator agent runs them one at a time, each by a
+sub-agent, plans them from the future specification, and reviews at the
+gates. It answers what an agent can decide, and relays to the human
+only the decisions where the human matters; such a decision pauses the
+supervised work.
+
+At the end of the change, the human tries the software, guided by its
+scenarios.
 
 
 ### Version control as the record
 
 The project is a git repository, and the process relies on it instead
-of keeping its own records. Each phase ends in one commit, and the
+of keeping its own records. Each phase ends in one commit, except
+Planning, whose plan goes in the increment's first commit. The
 commit bodies are the decision record: what was decided and why. The
 commits also record the state of the process, so an agent learns where
-it stands from the last one.
+it stands from the last one, and can restart at any point.
 
 The history is never rewritten. An abandoned increment is reverted, not
 erased, so its reasons stay in the history. Work rejected after its
@@ -180,7 +215,9 @@ A specification drifts when the code changes without it. Dev43 keeps
 them consistent:
 
 - every change, however small, goes through an increment, and a change
-  of behavior updates the main specification at its end
+  of behavior updates the main specification first
+- a future specification stays applicable to the main one: a change of
+  the main specification updates the future versions it breaks
 - the specification is minimal, so there is little to go stale
 - traceability makes drift visible: a test that no longer matches the
   code fails, and a rule without a test, or a test citing a missing

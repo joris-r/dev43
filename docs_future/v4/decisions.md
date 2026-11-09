@@ -62,6 +62,12 @@
   human reviews only the specification, and tries the software.
 - Tests and code are checked by agents only, each check in a fresh
   context.
+- The line of responsibility holds in every increment; without
+  supervision, the human acts as the orchestrator.
+- A gate on Tests or Implementation waits for an agent check; the
+  human sees only the tags touching a decision they approved.
+- The final review of an unsupervised increment covers the
+  specification change, a try of the software and the retrospective.
 - An increment changes no decision the human approved; such a change
   escalates and goes into `docs_future/<feature>/`, reviewed by the
   human.
