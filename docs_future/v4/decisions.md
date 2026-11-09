@@ -48,6 +48,16 @@
 - Planning lists the open features. Abandoning one is an increment that
   deletes its folder.
 
+## Supervised increments
+
+- An orchestrator runs one sub-agent at a time, one per increment.
+- The orchestrator plans each increment from the future
+  specification, answers what an agent can decide, relays to the
+  human only the decisions where the human matters, and reviews at
+  the gates.
+- It reads its state from the commits and
+  `docs_future/<feature>/BACKLOG.md`, so it can restart at any point.
+
 ## Layout
 
 - Documents, each only when needed: README, overview, technical,
