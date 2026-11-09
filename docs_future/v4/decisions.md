@@ -21,8 +21,11 @@
 - A large change is written ahead in `docs_future/<feature>/`, by
   increments of its own.
 - `docs_future/<feature>/` mirrors the layout of `docs/` and holds only
-  the sections the feature adds or changes, each in its full future
-  version. Its README lists what the feature removes.
+  what changes: plain lines are added, a line starting with `×` is
+  removed (code blocks included), a line ending with `…` is existing
+  context that locates a change.
+- The future specification is written along parts that can move
+  separately.
 - A path in `docs_future/<feature>/` points to the feature's section if
   it has one, else to `docs/`.
 - A commit that changes a section with a future version in
@@ -33,8 +36,8 @@
   Specification passes until one finds nothing important.
 - An increment that meets a decision needing the human stops and
   escalates.
-- Planning picks the part the next increment builds: whole sections,
-  closed under their dependencies. Specification
+- Planning picks the part the next increment builds, closed under its
+  dependencies, cited or not. Specification
   moves it into `docs/` unchanged in a first commit, then refines it
   in place in a second.
 - The retrospective writes what the increment taught about the rest of
