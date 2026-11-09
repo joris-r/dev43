@@ -72,7 +72,8 @@ why; or, where Verification has no gate, make the exit commit.
 
 - Documents, each only when needed:
   - `README.md`: the index of the documents;
-  - `overview.md`: what the software is for, its non-goals;
+  - `overview.md`: what the software is for, its non-goals. A
+    capability the software lacks is a non-goal, untagged;
   - `technical.md`: stack, conventions, test and quality policy;
   - `design.md`, `design/`: the look;
   - `model.md`: the data, which sets the vocabulary;
@@ -90,7 +91,8 @@ why; or, where Verification has no gate, make the exit commit.
 - `operations.md`: an operation states its purpose only if the name
   and cases leave it unclear, its API binding if any, then one tagged
   case per condition, errors included, each with all its outcomes. A
-  refused case states its message. An operation extending another
+  refused case states its message only when `technical.md` says the
+  project specifies messages. An operation extending another
   domain's operation starts with `Extends <path>.`
 - `ui.md`: one section per element the user meets (page, component,
   command), its binding first, then:

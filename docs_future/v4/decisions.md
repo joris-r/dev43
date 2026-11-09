@@ -102,6 +102,8 @@
 - Documents, each only when needed: README, overview, technical,
   design, design/, model, operations, ui, scenarios. Top level spans
   domains; a domain folder holds what is specific to it.
+- A capability the software lacks is a non-goal in `overview.md`,
+  untagged.
 - A domain's `README.md` declares the domains it depends on:
   `Depends on: /tasks, /users.`
 - An operation extending another domain's operation starts with
@@ -111,7 +113,8 @@
 - An operation: purpose only if the name and cases leave it unclear,
   API binding if any, then one tagged case per condition, errors
   included, each with all its outcomes. A refused case states its
-  message.
+  message only when `technical.md` says the project specifies
+  messages; otherwise they are left to the implementation.
 - One `##` section per concept or operation, same name across
   documents.
 - `ui.md`: one `##` section per element the user meets (page,

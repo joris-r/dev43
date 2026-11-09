@@ -33,9 +33,9 @@ Rewrite `spec/main/` into `docs/`, in the form of the
   the human when the split is not obvious.
 - Every statement of behavior gets a tag. Rule IDs disappear: list,
   in the commit body, each rule ID with the path that replaces it.
-- A statement v4 requires and v3 left open (e.g. a refused case, a
-  message) states the current behavior of the code, marked
-  `@dev43:unsure` for the human.
+- A statement v4 requires and v3 left open (e.g. a refused case)
+  states the current behavior of the code, marked `@dev43:unsure` for
+  the human.
 - Run the agent checks of the specification. Apply the deletions of
   [duplicate] and [why]; propose those of [silver] and [examples] to
   the human, as marks.
@@ -48,7 +48,9 @@ Rewrite `spec/main/` into `docs/`, in the form of the
   a v4 line, and that v4 adds only marked lines. The mapping goes in
   the commit body.
 
-The human reviews the whole of `docs/` at the Verification gate.
+The human reviews the whole of `docs/` at the Verification gate. The
+hand-over lists the deletions, the marks and the `CLAUDE.md` rules to
+reword; the mappings stay in the commit body.
 
 ## Tests
 
@@ -59,7 +61,9 @@ The human reviews the whole of `docs/` at the Verification gate.
   raise to the human.
 - Run the script check [coverage].
 - An agent checks, in a fresh context, that each new citation matches
-  what its test checks.
+  what its test checks. The checks [faithful] and [cases] apply only
+  to the new tests; a gap it finds in the coverage of existing tests
+  is proposed as an entry in `docs_future/BACKLOG.md`.
 
 ## Implementation
 

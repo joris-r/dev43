@@ -43,6 +43,17 @@ def slug(text):
     return re.sub(r" +", "-", text.strip())
 
 
+def strip_code(text, open_span):
+    """Text outside inline code; a span may wrap onto the next line."""
+    out, parts = [], text.split("`")
+    for k, part in enumerate(parts):
+        if not open_span:
+            out.append(part)
+        if k < len(parts) - 1:
+            open_span = not open_span
+    return " ".join(out), open_span
+
+
 def is_fence(text):
     return text.lstrip().startswith("```")
 
@@ -164,20 +175,22 @@ class Index:
     def parse(self, rel, domain, stem, lines):
         base = "/" + (domain + "/" if domain else "") + stem
         self.targets.add(base)
-        section, sec_path, seen, code = None, base, {}, False
+        section, sec_path, seen, code, span = None, base, {}, False, False
         for i, (text, origin) in enumerate(lines):
             if is_fence(text):
-                code = not code
+                code, span = not code, False
                 continue
             if code:
                 continue
+            if not text.strip() or text.startswith("#"):
+                span = False
             m = H2.match(text)
             if m:
                 section, sec_path, seen = m.group(1), base + "/" + slug(m.group(1)), {}
                 self.targets.add(sec_path)
                 self.sections.append((domain, stem, section, slug(section), origin))
                 continue
-            plain = INLINE_CODE.sub("", text)
+            plain, span = strip_code(text, span)
             m = DEPENDS.match(text)
             if m and stem == "readme":
                 self.depends[domain] = [(c, origin) for c in CITE.findall(INLINE_CODE.sub("", m.group(1)))]
@@ -351,8 +364,12 @@ def cmd_spec(args):
             findex = Index(applied)
             backlog = feature / "BACKLOG.md"
             if backlog.exists():
+                span = False
                 for text, origin in read_lines(backlog):
-                    for c in CITE.findall(INLINE_CODE.sub("", text)):
+                    if not text.strip() or text.startswith("#"):
+                        span = False
+                    plain, span = strip_code(text, span)
+                    for c in CITE.findall(plain):
                         findex.cites.append((c, origin, "BACKLOG.md"))
             check_paths(findex, prefix)
             check_names(findex, prefix)

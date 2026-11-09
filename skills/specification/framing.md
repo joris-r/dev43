@@ -13,7 +13,8 @@ Discuss first, before the scope:
 4. Stack: the structuring choices (language, framework, database).
    Raise a real trade-off when there is one; build a throwaway preview
    (see the Specification skill) if a choice needs evidence.
-5. Conventions: repo layout, naming, the test and quality policy, and
+5. Conventions: repo layout, naming, the test and quality policy,
+   whether the specification states the messages the user sees, and
    repository files. Most are choices you can make with confidence:
    make them in Production rather than asking.
 
