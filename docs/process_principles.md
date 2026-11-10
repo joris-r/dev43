@@ -155,8 +155,8 @@ specification. The human then reviews the specification.
 
 The tests are checked by a script for coverage: every tag has a test,
 and every path a test cites resolves. An agent in a fresh context
-checks that each test checks what its statement says, and that the
-cases cover it.
+checks that each test checks what its statement says and nothing
+more, and that the cases cover it.
 
 The code is checked by its tests, and by an agent in a fresh context
 for the technical choices: it follows the stack, and names every

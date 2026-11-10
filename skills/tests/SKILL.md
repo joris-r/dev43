@@ -32,6 +32,22 @@ Work without interrupting.
 - Each test cites, in a comment, the paths it checks. A scenario has
   one end-to-end test, citing its section path.
 - Every tag and scenario added or changed by the change has a test.
+  What it establishes, by kind of statement:
+  - a case: from a state meeting its condition, its result and the
+    state after it. Where it changes one element of a collection, the
+    test also looks at the others;
+  - a refused case: the refusal, and its message when specified;
+  - the initial state: what the software gives before any operation;
+  - an invariant: one check of it, citing its path, run on the state
+    after each operation test;
+  - a display: what is shown in that state or after that outcome;
+  - a trigger: it runs its operation, each input from its source;
+  - a migration: from stored data of the earlier form, the state
+    after it.
+- A test checks nothing the specification leaves free or unstated: of
+  `an id no card has`, only that no other card has it.
+- A test reaches its starting state through operations, from the
+  initial state. It writes stored data directly only for a migration.
 - Update or delete the existing tests that check something the change
   modifies or removes; find them by the paths they cite, and by the
   entry points whose behavior changes (e.g. a command, a route).
@@ -75,7 +91,8 @@ Run:
 Agent checks, in a fresh context (see `dev43:core`, Agent checks), on
 the tests added or changed by the increment:
 
-- [faithful] Each new or changed test checks what its statement says.
+- [faithful] Each new or changed test checks what its statement says,
+  and nothing the specification leaves free or unstated.
 - [cases] The test cases of each added or changed tag cover what it
   says.
 
