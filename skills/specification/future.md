@@ -18,8 +18,8 @@ mirror:
 
 - the feature's description, in a few lines;
 - `## Outline`: the increments that build the feature, in order, each
-  with the sections it integrates, closed under its dependencies,
-  cited or not;
+  with the sections it integrates. Every section is in one increment,
+  and `docs/` is closed after each of them;
 - `## Lessons`: what the increments taught about the rest of the
   feature;
 - `## For the human`: under supervision, the retrospective points on

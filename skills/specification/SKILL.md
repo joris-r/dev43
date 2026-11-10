@@ -173,6 +173,8 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
   are the input of [soundness].
 - [reach] Every operation is run by a `ui.md` or has a `Trigger:`
   line.
+- [outline] Every section of a feature is in exactly one increment of
+  its outline.
 
 Agent checks, by you, on the change:
 
@@ -192,9 +194,9 @@ Agent checks, by you, on the change:
   rule; delete the lines you are sure do neither.
 - [why] No line gives a reason; reasons go to the commit body.
 
-Agent check, in a fresh context (see `dev43:core`, Agent checks), when
-the change touches the model, the operations, the UI, the design or
-the scenarios:
+Agent check, in a fresh context (see `dev43:core`, Agent checks),
+before the exit commit, gate or not, when the change touches the
+model, the operations, the UI, the design or the scenarios:
 
 - [soundness] The `dev43:soundness` check: the operations keep the
   invariants, and the documents agree.

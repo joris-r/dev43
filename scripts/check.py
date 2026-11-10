@@ -2,6 +2,7 @@
 """Dev43 script checks. Run from the project root.
 
   check.py spec [--base <rev>]    [paths] [names] [overlap] [depends] [reach]
+                                  [outline]
   check.py tests [<file or dir>...] [coverage]
 
 `--base` is the last commit before the increment (default: HEAD); it
@@ -323,6 +324,41 @@ def check_reach(index, origins_from=None):
         report("reach", origin, f"{path} is run by no ui.md and has no Trigger line")
 
 
+def check_outline(feature_dir):
+    """Every section of a feature is in exactly one increment of its outline."""
+    backlog = feature_dir / "BACKLOG.md"
+    if not backlog.exists():
+        return
+    items, inside, span = [], False, False
+    for text, origin in read_lines(backlog):
+        if text.startswith("#"):
+            inside = bool(re.match(r"^##\s+Outline\s*$", text))
+            continue
+        if not inside:
+            continue
+        if not text.strip():
+            span = False
+        if re.match(r"^\s*\d+\.\s", text):
+            items.append(set())
+        plain, span = strip_code(text, span)
+        if items:
+            items[-1].update(CITE.findall(plain))
+    for path in md_files(feature_dir):
+        rel = path.relative_to(feature_dir).as_posix()
+        if rel == "BACKLOG.md":
+            continue
+        base = "/" + rel[:-3].lower()
+        lines = read_lines(path)
+        units = [(base + "/" + slug(m.group(1)), origin)
+                 for text, origin in lines for m in [H2.match(text)] if m]
+        if not units and lines:
+            units = [(base, lines[0][1])]
+        for unit, origin in units:
+            n = sum(1 for cited in items if unit in cited or base in cited)
+            if n != 1:
+                report("outline", origin, f"{unit} is in {n} increments of the outline")
+
+
 def dependents(index, domain):
     out = set()
     for d in index.domains:
@@ -399,6 +435,7 @@ def cmd_spec(args):
             check_names(findex, prefix)
             check_depends(findex, prefix)
             check_reach(findex, prefix)
+            check_outline(feature)
             list_changes(f"feature {feature.name}", findex, operations(docs), operations(applied))
 
 

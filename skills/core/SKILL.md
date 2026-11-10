@@ -183,6 +183,8 @@ that it does not share your blind spots.
 - A phase with a Verification gate, or with a mark, runs its agent
   checks before its exit commit. Any other phase runs them at the end
   of the increment, before the final review, on the phase's commits.
+  Specification always runs its agent check before its exit commit:
+  tests and code build on it.
 
 ## Returns
 

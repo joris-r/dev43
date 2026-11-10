@@ -32,12 +32,13 @@ Read the relevant parts of `docs/` and `docs_future/`, the tests and
 the code, and the earlier decisions on the topic
 (`git log --grep=<keyword>`). Find what the change touches: statements
 of behavior, the model, the domains that depend on them (their
-`README.md`), tests, code, tooling; and what it could break, open
-features included.
+`README.md`), stored data, tests, code, tooling; and what it could
+break, open features included. A changed invariant that stored data
+may break needs a migration.
 
 A change too large for one increment (a new domain, a reshaped model,
-statements spread over several documents) is first written ahead, in
-a `future` increment.
+several concepts or operations) is first written ahead, in a `future`
+increment.
 
 ## The plan
 
@@ -71,9 +72,11 @@ commit (see `dev43:core`, State).
 - `direct`: one Direct phase, starting at Production. Tooling,
   configuration, dependencies, `CLAUDE.md` or `docs/technical.md`
   change, or a small code change outside the specification
-  (appearance, assets, unspecified wording); specified behavior and
-  tests do not. A structural change (a new framework, a new repo
-  layout) or a refactoring takes `full` or `code-only` instead.
+  (appearance that `design/` does not show, assets, unspecified
+  wording); specified behavior and tests do not. A structural change
+  (a new framework, a new repo layout), a refactoring, or an
+  appearance change that `design/` shows takes `full` or `code-only`
+  instead.
 
 An increment of a feature usually takes `full`; its Specification
 only moves the increment's sections from `docs_future/<feature>/` into
