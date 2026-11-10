@@ -254,8 +254,10 @@ and records that they must act on it.
     section, on every statement of behavior (something the software
     could be seen to break): `- [empty] Add an empty text: refused.`
   - A path is `/<file>/<section>/<tag>` or `/<file>/<section>`,
-    prefixed by `/<domain>` if any. Segments: lowercase, spaces to
-    hyphens, punctuation dropped: `/operations/add-task/empty`.
+    prefixed by `/<domain>` if any. Segments: lowercase, accents
+    removed, spaces to hyphens, punctuation dropped:
+    `/operations/add-task/empty`, `État à vérifier` gives
+    `etat-a-verifier`.
   - Bindings (route, command, HTTP) carry no tag.
   - Tests cite paths in a comment; documents cite them as plain text.
   - A statement no test can check ends with `(not testable)`.

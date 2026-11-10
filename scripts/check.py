@@ -15,6 +15,7 @@ import argparse
 import re
 import subprocess
 import sys
+import unicodedata
 from pathlib import Path
 
 DOCS = Path("docs")
@@ -39,7 +40,11 @@ def report(check, origin, message):
 
 
 def slug(text):
-    text = re.sub(r"[^a-z0-9 -]", "", text.lower())
+    """Lowercase ASCII: accents removed, spaces to hyphens, rest dropped."""
+    text = text.lower().replace("œ", "oe").replace("æ", "ae")
+    text = unicodedata.normalize("NFKD", text)
+    text = "".join(c for c in text if not unicodedata.combining(c))
+    text = re.sub(r"[^a-z0-9 -]", "", text)
     return re.sub(r" +", "-", text.strip())
 
 
