@@ -158,9 +158,10 @@ and every path a test cites resolves. An agent in a fresh context
 checks that each test checks what its statement says and nothing
 more, and that the cases cover it.
 
-The code is checked by its tests, and by an agent in a fresh context
-for the technical choices: it follows the stack, and names every
-dependency the specification leaves open.
+The code is checked by its tests, and by an agent in a fresh context:
+it implements each statement in general, beyond the values of its
+tests, follows the stack, and names every dependency the
+specification leaves open.
 
 A finding of an agent check is fixed or disputed; a disputed one goes
 to the human. The human finally tries the software.

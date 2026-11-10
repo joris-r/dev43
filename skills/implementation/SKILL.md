@@ -30,10 +30,12 @@ statement that one or two new tests can check) skips the return loop:
 
 1. Write the addition in `docs/` and its new tests, marked as usual.
    Existing tests stay unchanged.
-2. Run the new tests: they must fail for the right reason.
-3. The human reviews the addition, and an agent check covers the new
+2. Run the checks of the Specification phase on the addition (see
+   its skill, Verification), [soundness] included.
+3. Run the new tests: they must fail for the right reason.
+4. The human reviews the addition, and an agent check covers the new
    tests (see the Tests skill, Checks).
-4. Commit only the specification and the new tests as
+5. Commit only the specification and the new tests as
    `[<increment>] Amendment`, with the state trailers; Next stays
    Implementation.
 
@@ -49,8 +51,10 @@ Work without interrupting until all tests pass, except disputed ones.
   `code-only` increment, you may edit a test without changing what it
   checks (e.g. a moved import); mark each such edit. Tests that the
   test and quality policy leaves to Implementation are code.
-- Mark the interpretations of the specification and the technical
-  choices you are unsure of.
+- Mark the technical choices you are unsure of.
+- A doubt on what the specification means, which the tests do not
+  settle, is an opening in the specification: an Amendment, or a
+  return to Specification.
 - In the first increment, also set up the repository (a `.gitignore`
   that keeps out secrets and build output, lock files) and, if any, CI,
   as `docs/technical.md` says.
@@ -88,6 +92,8 @@ Run:
 Agent checks, in a fresh context (see `dev43:core`, Agent checks), on
 the code changed by the increment:
 
+- [general] The code implements each statement of the change for
+  every state and input of its case, beyond the values of its tests.
 - [technical] The code follows `docs/technical.md`.
 - [choices] Every dependency, service or interface the specification
   does not name is marked, or is a routine library of the stack.
