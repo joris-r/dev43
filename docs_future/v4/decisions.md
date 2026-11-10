@@ -74,8 +74,12 @@
   supervision, the human acts as the orchestrator.
 - A gate on Tests or Implementation waits for an agent check; the
   human sees only the tags touching a decision they approved.
+- The human reviews a change of behavior before tests and code build
+  on it: in `docs_future/<feature>/`, or else at Specification
+  Verification.
 - The final review of an unsupervised increment covers the
-  specification change, a try of the software and the retrospective.
+  specification change no gate reviewed, a try of the software and
+  the retrospective.
 - An increment changes no decision the human approved; such a change
   escalates and goes into `docs_future/<feature>/`, reviewed by the
   human.

@@ -160,7 +160,9 @@ goes on alone, and its work is reviewed at the end of the increment,
 which is always a gate: the human reviews the specification change
 and tries the software. The size of a change does
 not set its gates: a large refactoring under unchanged tests may need
-fewer than a one-line change of a rule.
+fewer than a one-line change of a rule. The human reviews a change of
+behavior before tests and code build on it, in a future specification
+or at the Verification of Specification.
 
 An agent unsure of a choice stops anyway, gate or not: the plan sets
 the minimum of attention, never the maximum.

@@ -1,5 +1,7 @@
 # Dev43 plugin
 
+Start by reading [process_principles.md](process_principles.md).
+
 This repository is the Dev43 process, packaged as a Claude Code plugin.
 The operational rules live in [skills/](skills/).
 
