@@ -6,8 +6,8 @@ The board is empty.
 
 - The user types "write tests" and presses Enter.
 - The card appears in To do, and the field is empty again.
-- They move it right twice, through the Move pad: the card is in
-  Done, and its Move pad has "→" disabled.
+- They click the card, then "→", twice: the card is in Done.
+- They click the card: its Move pad has only "←" enabled.
 
 ## Clearing done work
 
@@ -21,7 +21,6 @@ The board holds "write tests" in Done.
 
 To do holds "write tests", then "fix bug".
 
-- The user opens the Move pad on "fix bug" and clicks "↑".
-- To do shows "fix bug", then "write tests"; the Move pad
-  on "fix bug" has "↑" disabled.
+- The user clicks "fix bug", then "↑".
+- To do shows "fix bug", then "write tests".
 - They reload the page: the order is kept.

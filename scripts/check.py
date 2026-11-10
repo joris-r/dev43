@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Dev43 script checks. Run from the project root.
 
-  check.py spec [--base <rev>]    [paths] [names] [overlap] [depends]
+  check.py spec [--base <rev>]    [paths] [names] [overlap] [depends] [reach]
   check.py tests [<file or dir>...] [coverage]
 
 `--base` is the last commit before the increment (default: HEAD); it
@@ -167,6 +167,7 @@ class Index:
         self.cites = []      # (path, origin, file rel)
         self.depends = {}    # domain -> [(path, origin)]
         self.extends = []    # (domain, extended path, own path, origin)
+        self.triggers = set()  # paths of the operations with a Trigger line
         for rel, lines in tree.items():
             parts = rel.split("/")
             domain = "/".join(parts[:-1])
@@ -203,6 +204,8 @@ class Index:
             m = EXTENDS.match(text)
             if m and stem == "operations" and section:
                 self.extends.append((domain, m.group(1), sec_path, origin))
+            if text.startswith("Trigger:") and stem == "operations" and section:
+                self.triggers.add(sec_path)
             for c in CITE.findall(plain):
                 self.cites.append((c, origin, rel))
             m = TAG.match(text)
@@ -305,6 +308,21 @@ def check_depends(index, origins_from=None):
             report("depends", origin, f"Extends {path}: not an operation of a declared domain")
 
 
+def check_reach(index, origins_from=None):
+    run = {c for c, _, rel in index.cites if rel.split("/")[-1] == "ui.md"}
+    if not any(rel.split("/")[-1] == "ui.md" for rel in index.tree):
+        return
+    for domain, stem, name, s, origin in index.sections:
+        if stem != "operations" or s in ("general", "initial-state"):
+            continue
+        if origins_from and not origin[0].startswith(origins_from):
+            continue
+        path = "/" + (domain + "/" if domain else "") + "operations/" + s
+        if path in index.triggers or any(c == path or c.startswith(path + "/") for c in run):
+            continue
+        report("reach", origin, f"{path} is run by no ui.md and has no Trigger line")
+
+
 def dependents(index, domain):
     out = set()
     for d in index.domains:
@@ -360,6 +378,7 @@ def cmd_spec(args):
     check_no_future_in_docs()
     check_names(index)
     check_depends(index)
+    check_reach(index)
     base_ops = operations(tree_from_git(args.base))
     list_changes(f"docs/ since {args.base}", index, base_ops, operations(docs))
     if FUTURE.is_dir():
@@ -379,6 +398,7 @@ def cmd_spec(args):
             check_paths(findex, prefix)
             check_names(findex, prefix)
             check_depends(findex, prefix)
+            check_reach(findex, prefix)
             list_changes(f"feature {feature.name}", findex, operations(docs), operations(applied))
 
 

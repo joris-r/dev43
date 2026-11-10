@@ -38,8 +38,9 @@ Tasks get tags, and the list can be filtered by one.
 ## Outline
 
 1. Tagging: /overview/non-goals, /model/task, /model/tag,
-   /operations/add-task, /operations/tag-task,
-   /operations/untag-task, /ui/tag-task, /ui/untag-task, /technical.
+   /operations/general, /operations/add-task, /operations/tag-task,
+   /operations/untag-task, /operations/migrate, /ui/tag-task,
+   /ui/untag-task.
 2. Filtering: /operations/list-tasks, /ui/list-tasks,
    /scenarios/shopping.
 
@@ -57,15 +58,6 @@ Tasks get tags, and the list can be filtered by one.
 - No due dates or priorities.
 ````
 
-## `technical.md`
-
-````markdown
-# Technical
-
-- [migrate] A file written before tags has every `#` removed from its
-  texts on first read; a task left with an empty text is removed.
-````
-
 ## `model.md`
 
 ````markdown
@@ -80,10 +72,10 @@ Tasks get tags, and the list can be filtered by one.
 
 ## Tag
 
-A word the user puts on tasks to group them.
+A word the user puts on tasks to group them: a `string`.
 
-- [word] One word: no space, no `#`.
-- [lower] Stored in lowercase: `Shop` and `shop` are the same tag.
+- [word] Not empty, with no whitespace and no `#`.
+- [lower] In lowercase.
 ````
 
 ## `operations.md`
@@ -91,41 +83,66 @@ A word the user puts on tasks to group them.
 ````markdown
 # Operations
 
+## General
+
+- [refused] A refused operation changes nothing …
+- [lowercase] A tag input is lowercased first; it is valid when the
+  result is a /model/tag.
+
 ## Add task
 
 × - [stored] Text not empty:
 - [stored] Text not empty, without `#`:
+×   - a new task with the text, not done, is at the end of the list;
+  - a new task with the text, not done, without tags, is at the end
+    of the list;
 - [empty] Empty text: refused, `Text is empty.` …
-- [hash] Text containing `#`: refused, `No "#" in a task.`
+- [hash] Text with a `#`: refused, `No "#" in a task.`
 
 ## List tasks
 
+Inputs:
+- `tag: optional string`
+
+Cases:
 × - [result] Returns the list.
-- [result] No tag given: returns the list.
-- [filter] Valid tag given: returns only the tasks with it, keeping
-  their numbers: tasks 1 and 3 tagged shop, 2 tagged work, list shop:
-  tasks 1 and 3.
-- [invalid] Not a valid /model/tag: refused, `Not a tag: <tag>.`
+- [result] No tag: returns the list.
+- [filter] Valid tag: returns the tasks with it, in list order, each
+  with its number.
+- [invalid] Tag not valid: refused, `Not a tag: <tag>.`
 
 ## Tag task
 
-- [tagged] Known number, valid tag, task without it: the task has the
-  tag; returns the tag, as stored: tag 1 Shop: task 1 has shop.
-- [again] Known number, valid tag, task already has it: nothing
-  changes, not an error; returns the tag, as stored.
-- [invalid] Known number, not a valid /model/tag: refused,
+Inputs:
+- `number: integer`
+- `tag: string`
+
+Cases:
+- [tagged] Number of a task, valid tag: the task has the tag; returns
+  the tag, lowercased.
+- [invalid] Number of a task, tag not valid: refused,
   `Not a tag: <tag>.`
-- [missing] Unknown number: refused, `No task <number>.`
+- [missing] Any other number: refused, `No task <number>.`
 
 ## Untag task
 
-- [untagged] Known number, valid tag, task has it: it no longer has
-  it; returns the tag, as stored.
-- [absent] Known number, valid tag, task without it: nothing changes,
-  not an error; returns the tag, as stored.
-- [invalid] Known number, not a valid /model/tag: refused,
+Inputs:
+- `number: integer`
+- `tag: string`
+
+Cases:
+- [untagged] Number of a task, valid tag: the task does not have the
+  tag; returns the tag, lowercased.
+- [invalid] Number of a task, tag not valid: refused,
   `Not a tag: <tag>.`
-- [missing] Unknown number: refused, `No task <number>.`
+- [missing] Any other number: refused, `No task <number>.`
+
+## Migrate
+
+Trigger: the first read of a list stored before tags existed.
+
+- [cleaned] Every `#` is removed from the texts, then every task with
+  an empty text is removed from the list; no task has a tag.
 ````
 
 ## `ui.md`
@@ -153,16 +170,14 @@ Command: `todo list [<tag>]` runs /operations/list-tasks.
 Command: `todo tag <number> <tag>` runs /operations/tag-task.
 
 Prints:
-- [tagged] `Tagged <number>: <tag>`, the tag as stored, also when the
-  task already had it.
+- [tagged] `Tagged <number>: <tag>`, the tag as returned.
 
 ## Untag task
 
 Command: `todo untag <number> <tag>` runs /operations/untag-task.
 
 Prints:
-- [untagged] `Untagged <number>: <tag>`, the tag as stored, also when the task did not
-  have it.
+- [untagged] `Untagged <number>: <tag>`, the tag as returned.
 ````
 
 ## `scenarios.md`

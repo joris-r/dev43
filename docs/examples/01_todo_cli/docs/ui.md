@@ -6,8 +6,8 @@ One command, `todo`, with a subcommand per operation.
 
 - [errors] Operation refused: its message on stderr, exit code 1.
 - [success] Operation succeeded: exit code 0.
-- [usage] No subcommand, or an unknown one: prints the usage, exit
-  code 1.
+- [usage] No subcommand, an unknown one, or an argument missing or not
+  of its input's type: prints the usage, exit code 1.
 
 ## Add task
 

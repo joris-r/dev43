@@ -6,10 +6,14 @@ The page runs every operation on the server. JSON in and out; a card
 reads `{"id": 1, "title": "write tests", "column": "todo",
 "position": 1}`.
 
+- [malformed] Body not JSON, or an input missing or not of its type:
+  refused, 400, `Malformed request.`
 - [refused] A refused operation changes nothing and answers
   `{"error": "<message>"}`.
-- [malformed] Body not JSON, missing a field or with a value of the
-  wrong type: refused, 400, `Malformed request.`
+
+## Initial state
+
+- [empty] The board holds no card.
 
 ## Show board
 
@@ -21,33 +25,57 @@ HTTP: `GET /cards`.
 
 HTTP: `POST /cards` with `{"title": "write tests"}`.
 
-- [accepted] Trimmed title not empty:
-  - a new card with the trimmed title is stored, at the end of To do,
-    its id one above the highest ever assigned;
+Inputs:
+- `title: string`
+
+Cases:
+- [accepted] Title not empty once trimmed:
+  - a new card is stored: an id no card has, the trimmed title, in
+    `todo`, at the position after its last card;
   - answers 201 with the new card.
-- [empty] Trimmed title empty: refused, 400, `Title is empty.`
+- [empty] Title empty once trimmed: refused, 400, `Title is empty.`
 
 ## Move card
 
 Records the progress or the priority of a card.
 
-HTTP: `PATCH /cards/<id>` with `{"column": "doing", "position": 1}`.
+HTTP: `PATCH /cards/<id>` with `{"direction": "up"}`.
 
-- [moved] Known id, position from 1 to the number of cards in the
-  column, the moved card included:
-  - the card is at that position in that column;
-  - the other cards keep their order: To do holds "a", "b", "c";
-    move "c" to To do, position 1: To do holds "c", "a", "b";
+Inputs:
+- `id: integer`
+- `direction: one of up, down, left, right`
+
+Cases:
+- [up] Known id, `up`, card not at the top of its column:
+  - it swaps positions with the card above it;
   - answers 200 with the card.
-- [position] Known id, any other position: refused, 400,
-  `Position out of range.`
+- [down] Known id, `down`, card not at the bottom of its column:
+  - it swaps positions with the card below it;
+  - answers 200 with the card.
+- [left] Known id, `left`, card not in `todo`:
+  - the card is in the previous column, at the position after its
+    last card;
+  - in the column it left, the cards below it move up one position;
+  - answers 200 with the card.
+- [right] Known id, `right`, card not in `done`:
+  - the card is in the next column, at the position after its last
+    card;
+  - in the column it left, the cards below it move up one position;
+  - answers 200 with the card.
+- [edge] Known id, any other move: refused, 400,
+  `Cannot move <direction>.`
 - [missing] Unknown id: refused, 404, `No card <id>.`
 
 ## Delete card
 
 HTTP: `DELETE /cards/<id>`.
 
+Inputs:
+- `id: integer`
+
+Cases:
 - [removed] Known id:
   - the card is no longer stored;
+  - in its column, the cards below it move up one position;
   - answers 204.
 - [missing] Unknown id: refused, 404, `No card <id>.`

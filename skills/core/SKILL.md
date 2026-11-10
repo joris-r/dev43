@@ -13,7 +13,7 @@ Golden rule: humans make every important or impactful decision.
 
 Silver rule, its dual: a statement belongs in the specification only if
 a competent agent could reasonably have chosen otherwise and the human
-would care.
+would care, or if the specification would be open without it.
 
 ## Line of responsibility
 
@@ -241,9 +241,14 @@ and records that they must act on it.
   outline in `docs_future/<feature>/BACKLOG.md`.
   `docs_future/BACKLOG.md` is the project backlog. The
   `dev43:specification` skill gives their forms.
-- Write the minimum, by the silver rule. Everything else is derived by
-  agents, in tests and code. Mark what you are unsure of instead of
-  specifying it.
+- The specification is closed: the model declares all the data, the
+  operations settle every input in every state, the UI gives every
+  operation a trigger and every outcome a display. Tests and code are
+  derived from it without a question to the human.
+- Within that, write the minimum, by the silver rule: a value the
+  human does not care about is left free, and said so. Everything
+  else is derived by agents, in tests and code. Mark a choice you are
+  unsure of.
 - Specification, tests and implementation are linked by refinement: an
   implementation may behave beyond what is specified. State each
   statement of behavior as an outcome observable over the specified

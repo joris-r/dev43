@@ -15,10 +15,12 @@ before the implementation and are read-only during it.
 
 1. Read the change and the test and quality policy in
    `docs/technical.md`.
-2. Decide what to test, and at which level. Edge cases are settled
-   here, by tests.
-3. Raise to the human only what the specification must settle: an
-   edge case no test can choose, a statement that cannot be tested, a
+2. Decide what to test, and at which level. The specification gives
+   the cases; choose here the values that exercise them, edges
+   included.
+3. Raise to the human only what the specification must settle: a
+   state or an input no case settles, a statement that cannot be
+   tested, a
    new test or quality need for the policy. Each one is a change of
    the specification (see `dev43:core`, Specification); a statement
    accepted as not testable ends with `(not testable)`.

@@ -50,10 +50,9 @@ for a single user on their own machine: cards move from To do to Done.
 
 ## Column
 
-One of three fixed stages.
+One of three fixed stages of work.
 
-- [stages] `todo` (shown "To do"), `doing` ("Doing"), `done`
-  ("Done"), in that order.
+- [stages] `todo`, `doing` or `done`, in that order.
 
 ## Card
 
@@ -62,17 +61,19 @@ Something the user has to do.
 - `id: integer`, identifies the card.
   - [unique] No two cards share it.
 - `title: string`, what to do.
-  - [nonempty] Trimmed and not empty.
+  - [trimmed] Not empty, with no whitespace at its start or end.
 - `column: /model/column`, the card's stage.
-- `position: integer`, the card's place in its column.
-  - [top] 1 at the top.
-  - [contiguous] In each column, positions run from 1 to the number
-    of cards in it.
+- `position: integer`, the card's place in its column, 1 at the top.
+  - [contiguous] In each column, the positions run from 1 to the
+    number of cards in it, each used once.
 
 ## Board
 
-All cards, grouped by column in column order, each column ordered by
-position: the board order.
+The state: everything the application stores.
+
+- `cards: set of /model/card`, all the cards.
+
+Board order: the cards by column, in column order, then by position.
 ````
 
 ## `operations.md`
@@ -86,10 +87,14 @@ The page runs every operation on the server. JSON in and out; a card
 reads `{"id": 1, "title": "write tests", "column": "todo",
 "position": 1}`.
 
+- [malformed] Body not JSON, or an input missing or not of its type:
+  refused, 400, `Malformed request.`
 - [refused] A refused operation changes nothing and answers
   `{"error": "<message>"}`.
-- [malformed] Body not JSON, missing a field or with a value of the
-  wrong type: refused, 400, `Malformed request.`
+
+## Initial state
+
+- [empty] The board holds no card.
 
 ## Show board
 
@@ -101,34 +106,58 @@ HTTP: `GET /cards`.
 
 HTTP: `POST /cards` with `{"title": "write tests"}`.
 
-- [accepted] Trimmed title not empty:
-  - a new card with the trimmed title is stored, at the end of To do,
-    its id one above the highest ever assigned;
+Inputs:
+- `title: string`
+
+Cases:
+- [accepted] Title not empty once trimmed:
+  - a new card is stored: an id no card has, the trimmed title, in
+    `todo`, at the position after its last card;
   - answers 201 with the new card.
-- [empty] Trimmed title empty: refused, 400, `Title is empty.`
+- [empty] Title empty once trimmed: refused, 400, `Title is empty.`
 
 ## Move card
 
 Records the progress or the priority of a card.
 
-HTTP: `PATCH /cards/<id>` with `{"column": "doing", "position": 1}`.
+HTTP: `PATCH /cards/<id>` with `{"direction": "up"}`.
 
-- [moved] Known id, position from 1 to the number of cards in the
-  column, the moved card included:
-  - the card is at that position in that column;
-  - the other cards keep their order: To do holds "a", "b", "c";
-    move "c" to To do, position 1: To do holds "c", "a", "b";
+Inputs:
+- `id: integer`
+- `direction: one of up, down, left, right`
+
+Cases:
+- [up] Known id, `up`, card not at the top of its column:
+  - it swaps positions with the card above it;
   - answers 200 with the card.
-- [position] Known id, any other position: refused, 400,
-  `Position out of range.`
+- [down] Known id, `down`, card not at the bottom of its column:
+  - it swaps positions with the card below it;
+  - answers 200 with the card.
+- [left] Known id, `left`, card not in `todo`:
+  - the card is in the previous column, at the position after its
+    last card;
+  - in the column it left, the cards below it move up one position;
+  - answers 200 with the card.
+- [right] Known id, `right`, card not in `done`:
+  - the card is in the next column, at the position after its last
+    card;
+  - in the column it left, the cards below it move up one position;
+  - answers 200 with the card.
+- [edge] Known id, any other move: refused, 400,
+  `Cannot move <direction>.`
 - [missing] Unknown id: refused, 404, `No card <id>.`
 
 ## Delete card
 
 HTTP: `DELETE /cards/<id>`.
 
+Inputs:
+- `id: integer`
+
+Cases:
 - [removed] Known id:
   - the card is no longer stored;
+  - in its column, the cards below it move up one position;
   - answers 204.
 - [missing] Unknown id: refused, 404, `No card <id>.`
 ````
@@ -137,6 +166,12 @@ HTTP: `DELETE /cards/<id>`.
 
 ````markdown
 # UI
+
+## General
+
+- [current] The page shows the board as stored: it runs
+  /operations/show-board when opened, and follows each operation it
+  runs.
 
 ## Board page
 
@@ -149,26 +184,28 @@ Shows, top to bottom:
 ## Error banner
 
 Shows, by state:
-- [hidden] Page opened: hidden.
-- [message] Operation refused or failed: its message.
-  - [cleared] Next operation succeeds: hidden.
+- [hidden] Page opened, or an operation succeeds: hidden.
+- [message] An operation is refused: its message.
+- [unreachable] An operation gets no answer: `Server unreachable.`
 
 ## Column
 
 Shows, top to bottom:
-- [name] its name;
+- [name] its name: "To do" for `todo`, "Doing" for `doing`, "Done"
+  for `done`;
 - [add] the Add form, in To do only;
 - [cards] its Cards, in board order.
 
 ## Add form
 
 Shows:
-- [field] a text field, emptied once a card is added.
+- [field] a text field, empty when the page opens.
 
 Actions:
-- [add] Enter, or focus leaving the field with text in it: runs
-  /operations/add-card with the field's text.
-- [cancel] Esc in the field: empties it; nothing is added.
+- [add] Enter, or focus leaving the field, with text in it: runs
+  /operations/add-card with the text as title; once it succeeds, the
+  field is empty.
+- [cancel] Esc in the field: the field is empty; nothing runs.
 
 ## Card
 
@@ -176,25 +213,24 @@ Shows:
 - [title] its title, then a "×" button.
 
 Actions:
-- [delete] "×" clicked: runs /operations/delete-card, without
-  confirmation.
+- [delete] "×" clicked: runs /operations/delete-card with its id,
+  without confirmation.
 - [pad] Clicked elsewhere: opens the Move pad on it.
 
 ## Move pad
 
 Shows, by state:
 - [closed] Page opened: hidden.
-- [open] Opened on a card: next to it, four arrows in a cross, "↑"
-  above, "↓" below, "←" left, "→" right.
-  - [moved] Opened on another card: moves to it.
-  - [dismissed] An arrow clicked, Esc, or a click outside: hidden.
+- [open] Opened on a card, also when open on another: next to that
+  card, four arrows in a cross, "↑" above, "↓" below, "←" left, "→"
+  right; an arrow is disabled when its move would be refused.
+- [dismissed] An arrow clicked, Esc, its card deleted, or a click
+  outside the pad and the cards: hidden.
 
 Actions:
-- [up] "↑": runs /operations/move-card one position up; disabled at
-  the top.
-- [down] "↓": one position down; disabled at the bottom.
-- [left] "←": to the end of the previous column; disabled in To do.
-- [right] "→": to the end of the next column; disabled in Done.
+- [move] An arrow clicked: runs /operations/move-card with the card's
+  id and the arrow's direction: `up` for "↑", `down` for "↓", `left`
+  for "←", `right` for "→".
 ````
 
 ## `scenarios.md`
@@ -208,8 +244,8 @@ The board is empty.
 
 - The user types "write tests" and presses Enter.
 - The card appears in To do, and the field is empty again.
-- They move it right twice, through the Move pad: the card is in
-  Done, and its Move pad has "→" disabled.
+- They click the card, then "→", twice: the card is in Done.
+- They click the card: its Move pad has only "←" enabled.
 
 ## Clearing done work
 
@@ -223,8 +259,7 @@ The board holds "write tests" in Done.
 
 To do holds "write tests", then "fix bug".
 
-- The user opens the Move pad on "fix bug" and clicks "↑".
-- To do shows "fix bug", then "write tests"; the Move pad
-  on "fix bug" has "↑" disabled.
+- The user clicks "fix bug", then "↑".
+- To do shows "fix bug", then "write tests".
 - They reload the page: the order is kept.
 ````

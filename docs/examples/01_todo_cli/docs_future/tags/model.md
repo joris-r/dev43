@@ -9,7 +9,7 @@
 
 ## Tag
 
-A word the user puts on tasks to group them.
+A word the user puts on tasks to group them: a `string`.
 
-- [word] One word: no space, no `#`.
-- [lower] Stored in lowercase: `Shop` and `shop` are the same tag.
+- [word] Not empty, with no whitespace and no `#`.
+- [lower] In lowercase.

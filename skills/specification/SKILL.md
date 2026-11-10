@@ -7,8 +7,8 @@ description: Dev43 Specification phase, the first phase of each increment. Use w
 
 Load `dev43:core` first if it is not loaded.
 
-Goal: a minimal change of the specification for one increment,
-approved by the human: in `docs/`, or in `docs_future/<feature>/` for
+Goal: a change of the specification for one increment, closed and
+minimal, approved by the human: in `docs/`, or in `docs_future/<feature>/` for
 the `future` shape.
 
 ## Exploration
@@ -60,9 +60,9 @@ Work without interrupting. By shape:
 - `future`: write or update `docs_future/<feature>/`, in the form of
   [future.md](future.md); or delete it, for an abandoned feature.
 
-Follow the specification rules of `dev43:core`: write the minimum, no
-reasons, a tag on every statement of behavior. Leave edge cases to the
-Tests phase. Mark the choices you are unsure of.
+Follow the specification rules of `dev43:core`: closed, then minimal,
+no reasons, a tag on every statement of behavior. Mark the choices you
+are unsure of.
 
 Run the Verification checks and fix what fails. Then hand over with
 the check results and the list of marks, with one line on each saying
@@ -85,32 +85,58 @@ why; or, where Verification has no gate, make the exit commit.
   `Depends on: /tasks, /users.`
 - One `##` section per concept or operation, with the same name
   across documents.
-- `model.md`: each concept states its meaning, then its fields
-  (`name: type`, its meaning), then its invariants, each tagged.
-  Invariants are only in the model. The model states what the data is
-  and what holds in every state; how a value is obtained or changed
-  (entered, computed, imported) is an operation. Data read from
-  outside is a concept of its own.
-- `operations.md`: an operation states its purpose only if the name
-  and cases leave it unclear, its API binding if any, then one tagged
-  case per condition, errors included, each with all its outcomes. A
-  refused case states its message only when `technical.md` says the
-  project specifies messages. An operation extending another
-  domain's operation starts with `Extends <path>.`
+- `model.md`: all the data, and only the data.
+  - A concept states its meaning, then its fields (`name: type`, its
+    meaning), then its invariants, each tagged.
+  - One concept is the state: everything the software stores. Every
+    value an operation reads or changes is in the model.
+  - A type is the path of a concept, or `integer`, `decimal`,
+    `string`, `boolean`, `date`, `time`, `one of a, b, c`,
+    `optional T`, `set of T`, `list of T`, `map from T to U`.
+  - An invariant holds in every state and reads on one state alone.
+    Invariants are only in the model. How a value is obtained or
+    changed (entered, computed, imported, initialized) is an
+    operation.
+  - A name for something derived from the fields is a definition,
+    untagged.
+  - Data read from outside is a concept of its own.
+- `operations.md`: every way the state is read or changed.
+  - `## Initial state`: the state before the first operation.
+  - An operation states its purpose only if the name and cases leave
+    it unclear, then its binding (API) if any, or `Trigger: <when>`
+    if nothing in `ui.md` runs it, then `Inputs:`, each
+    `name: type`, then `Cases:`, one tagged case per condition,
+    errors included.
+  - Exactly one case applies to each state and each input of its
+    type. An input not of its type is one case for all operations,
+    in `## General` or in `ui.md`.
+  - A case states its condition, then the state after it and its
+    result. What it does not state is unchanged. It leaves free a
+    value the human does not care about, and says so: `an id no card
+    has`.
+  - A refused case changes nothing. It states its message only when
+    `technical.md` says the project specifies messages.
+  - A change of an invariant that stored data may break comes with a
+    migration, an operation.
+  - An operation extending another domain's operation starts with
+    `Extends <path>.`
 - `ui.md`: one section per element the user meets (page, component,
   command), its binding first, then:
-  - what it shows, in order; one tagged case per state or outcome,
-    each transition as a tagged sub-point;
-  - what the user can do: each trigger, the operation it runs, and
-    when it is unavailable.
-  It refers to the operations, adding only trigger and display.
+  - what it shows, in order; one tagged case per state or outcome;
+  - what the user can do: each trigger, the operation it runs, where
+    each input comes from, and when it is unavailable.
+  It changes only what is on display: what is open, shown or typed.
+  A condition on the model, a change of it, or a computed input is an
+  operation's. Every outcome of an operation it runs has a display,
+  and every value shown is a field, a definition or a result.
 - An exact text the user sees is written with placeholders:
   `No task <number>.`
 - `design/`: mockups, one per page, named after its `ui.md` section,
-  showing every state, values included. `design.md` holds the look
-  rules they cannot show.
-- A scenario: its starting state, then its steps, each a user action
-  or what they see.
+  showing every element and state of it, and nothing else, values
+  included. `design.md` holds the look rules they cannot show.
+- A scenario: its starting state, then its steps, each a trigger of
+  `ui.md` or what the user then sees, as the operations and the UI
+  give it.
 - Use nested lists, never tables. An example only where a statement is
   ambiguous without it.
 
@@ -145,29 +171,33 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
   operation of a declared domain. The script also lists, for each
   changed operation, its dependent domains and its extensions: they
   are the input of [soundness].
+- [reach] Every operation is run by a `ui.md` or has a `Trigger:`
+  line.
 
 Agent checks, by you, on the change:
 
-- [placement] Every statement is in its document: invariants in the
-  model, conditions and effects in the operations; `ui.md` adds only
-  triggers and display.
+- [placement] Every statement is in its document: data and
+  invariants in the model, conditions and effects in the operations;
+  `ui.md` adds only triggers and display.
+- [closed] The model declares every value the operations use; every
+  operation declares its inputs; exactly one case applies to each
+  state and input.
 - [meaning] Every concept and field states its meaning, unless its name
   makes it obvious.
 - [duplicate] Nothing is stated twice or derivable from another line.
 - [examples] Every example illustrates a statement ambiguous without
   it.
-- [complete] The cases of an operation do not overlap and cover every
-  input.
 - [tags] Every statement of behavior has a tag.
-- [silver] Every line passes the silver rule; delete the lines you are
-  sure fail it.
+- [silver] Every line closes the specification or passes the silver
+  rule; delete the lines you are sure do neither.
 - [why] No line gives a reason; reasons go to the commit body.
 
 Agent check, in a fresh context (see `dev43:core`, Agent checks), when
-the change adds or changes an operation or an invariant:
+the change touches the model, the operations, the UI, the design or
+the scenarios:
 
-- [soundness] The `dev43:soundness` check: every operation in its
-  scope keeps the invariants.
+- [soundness] The `dev43:soundness` check: the operations keep the
+  invariants, and the documents agree.
 
 ## Exit
 

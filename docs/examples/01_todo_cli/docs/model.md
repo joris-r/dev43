@@ -10,7 +10,8 @@ Something the user has to do.
 
 ## List
 
-The ordered sequence of all tasks.
+The state: everything the tool stores.
 
-- [order] Oldest first.
-- [number] A task's number is its position in the list, starting at 1.
+- `tasks: list of /model/task`, all the tasks.
+
+A task's number: its position in the list, starting at 1.

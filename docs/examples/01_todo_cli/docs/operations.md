@@ -4,11 +4,18 @@
 
 - [refused] A refused operation changes nothing and gives a message.
 
+## Initial state
+
+- [empty] The list holds no task.
+
 ## Add task
 
+Inputs:
+- `text: string`
+
+Cases:
 - [stored] Text not empty:
-  - a new task with the text, not done, is stored, at the end of the
-    list;
+  - a new task with the text, not done, is at the end of the list;
   - returns the new task.
 - [empty] Empty text: refused, `Text is empty.`
 
@@ -18,16 +25,21 @@
 
 ## Mark done
 
-- [done] Open task: it is done; returns it.
-- [again] Task already done: nothing changes, not an error; returns
-  it.
-- [missing] Unknown number: refused, `No task <number>.`
+Inputs:
+- `number: integer`
+
+Cases:
+- [done] Number of an open task: the task is done; returns it.
+- [again] Number of a done task: nothing changes; returns it.
+- [missing] Any other number: refused, `No task <number>.`
 
 ## Remove task
 
-- [removed] Known number:
-  - the task is removed, done or not;
-  - the tasks after it move up one number: tasks 1 "buy milk", 2
-    "call Ann", remove 1: "call Ann" is now task 1;
+Inputs:
+- `number: integer`
+
+Cases:
+- [removed] Number of a task:
+  - the task is removed from the list;
   - returns the removed task.
-- [missing] Unknown number: refused, `No task <number>.`
+- [missing] Any other number: refused, `No task <number>.`

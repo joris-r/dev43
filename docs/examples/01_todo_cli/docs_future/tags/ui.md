@@ -20,13 +20,11 @@ Command: `todo list [<tag>]` runs /operations/list-tasks.
 Command: `todo tag <number> <tag>` runs /operations/tag-task.
 
 Prints:
-- [tagged] `Tagged <number>: <tag>`, the tag as stored, also when the
-  task already had it.
+- [tagged] `Tagged <number>: <tag>`, the tag as returned.
 
 ## Untag task
 
 Command: `todo untag <number> <tag>` runs /operations/untag-task.
 
 Prints:
-- [untagged] `Untagged <number>: <tag>`, the tag as stored, also when the task did not
-  have it.
+- [untagged] `Untagged <number>: <tag>`, the tag as returned.

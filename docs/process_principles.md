@@ -19,7 +19,8 @@ The golden rule: humans must be involved in every important or
 impactful decision.
 
 The silver rule: a statement belongs in the specification only if a competent
-agent could reasonably have chosen otherwise and the human would care.
+agent could reasonably have chosen otherwise and the human would care, or if
+the specification would be open without it.
 
 These rules keep humans in the loop, but only on important topics.
 
@@ -64,19 +65,29 @@ never bends a more authoritative one. When a later step reveals an
 error in an earlier one, the work returns to it.
 
 
-### A minimal specification
+### A closed, minimal specification
 
-By the silver rule, the specification records only the decisions where
-the human matters. Agents derive the rest, in the tests and the code.
-The specification stays shorter and more abstract than them, and easy
-for a human to read.
+The specification is the only artifact the human reviews, and agents
+derive tests and code from it without asking. So it is closed: the
+model declares all the data, with its meaning, types and invariants;
+the operations settle every input in every state; the UI gives every
+operation a trigger and every outcome a display.
+
+Each document has one role. The model says what holds in every state,
+the operations how the state changes, the UI what is shown and what
+runs an operation. The design and the scenarios agree with them.
+
+Within that, by the silver rule, it records only the decisions where
+the human matters: what they do not care about is left free, and said
+so. Agents derive the rest, in the tests and the code. The
+specification stays shorter and more abstract than them, and easy for
+a human to read.
 
 It records what is decided, not why: reasoning goes stale. The reasons
 live in the history.
 
 It is organized by domain, around the data model and the operations on
-it. Each operation states one case per condition, so that gaps and
-overlaps show.
+it.
 
 
 ### Tests as the guarantee
@@ -122,20 +133,23 @@ to the decisions.
 
 The specification is checked by scripts for its structure: paths
 resolve, names agree across documents, domains cite only what they
-declare, and future versions still apply. Its author checks that
-every statement is in its document: invariants in the model,
-conditions and effects in the operations, only triggers and display
-in the UI, and that the cases of an operation do not overlap and
-cover every input. The author also keeps it minimal and readable:
+declare, every operation can be run, and future versions still
+apply. Its author checks that every statement is in its document and
+that it is closed. The author also keeps it minimal and readable:
 every statement of behavior has a tag, every concept states its
 meaning, and nothing is duplicated, given a reason, or illustrated
 without need.
 
 An agent in a fresh context then checks its soundness, after the
-proof obligations of the B method: every operation keeps the
-invariants, including those of dependent domains, and every
-extension keeps the operation it extends. It reasons rather than
-proves: a counterexample, or an obligation it cannot decide, goes to
+proof obligations of the B method: the initial state meets the
+invariants, exactly one case of an operation applies to each state
+and input, every operation keeps the invariants, including those of
+dependent domains, every extension keeps the operation it extends,
+and a migration brings existing data to a changed invariant. It also
+checks that the documents agree: the operations use only declared
+data, the UI displays every outcome, the mockups show what the UI
+states, and each scenario can be walked through them. It reasons
+rather than proves: a counterexample, or an obligation it cannot decide, goes to
 the human as a mark. The human can also run it on the whole
 specification. The human then reviews the specification.
 
