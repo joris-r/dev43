@@ -32,7 +32,8 @@ Shows, top to bottom:
 ## Add form
 
 Shows:
-- [field] a text field, empty when the page opens.
+- [field] a text field, empty when the page opens, with the
+  placeholder `New card`.
 
 Actions:
 - [add] Enter, or focus leaving the field, with text in it: runs

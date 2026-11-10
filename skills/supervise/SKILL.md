@@ -17,7 +17,8 @@ unsupervised increment, for everything but the specification.
 - Supervised work starts in Pause, on a feature whose
   `docs_future/<feature>/` the human has approved and which settles
   every decision where the human matters. If one remains open, raise
-  it first: it is a `future` increment.
+  it first: it is a `future` increment. So is a finding of the script
+  checks of the specification: run them before the first increment.
 - Tell the human the increments of the outline you will run, and start
   on their `next`.
 - Your messages start with `[Supervise · <feature>]`.
@@ -41,7 +42,8 @@ uncommitted by an interrupted sub-agent: tell the human.
    their checks pass. Run each agent check in a fresh context of its
    own.
 4. A decision where the human matters (a mark on the specification, an
-   escalation, a return to Specification) pauses the supervised work:
+   Amendment, an escalation, a return to Specification) pauses the
+   supervised work:
    relay it to the human in a few lines, wait, and pass on the answer.
 5. At its final review, check that its specification change only moves
    sections of `docs_future/<feature>/` into `docs/`, and that the

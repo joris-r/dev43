@@ -35,7 +35,8 @@ Rewrite `spec/main/` into `docs/`, in the form of the
   in the commit body, each rule ID with the path that replaces it.
 - A statement v4 requires and v3 left open (e.g. a refused case)
   states the current behavior of the code, marked `@dev43:unsure` for
-  the human.
+  the human. A line that only gives the form (inputs, types, the
+  state concept) needs no mark.
 - Run the agent checks of the specification. Apply the deletions of
   [duplicate] and [why]; propose those of [silver] and [examples] to
   the human, as marks.
@@ -45,7 +46,8 @@ Rewrite `spec/main/` into `docs/`, in the form of the
   phase or step (Integration, a change page, a human review of tests
   or code); the human rewords them at the review.
 - An agent checks, in a fresh context, that every v3 statement maps to
-  a v4 line, and that v4 adds only marked lines. The mapping goes in
+  a v4 line, and that v4 adds only marked lines and lines of form.
+  The mapping goes in
   the commit body.
 
 The human reviews the whole of `docs/` at the Verification gate. The

@@ -266,13 +266,14 @@ and records that they must act on it.
     removed, spaces to hyphens, punctuation dropped:
     `/operations/add-task/empty`, `État à vérifier` gives
     `etat-a-verifier`.
-  - Bindings (route, command, HTTP) carry no tag.
+  - Bindings (route, command, HTTP, `Trigger:`), inputs, fields and
+    definitions carry no tag.
   - Tests cite paths in a comment; documents cite them as plain text.
   - A statement no test can check ends with `(not testable)`.
   - A scenario is one end-to-end test, cited by its section path; its
     steps carry no tags.
-  - `design/` and `design.md` have no tags; they are checked by eye at
-    review.
+  - `design/` and `design.md` have no tags: the look is checked by
+    eye at review, and the mockups against `ui.md` by [soundness].
 - A decision states what is decided, not why. Give reasons in your
   hand-over message and in the commit message of the phase.
 - The `Dev43-Specification` trailer says whether `docs/` covers the
@@ -280,6 +281,8 @@ and records that they must act on it.
   adopted on existing code); absent means `complete`. In partial mode:
   - a zone is specified once its documents exist; `model.md` holds
     only what the specified zones use;
+  - a case the human leaves open is stated as `unspecified`, without
+    a tag;
   - everything else is unspecified, as is: an increment may change
     existing behavior only where `docs/` specifies it. To change other
     existing behavior, first specify its zone in a `specify-existing`

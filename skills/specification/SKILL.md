@@ -103,7 +103,7 @@ why; or, where Verification has no gate, make the exit commit.
 - `operations.md`: every way the state is read or changed.
   - `## Initial state`: the state before the first operation.
   - An operation states its purpose only if the name and cases leave
-    it unclear, then its binding (API) if any, or `Trigger: <when>`
+    it unclear, then its binding (API) if any, and `Trigger: <when>`
     if nothing in `ui.md` runs it, then `Inputs:`, each
     `name: type`, then `Cases:`, one tagged case per condition,
     errors included.

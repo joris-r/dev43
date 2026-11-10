@@ -34,7 +34,8 @@ In scope:
 
 - [initial] The initial state meets every invariant.
 - [partition] In every state meeting the invariants, exactly one case
-  applies to each input of its type.
+  applies to each input of its type. A case stated as `unspecified`
+  counts here and carries no other obligation.
 - [invariants] Under the invariants and the case's condition, the
   state after a case meets every invariant of its domain.
 - [dependents] It also meets the invariants of every domain that

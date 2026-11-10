@@ -15,12 +15,14 @@ skill.
 3. Look for counterexamples to each claim in the code and tests, and
    raise them one per message. The human rules on each:
    - a bug: propose an entry in `docs_future/BACKLOG.md` to fix it;
-   - an exception: specified, or left unspecified;
+   - an exception: specified, or stated as unspecified;
    - a wrong claim: refined.
 4. Point out behavior of the zone the claims leave out only if the
    human would likely care (silver rule); they decide.
 
 ## Production
 
-The change holds the claims, as refined. What it does not state
-stays unspecified. No code changes.
+The change holds the claims, as refined, and is closed like any
+other. A case the human leaves open says so, without a tag:
+`- Number above 999: unspecified.` Outside the zone, everything stays
+unspecified. No code changes.
