@@ -52,7 +52,6 @@ Something the user has to do.
 - `text: string`, what to do.
   - [nonempty] Not empty.
 - `done: boolean`, whether the user has ticked it off.
-  - [fresh] False at creation.
 
 ## List
 
@@ -74,7 +73,8 @@ The ordered sequence of all tasks.
 ## Add task
 
 - [stored] Text not empty:
-  - a new task with the text is stored, at the end of the list;
+  - a new task with the text, not done, is stored, at the end of the
+    list;
   - returns the new task.
 - [empty] Empty text: refused, `Text is empty.`
 

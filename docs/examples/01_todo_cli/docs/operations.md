@@ -7,7 +7,8 @@
 ## Add task
 
 - [stored] Text not empty:
-  - a new task with the text is stored, at the end of the list;
+  - a new task with the text, not done, is stored, at the end of the
+    list;
   - returns the new task.
 - [empty] Empty text: refused, `Text is empty.`
 

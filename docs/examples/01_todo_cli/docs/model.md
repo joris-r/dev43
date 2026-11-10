@@ -7,7 +7,6 @@ Something the user has to do.
 - `text: string`, what to do.
   - [nonempty] Not empty.
 - `done: boolean`, whether the user has ticked it off.
-  - [fresh] False at creation.
 
 ## List
 

@@ -60,11 +60,10 @@ One of three fixed stages.
 Something the user has to do.
 
 - `id: integer`, identifies the card.
-  - [unique] Assigned at creation, one above the highest ever assigned.
+  - [unique] No two cards share it.
 - `title: string`, what to do.
   - [nonempty] Trimmed and not empty.
 - `column: /model/column`, the card's stage.
-  - [fresh] `todo` at creation.
 - `position: integer`, the card's place in its column.
   - [top] 1 at the top.
   - [contiguous] In each column, positions run from 1 to the number
@@ -103,7 +102,8 @@ HTTP: `GET /cards`.
 HTTP: `POST /cards` with `{"title": "write tests"}`.
 
 - [accepted] Trimmed title not empty:
-  - a new card with the trimmed title is stored, at the end of To do;
+  - a new card with the trimmed title is stored, at the end of To do,
+    its id one above the highest ever assigned;
   - answers 201 with the new card.
 - [empty] Trimmed title empty: refused, 400, `Title is empty.`
 

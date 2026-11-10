@@ -87,7 +87,10 @@ why; or, where Verification has no gate, make the exit commit.
   across documents.
 - `model.md`: each concept states its meaning, then its fields
   (`name: type`, its meaning), then its invariants, each tagged.
-  Invariants are only in the model.
+  Invariants are only in the model. The model states what the data is
+  and what holds in every state; how a value is obtained or changed
+  (entered, computed, imported) is an operation. Data read from
+  outside is a concept of its own.
 - `operations.md`: an operation states its purpose only if the name
   and cases leave it unclear, its API binding if any, then one tagged
   case per condition, errors included, each with all its outcomes. A

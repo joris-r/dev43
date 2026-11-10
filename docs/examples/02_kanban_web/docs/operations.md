@@ -22,7 +22,8 @@ HTTP: `GET /cards`.
 HTTP: `POST /cards` with `{"title": "write tests"}`.
 
 - [accepted] Trimmed title not empty:
-  - a new card with the trimmed title is stored, at the end of To do;
+  - a new card with the trimmed title is stored, at the end of To do,
+    its id one above the highest ever assigned;
   - answers 201 with the new card.
 - [empty] Trimmed title empty: refused, 400, `Title is empty.`
 
