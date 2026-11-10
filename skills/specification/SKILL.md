@@ -145,8 +145,11 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
 
 Agent checks, by you, on the change:
 
-- [invariants] Invariants are only in the model; each operation states
-  the conditions that keep them.
+- [placement] Every statement is in its document: invariants in the
+  model, conditions and effects in the operations; `ui.md` adds only
+  triggers and display.
+- [invariants] Each operation states the conditions that keep the
+  invariants.
 - [meaning] Every concept and field states its meaning, unless its name
   makes it obvious.
 - [duplicate] Nothing is stated twice or derivable from another line.

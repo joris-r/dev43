@@ -86,13 +86,19 @@ specification. Tests are written before the code, from the
 specification, and the code is then written to make them pass, without
 modifying them.
 
-Every statement of behavior in the specification carries a tag. Every
-test cites the tags it checks, and every tag has a test or is marked
-not testable. This traceability shows that the specification is fully
-covered.
-
 Tests are also the agent's feedback loop: it knows it is done when they
 pass.
+
+
+### Traceability
+
+Every statement of behavior in the specification carries a tag, and
+its path (file, section, tag) names it. Every test cites the paths it
+checks, and every tag has a test or is marked not testable.
+
+The paths link each decision to the tests that check it. They show
+that the specification is fully covered, which tests a change of the
+specification touches, and what each test must check.
 
 
 ### The line of responsibility
@@ -105,6 +111,40 @@ An agent never changes a decision the human approved: such a change
 goes back to the human, as a change of the specification.
 
 This line holds in every increment, supervised or not.
+
+
+### Checks
+
+Each artifact is checked at three levels: scripts check the form,
+agents check the meaning, the human checks the decisions. Each level
+covers what the one below cannot, so the human's attention goes only
+to the decisions.
+
+The specification is checked by scripts for its structure: paths
+resolve, names agree across documents, domains cite only what they
+declare, and future versions still apply. Its author checks that
+every statement is in its document: invariants in the model,
+conditions and effects in the operations, only triggers and display
+in the UI, then its soundness, as a formal method would: every
+operation keeps the invariants, including those of dependent
+domains; an extension keeps or weakens the precondition it extends;
+the cases of an operation do not overlap and cover every input. The
+author also keeps it minimal and readable: every statement of
+behavior has a tag, every concept states its meaning, and nothing is
+duplicated, given a reason, or illustrated without need. The human
+then reviews it.
+
+The tests are checked by a script for coverage: every tag has a test,
+and every path a test cites resolves. An agent in a fresh context
+checks that each test checks what its statement says, and that the
+cases cover it.
+
+The code is checked by its tests, and by an agent in a fresh context
+for the technical choices: it follows the stack, and names every
+dependency the specification leaves open.
+
+A finding of an agent check is fixed or disputed; a disputed one goes
+to the human. The human finally tries the software.
 
 
 ### Small increments
@@ -171,7 +211,8 @@ the minimum of attention, never the maximum.
 ### Supervised increments
 
 Without supervision, the human acts as the orchestrator: approves the
-plan, answers the agent, and reviews the specification. Once the human has approved a future specification that settles every
+plan, answers the agent, and reviews the specification. Once the human
+has approved a future specification that settles every
 decision where the human matters, its increments run without the
 human. An orchestrator agent runs them one at a time, each by a
 sub-agent, plans them from the future specification, and reviews at the
@@ -226,7 +267,7 @@ them consistent:
   rule, is caught
 
 What remains is drift in meaning, such as a test that cites a rule
-without truly checking it. Only the human review catches it.
+without truly checking it. The agent checks catch it.
 
 
 ## Future Work
