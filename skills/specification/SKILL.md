@@ -170,5 +170,7 @@ the change adds or changes an operation or an invariant:
 
 No marks remain and the human approves, or the checks pass where
 Verification has no gate. Next phase: the next one of the plan.
+In the last phase, the human also approves at the final review (see
+`dev43:core`, Final review); Next is `Pause`.
 
 Commit as `[<increment>] Specification` (see `dev43:core`, Git).

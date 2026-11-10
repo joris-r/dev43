@@ -82,7 +82,8 @@ it in trailers.
 - Where the plan has no gate, go on without stopping. An ungated
   Exploration: settle its points yourself, then start Production. An
   ungated Verification: run the checks, then make the exit commit and
-  start the next phase.
+  start the next phase. In the last phase, the final review comes
+  before the exit commit.
 - An ungated step still stops when it needs the human: a point where
   the human matters that you cannot settle with confidence, a mark on
   the specification, an escalation. Stop, treat it as a gate, and say

@@ -80,6 +80,8 @@ the tests added or changed by the increment:
 ## Exit
 
 Checks pass and no marks remain. Next phase: the next one of the plan.
+In the last phase, the human also approves at the final review (see
+`dev43:core`, Final review); Next is `Pause`.
 From now on, tests are read-only.
 
 Commit as `[<increment>] Tests` (see `dev43:core`, Git).
