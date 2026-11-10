@@ -171,9 +171,12 @@ that it does not share your blind spots.
 
 - Give it the checks to run (see the phase's skill), the paths of the
   specification it checks against, and the diff to check. Leave out
-  your reasoning.
-- It reports each finding with its file and line. Fix them and run a
-  new check until it reports none.
+  your reasoning, except on what it rules on: your marks and disputed
+  tests.
+- It reports each finding with its file and line. Fix each one, or
+  dispute it: a disputed finding goes to the human.
+- A re-check covers only the fixes and the findings it resolves. After
+  three checks that still report findings, the human decides.
 - It rules on your marks in tests and code, except a mark that touches
   a decision the human approved: that one goes to the human.
 - A phase with a Verification gate, or with a mark, runs its agent
