@@ -1,7 +1,7 @@
 # Dev43: A Software Development Process
 
 This document gives the context and the principles of Dev43. The
-operational rules are in the skills ([skills/](skills/)), which apply
+operational rules are in the skills ([skills/](../skills/)), which apply
 these principles.
 
 
@@ -231,4 +231,4 @@ without truly checking it. Only the human review catches it.
 
 ## Future Work
 
-See [BACKLOG.md](BACKLOG.md).
+See [BACKLOG.md](../BACKLOG.md).

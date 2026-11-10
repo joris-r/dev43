@@ -2,7 +2,7 @@
 
 A specification-driven development process for humans and LLM agents,
 packaged as a Claude Code plugin. The process itself is described in
-[process_principles.md](process_principles.md).
+[process_principles.md](docs/process_principles.md).
 
 
 ## Install
@@ -78,6 +78,16 @@ guided by its scenarios.
 
 Projects set up with Dev43 3 are migrated by the agent at the first
 session, with your review of the new specification.
+
+
+## Examples
+
+[docs/examples/](docs/examples/) holds two example specifications:
+
+- [01_todo_cli](docs/examples/01_todo_cli/docs/README.md): a CLI, with
+  a feature written ahead in `docs_future/tags/`
+- [02_kanban_web](docs/examples/02_kanban_web/docs/README.md): a web
+  app, with a page design
 
 
 ## License
