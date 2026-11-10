@@ -141,30 +141,30 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
   it declares; dependencies have no cycle; each `Extends` path is an
   operation of a declared domain. The script also lists, for each
   changed operation, its dependent domains and its extensions: they
-  are the input of [dependents] and [extension].
+  are the input of [soundness].
 
 Agent checks, by you, on the change:
 
 - [placement] Every statement is in its document: invariants in the
   model, conditions and effects in the operations; `ui.md` adds only
   triggers and display.
-- [invariants] Each operation states the conditions that keep the
-  invariants.
 - [meaning] Every concept and field states its meaning, unless its name
   makes it obvious.
 - [duplicate] Nothing is stated twice or derivable from another line.
 - [examples] Every example illustrates a statement ambiguous without
   it.
-- [dependents] An added or changed operation keeps the invariants of
-  every domain that depends on its domain.
 - [complete] The cases of an operation do not overlap and cover every
   input.
-- [extension] An extension of another domain's operation keeps or
-  weakens its precondition, and keeps or strengthens its effects.
 - [tags] Every statement of behavior has a tag.
 - [silver] Every line passes the silver rule; delete the lines you are
   sure fail it.
 - [why] No line gives a reason; reasons go to the commit body.
+
+Agent check, in a fresh context (see `dev43:core`, Agent checks), when
+the change adds or changes an operation or an invariant:
+
+- [soundness] The `dev43:soundness` check: every operation in its
+  scope keeps the invariants.
 
 ## Exit
 

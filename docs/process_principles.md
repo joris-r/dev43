@@ -125,14 +125,19 @@ resolve, names agree across documents, domains cite only what they
 declare, and future versions still apply. Its author checks that
 every statement is in its document: invariants in the model,
 conditions and effects in the operations, only triggers and display
-in the UI, then its soundness, as a formal method would: every
-operation keeps the invariants, including those of dependent
-domains; an extension keeps or weakens the precondition it extends;
-the cases of an operation do not overlap and cover every input. The
-author also keeps it minimal and readable: every statement of
-behavior has a tag, every concept states its meaning, and nothing is
-duplicated, given a reason, or illustrated without need. The human
-then reviews it.
+in the UI, and that the cases of an operation do not overlap and
+cover every input. The author also keeps it minimal and readable:
+every statement of behavior has a tag, every concept states its
+meaning, and nothing is duplicated, given a reason, or illustrated
+without need.
+
+An agent in a fresh context then checks its soundness, after the
+proof obligations of the B method: every operation keeps the
+invariants, including those of dependent domains, and every
+extension keeps the operation it extends. It reasons rather than
+proves: a counterexample, or an obligation it cannot decide, goes to
+the human as a mark. The human can also run it on the whole
+specification. The human then reviews the specification.
 
 The tests are checked by a script for coverage: every tag has a test,
 and every path a test cites resolves. An agent in a fresh context
