@@ -122,8 +122,9 @@ size:
 - the tests or the code are where the change can do harm (a delicate
   migration, a subtle invariant, a security point): their
   Verification;
-- the change adds a test process (tooling, a kind of test, a policy):
-  Tests Verification;
+- the change adds or rewrites what later tests build on (the test
+  tooling, a kind of test, a policy, shared test helpers): Tests
+  Verification;
 - `docs/` is empty: every gate. The first increment sets what all
   later work builds on.
 
