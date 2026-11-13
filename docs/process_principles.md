@@ -179,6 +179,10 @@ Each of them then moves its part into the main specification, which
 keeps describing the software as it exists. What an increment teaches
 about the rest of the change updates the future specification.
 
+The future specification grows the same way, one small increment at a
+time. Every increment carries one coherent subject; the other subjects
+wait in the backlog.
+
 
 ### Four phases
 
@@ -263,8 +267,9 @@ fell short.
 
 The first increment frames the project: its scope, stack and
 conventions, through a trivial feature that runs through the whole
-stack. Technical choices are hard to reverse, so they are reviewed
-before any code exists.
+stack. The real features wait in the backlog. Technical choices are
+hard to reverse, so they are reviewed before any code exists, and the
+first increment stops at every gate.
 
 On existing code, the specification starts partial and grows zone by
 zone, as the zones need to change. An agent cannot tell intended

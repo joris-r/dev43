@@ -40,6 +40,19 @@ A change too large for one increment (a new domain, a reshaped model,
 several concepts or operations) is first written ahead, in a `future`
 increment.
 
+## Scope
+
+An increment carries one small, coherent subject. The other subjects
+the human brings go to `docs_future/BACKLOG.md`, as entries they
+approve. This holds for every shape, `future` included: a future
+specification may hold a large change, but each `future` increment
+writes one subject of it, and the rest waits in the backlog.
+
+When `docs/` is empty, the scope is a trivial feature that runs
+through the whole stack, such as a hello world: the increment sets up
+the purpose, the stack and the conventions. The real features go to
+the backlog, for the increments that follow.
+
 ## The plan
 
 Propose it in one message: a slug, the feature if any, the scope in
@@ -108,7 +121,11 @@ size:
   (the model, the stack, a new interface): Specification Verification;
 - the tests or the code are where the change can do harm (a delicate
   migration, a subtle invariant, a security point): their
-  Verification.
+  Verification;
+- the change adds a test process (tooling, a kind of test, a policy):
+  Tests Verification;
+- `docs/` is empty: every gate. The first increment sets what all
+  later work builds on.
 
 Follow the project's `CLAUDE.md` where it says more.
 

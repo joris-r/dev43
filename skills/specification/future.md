@@ -1,6 +1,7 @@
 # Form: a future specification
 
-A large change is written ahead in `docs_future/<feature>/`. It
+A large change is written ahead in `docs_future/<feature>/`, one
+`future` increment per subject (see `dev43:planning`, Scope). It
 mirrors the layout of `docs/` and holds only what changes:
 
 - a plain line is added, right after the line above it;

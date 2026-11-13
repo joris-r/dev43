@@ -20,9 +20,10 @@ Discuss first, before the scope:
 
 On a project already framed, raise only the topics the change touches.
 
-When `docs/` is empty, propose as scope a trivial feature that
-runs through the whole stack, such as a hello world or a health check.
-The real features come in later increments.
+When `docs/` is empty, the scope is the trivial feature the plan set
+(see `dev43:planning`, Scope). The purpose and constraints discussed
+here go in `overview.md`; the specification covers the trivial
+feature alone, and the real features wait in the backlog.
 
 On existing code (`Dev43-Specification: partial`), the stack and
 conventions already exist: read them from the project and propose

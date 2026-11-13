@@ -22,7 +22,9 @@ the `future` shape.
    topic needs it.
 3. Approach the subject gradually: the model first, then the
    operations, then the UI, then technical decisions if any.
-4. Surface decisions; flag early if the scope looks too big.
+4. Surface decisions. Keep to the subject of the plan: a subject
+   that comes up beyond it is proposed as a backlog entry, and a
+   scope that looks too big goes back to the plan.
 5. Agree with the human on the name of a new domain, document or
    concept.
 6. If a point needs evidence, or the human wants to see something
