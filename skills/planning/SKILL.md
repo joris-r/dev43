@@ -48,10 +48,11 @@ approve. This holds for every shape, `future` included: a future
 specification may hold a large change, but each `future` increment
 writes one subject of it, and the rest waits in the backlog.
 
-When `docs/` is empty, the scope is a trivial feature that runs
-through the whole stack, such as a hello world: the increment sets up
-the purpose, the stack and the conventions. The real features go to
-the backlog, for the increments that follow.
+On the first increment of a project without source code, the scope
+is a trivial feature that runs through the whole stack, such as a
+hello world: the increment sets up the purpose, the stack and the
+conventions. The real features go to the backlog, for the increments
+that follow.
 
 ## The plan
 
@@ -125,7 +126,7 @@ size:
 - the change adds or rewrites what later tests build on (the test
   tooling, a kind of test, a policy, shared test helpers): Tests
   Verification;
-- `docs/` is empty: every gate. The first increment sets what all
+- the first increment of a project: every gate. It sets what all
   later work builds on.
 
 Follow the project's `CLAUDE.md` where it says more.

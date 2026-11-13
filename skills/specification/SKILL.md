@@ -35,9 +35,9 @@ the `future` shape.
 An increment of a feature has its decisions settled by the future
 specification: raise only what moving it into `docs/` reveals.
 
-When `docs/` is empty, or the increment changes the project's purpose,
-stack or conventions, read [framing.md](framing.md), next to this
-skill, and follow it too. When the Shape is `specify-existing`, read
+On the first increment of a project, or when the increment changes
+the project's purpose, stack or conventions, read
+[framing.md](framing.md), next to this skill, and follow it too. When the Shape is `specify-existing`, read
 [existing.md](existing.md) and follow it too.
 
 One point per message; raise only what you cannot settle with

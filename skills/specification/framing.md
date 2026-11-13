@@ -20,10 +20,11 @@ Discuss first, before the scope:
 
 On a project already framed, raise only the topics the change touches.
 
-When `docs/` is empty, the scope is the trivial feature the plan set
-(see `dev43:planning`, Scope). The purpose and constraints discussed
-here go in `overview.md`; the specification covers the trivial
-feature alone, and the real features wait in the backlog.
+On the first increment of a project without source code, the scope
+is the trivial feature the plan set (see `dev43:planning`, Scope). The
+purpose and constraints discussed here go in `overview.md`; the
+specification covers the trivial feature alone, and the real features
+wait in the backlog.
 
 On existing code (`Dev43-Specification: partial`), the stack and
 conventions already exist: read them from the project and propose
@@ -34,7 +35,7 @@ later increment.
 
 ## Production
 
-- When `docs/technical.md` does not exist, the change writes it in
+- When `docs/technical.md` is empty, the change writes it in
   full: the stack, the conventions, and the
   test and quality policy. Decide only what is costly to change later.
   On existing code, it describes them as they are.
