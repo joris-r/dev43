@@ -1,0 +1,133 @@
+/* Values: the implementation uses these. */
+:root {
+  --page: #f2f3f5;
+  --column: #e3e5e9;
+  --card: #ffffff;
+  --text: #1f2328;
+  --button: #6b7280;
+  --banner: #c62828;
+  --banner-text: #ffffff;
+  --focus: #2f6fde;
+  --border: #c9ccd1;
+  --font: system-ui, sans-serif;
+  --size: 15px;
+  --radius: 6px;
+  --gap: 12px;
+}
+
+/* Mockup frame, not part of the design. */
+body { margin: 24px; background: #fff; }
+.mockup-note {
+  font: 13px var(--font);
+  color: #555;
+  margin: 32px 0 8px;
+}
+.mockup-frame {
+  width: 960px;
+  border: 1px dashed #999;
+}
+.mockup-frame.narrow { width: 300px; }
+
+/* Board page */
+.page {
+  background: var(--page);
+  color: var(--text);
+  font: var(--size) var(--font);
+  min-height: 360px;
+}
+
+/* Error banner */
+.banner {
+  background: var(--banner);
+  color: var(--banner-text);
+  padding: 10px 16px;
+}
+
+/* Columns */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 16px;
+  align-items: start;
+}
+.column {
+  background: var(--column);
+  border-radius: var(--radius);
+  padding: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.column h2 {
+  font-size: var(--size);
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+/* Add form */
+.field {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--card);
+}
+.field.focused {
+  outline: 2px solid var(--focus);
+  outline-offset: -1px;
+}
+.field::placeholder { color: var(--button); }
+
+/* Card */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+}
+.card .title { flex: 1; }
+.card.selected { outline: 2px solid var(--focus); outline-offset: -1px; }
+.card button, .pad button {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--button);
+  font: 14px var(--font);
+  cursor: pointer;
+}
+.card button:hover, .pad button:hover:enabled {
+  background: var(--column);
+  color: var(--text);
+}
+.card button.delete:hover { color: var(--banner); }
+.pad button:disabled { opacity: 0.3; cursor: default; }
+
+/* Move pad */
+.pad {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 28px);
+  grid-template-rows: repeat(3, 28px);
+  gap: 2px;
+  padding: 6px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  cursor: default;
+}
+.pad button { width: 28px; height: 28px; font-size: 16px; }
+.pad .up { grid-area: 1 / 2; }
+.pad .left { grid-area: 2 / 1; }
+.pad .right { grid-area: 2 / 3; }
+.pad .down { grid-area: 3 / 2; }

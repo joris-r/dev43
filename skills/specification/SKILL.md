@@ -140,9 +140,12 @@ why; or, where Verification has no gate, make the exit commit.
   backticks, which appears as is. No tags: the human reads the result
   at the final review, as for `design/`. The goal is purpose, not a
   reason.
-- `design/`: mockups, one per page, named after its `ui.md` section,
-  showing every element and state of it, and nothing else, values
-  included. `design.md` holds the look rules they cannot show.
+- `design/`: mockups, one per element of `ui.md` with a look of its
+  own (a page, a component), named after its section, showing every
+  state of it, and nothing else, values included. A component used by
+  several elements has its own mockup, and theirs show it once, in
+  place, in one state. `design.md` holds the look rules they cannot
+  show.
 - A scenario: its starting state, then its steps, each a trigger of
   `ui.md` or what the user then sees, as the operations and the UI
   give it.

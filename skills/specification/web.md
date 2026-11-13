@@ -1,6 +1,6 @@
 # Form: a web application
 
-The specification of a small kanban web application, in `docs/`. Match its form and level of detail, not its content. Its `design/board-page.html` is a static HTML page with one frame per set of states, its values as CSS variables at the top, and real content in every state.
+The specification of a small kanban web application, in `docs/`. Match its form and level of detail, not its content. Its `design/` holds one static HTML page per element of `ui.md` with a look of its own, with one frame per state and real content in every frame; the page mockup shows each component once. `design/style.css` carries the look, its values as CSS variables at the top.
 
 ## `README.md`
 

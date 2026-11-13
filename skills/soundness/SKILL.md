@@ -59,7 +59,8 @@ In scope:
   field, a definition or a result; the UI changes only what is on
   display.
 - [design] A mockup shows every element and state of its `ui.md`
-  section, and nothing the section lacks.
+  section, and nothing the section lacks; the states of a component
+  with its own mockup are shown there, once.
 - [contents] Every section of `contents.md` is cited by a `ui.md`
   element, and every element that carries authored text cites one.
 - [scenarios] Walk each scenario from its starting state: each action
