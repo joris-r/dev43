@@ -261,11 +261,13 @@ and records that they must act on it.
   - A tag is a short name in brackets starting a line, unique in its
     section, on every statement of behavior (something the software
     could be seen to break): `- [empty] Add an empty text: refused.`
+    It is written in the project's language, accents included:
+    `[générée]`.
   - A path is `/<file>/<section>/<tag>` or `/<file>/<section>`,
     prefixed by `/<domain>` if any. Segments: lowercase, accents
     removed, spaces to hyphens, punctuation dropped:
     `/operations/add-task/empty`, `État à vérifier` gives
-    `etat-a-verifier`.
+    `etat-a-verifier`, `[générée]` gives `generee`.
   - Bindings (route, command, HTTP, `Trigger:`), inputs, fields and
     definitions carry no tag.
   - Tests cite paths in a comment; documents cite them as plain text.

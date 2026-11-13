@@ -24,7 +24,7 @@ FUTURE = Path("docs_future")
 
 H1 = re.compile(r"^#\s")
 H2 = re.compile(r"^##\s+(.*?)\s*$")
-TAG = re.compile(r"^\s*(?:[-*]\s+)?\[([a-z0-9][a-z0-9-]*)\]")
+TAG = re.compile(r"^\s*(?:[-*]\s+)?\[([^\W_][\w-]*)\]")  # letters of any script
 ITEM = re.compile(r"^\s*[-*]\s")
 CITE = re.compile(r"(?<![\w/.:~<>%-])/[a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*")
 EXTENDS = re.compile(r"^Extends\s+(/\S+?)\.?\s*$")
@@ -210,10 +210,10 @@ class Index:
             for c in CITE.findall(plain):
                 self.cites.append((c, origin, rel))
             m = TAG.match(text)
-            if m:
-                tag = m.group(1)
+            if m and m.group(1) == m.group(1).lower():
+                tag = slug(m.group(1))
                 if tag in seen:
-                    report("paths", origin, f"tag [{tag}] already used in this section, line {seen[tag][1]}")
+                    report("paths", origin, f"tag [{m.group(1)}] already used in this section, line {seen[tag][1]}")
                     continue
                 seen[tag] = origin
                 path = sec_path + "/" + tag
