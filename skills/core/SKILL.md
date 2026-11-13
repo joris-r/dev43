@@ -272,8 +272,9 @@ and records that they must act on it.
   - A statement no test can check ends with `(not testable)`.
   - A scenario is one end-to-end test, cited by its section path; its
     steps carry no tags.
-  - `design/` and `design.md` have no tags: the look is checked by
-    eye at review, and the mockups against `ui.md` by [soundness].
+  - `design/`, `design.md` and `contents.md` have no tags: the look
+    and the text are checked by eye at review, and the mockups and
+    the contents against `ui.md` by [soundness].
 - A decision states what is decided, not why. Give reasons in your
   hand-over message and in the commit message of the phase.
 - The `Dev43-Specification` trailer says whether `docs/` covers the

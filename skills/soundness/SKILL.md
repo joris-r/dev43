@@ -1,6 +1,6 @@
 ---
 name: soundness
-description: Dev43 soundness check of the specification, after the proof obligations of the B method. Run by a sub-agent at the Verification of Specification when the change touches the model, the operations, the UI, the design or the scenarios; the human may also call it on the whole of docs/. Checks that every operation keeps the invariants, that every extension keeps the operation it extends, and that the documents agree.
+description: Dev43 soundness check of the specification, after the proof obligations of the B method. Run by a sub-agent at the Verification of Specification when the change touches the model, the operations, the UI, the design, the contents or the scenarios; the human may also call it on the whole of docs/. Checks that every operation keeps the invariants, that every extension keeps the operation it extends, and that the documents agree.
 ---
 
 # Soundness
@@ -60,6 +60,8 @@ In scope:
   display.
 - [design] A mockup shows every element and state of its `ui.md`
   section, and nothing the section lacks.
+- [contents] Every section of `contents.md` is cited by a `ui.md`
+  element, and every element that carries authored text cites one.
 - [scenarios] Walk each scenario from its starting state: each action
   is a trigger of `ui.md`, available at that step, and each thing
   seen is what the operations and the UI give.

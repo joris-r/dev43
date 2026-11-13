@@ -6,4 +6,3 @@
   mais des composants, sinon specifie plusieurs fois la même chose
 - minor, we can add technical.md instead of the git keep file on empty project
 - working in french: tag can have accent (forbiden now ?)
-- add a new kind of document `contents.md` for authored contents (text)

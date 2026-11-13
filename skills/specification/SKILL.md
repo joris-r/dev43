@@ -81,6 +81,7 @@ why; or, where Verification has no gate, make the exit commit.
   - `model.md`: the data, which sets the vocabulary;
   - `operations.md`: the actions on that data, queries included;
   - `ui.md`: what the user meets;
+  - `contents.md`: the authored text (pages, help, emails, notices);
   - `scenarios.md`: typical use, end to end.
 - The top level spans domains. A domain folder holds what is specific
   to it; its `README.md` declares the domains it depends on:
@@ -133,6 +134,12 @@ why; or, where Verification has no gate, make the exit commit.
   and every value shown is a field, a definition or a result.
 - An exact text the user sees is written with placeholders:
   `No task <number>.`
+- `contents.md`: one section per element of `ui.md` that carries
+  authored text, which cites it. It states the goal of the text, then
+  its structure in reading order. Wording is free, except text in
+  backticks, which appears as is. No tags: the human reads the result
+  at the final review, as for `design/`. The goal is purpose, not a
+  reason.
 - `design/`: mockups, one per page, named after its `ui.md` section,
   showing every element and state of it, and nothing else, values
   included. `design.md` holds the look rules they cannot show.
@@ -198,7 +205,7 @@ Agent checks, by you, on the change:
 
 Agent check, in a fresh context (see `dev43:core`, Agent checks),
 before the exit commit, gate or not, when the change touches the
-model, the operations, the UI, the design or the scenarios:
+model, the operations, the UI, the design, the contents or the scenarios:
 
 - [soundness] The `dev43:soundness` check: the operations keep the
   invariants, and the documents agree.
