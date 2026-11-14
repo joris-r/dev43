@@ -37,6 +37,8 @@ Work without interrupting.
     state after it. Where it changes one element of a collection, the
     test also looks at the others;
   - a refused case: the refusal, and its message when specified;
+  - a `Then:` statement: its effect after a case it names, or after no
+    refusal;
   - the initial state: what the software gives before any operation;
   - an invariant: one check of it, citing its path, run on the state
     after each operation test;

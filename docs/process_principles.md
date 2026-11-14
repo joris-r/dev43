@@ -142,8 +142,8 @@ without need.
 
 An agent in a fresh context then checks its soundness, after the
 proof obligations of the B method: the initial state meets the
-invariants, exactly one case of an operation applies to each state
-and input, every operation keeps the invariants, including those of
+invariants, the cases of an operation settle each state and input,
+every operation keeps the invariants, including those of
 dependent domains, every extension keeps the operation it extends,
 and a migration brings existing data to a changed invariant. It also
 checks that the documents agree: the operations use only declared

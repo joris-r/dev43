@@ -28,14 +28,17 @@ that the specification is proved.
 
 ## Obligations
 
-The state after a case is what the case states, the rest unchanged.
+The state after a case is what the case states, with the `Then:`
+statements that follow it, the rest unchanged.
 
 In scope:
 
 - [initial] The initial state meets every invariant.
-- [partition] In every state meeting the invariants, exactly one case
-  applies to each input of its type. A case stated as `unspecified`
-  counts here and carries no other obligation.
+- [partition] In every state meeting the invariants, each input of
+  its type meets at most one case of a bulleted list, and at least one
+  case of either list unless `Then:` has a statement after no refusal.
+  A case stated as `unspecified` counts here and carries no other
+  obligation.
 - [invariants] Under the invariants and the case's condition, the
   state after a case meets every invariant of its domain.
 - [dependents] It also meets the invariants of every domain that

@@ -104,15 +104,23 @@ why; or, where Verification has no gate, make the exit commit.
     untagged.
   - Data read from outside is a concept of its own.
 - `operations.md`: every way the state is read or changed.
+  - `## General`: the statements that apply to every operation, before
+    its cases. An input not of its type is one case there, or in
+    `ui.md`.
   - `## Initial state`: the state before the first operation.
   - An operation states its purpose only if the name and cases leave
     it unclear, then its binding (API) if any, and `Trigger: <when>`
     if nothing in `ui.md` runs it, then `Inputs:`, each
     `name: type`, then `Cases:`, one tagged case per condition,
-    errors included.
-  - Exactly one case applies to each state and each input of its
-    type. An input not of its type is one case for all operations,
-    in `## General` or in `ui.md`.
+    errors included, then `Then:` when some statements follow the
+    cases.
+  - Cases in a bulleted list: exactly one applies to each state and
+    each input of its type. In a numbered list: the first whose
+    condition holds applies.
+  - `Then:` introduces the tagged statements that hold once the cases
+    are read, each saying after which cases, or `After no refusal`:
+    once neither `## General` nor a case refused. With such a
+    statement, the cases may leave a state and input to none.
   - A case states its condition, then the state after it and its
     result. What it does not state is unchanged. It leaves free a
     value the human does not care about, and says so: `an id no card
