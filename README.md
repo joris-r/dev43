@@ -2,7 +2,8 @@
 
 A specification-driven development process for humans and LLM agents,
 packaged as a Claude Code plugin. The process itself is described in
-[process_principles.md](docs/process_principles.md).
+[process_principles.md](docs/process_principles.md), and the
+released versions in [CHANGELOG.md](CHANGELOG.md).
 
 
 ## Install
