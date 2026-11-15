@@ -315,15 +315,22 @@ def check_reach(index, origins_from=None):
     run = {c for c, _, rel in index.cites if rel.split("/")[-1] == "ui.md"}
     if not any(rel.split("/")[-1] == "ui.md" for rel in index.tree):
         return
+    ops = {}
     for domain, stem, name, s, origin in index.sections:
-        if stem != "operations" or s in ("general", "initial-state"):
+        if stem == "operations" and s not in ("general", "initial-state"):
+            ops["/" + (domain + "/" if domain else "") + "operations/" + s] = origin
+    reached = {p for p in ops
+               if p in index.triggers or any(c == p or c.startswith(p + "/") for c in run)}
+    extended = {own: path for _, path, own, _ in index.extends}
+    while True:  # an extension runs whenever the operation it extends does
+        more = {own for own, path in extended.items() if path in reached} - reached
+        if not more:
+            break
+        reached |= more
+    for path, origin in ops.items():
+        if path in reached or (origins_from and not origin[0].startswith(origins_from)):
             continue
-        if origins_from and not origin[0].startswith(origins_from):
-            continue
-        path = "/" + (domain + "/" if domain else "") + "operations/" + s
-        if path in index.triggers or any(c == path or c.startswith(path + "/") for c in run):
-            continue
-        report("reach", origin, f"{path} is run by no ui.md and has no Trigger line")
+        report("reach", origin, f"{path} is run by no ui.md, extends no reached operation and has no Trigger line")
 
 
 def check_outline(feature_dir):

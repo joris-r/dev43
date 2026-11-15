@@ -110,7 +110,8 @@ why; or, where Verification has no gate, make the exit commit.
   - `## Initial state`: the state before the first operation.
   - An operation states its purpose only if the name and cases leave
     it unclear, then its binding (API) if any, and `Trigger: <when>`
-    if nothing in `ui.md` runs it, then `Inputs:`, each
+    if nothing in `ui.md` runs it or the operation it extends, then
+    `Inputs:`, each
     `name: type`, then `Cases:`, one tagged case per condition,
     errors included, then `Then:` when some statements follow the
     cases.
@@ -191,8 +192,8 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
   operation of a declared domain. The script also lists, for each
   changed operation, its dependent domains and its extensions: they
   are the input of [soundness].
-- [reach] Every operation is run by a `ui.md` or has a `Trigger:`
-  line.
+- [reach] Every operation is run by a `ui.md`, extends an operation
+  that is, or has a `Trigger:` line.
 - [outline] Every section of a feature is in exactly one increment of
   its outline.
 
