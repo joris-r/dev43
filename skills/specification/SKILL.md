@@ -108,6 +108,8 @@ why; or, where Verification has no gate, make the exit commit.
     its cases. An input not of its type is one case there, or in
     `ui.md`.
   - `## Initial state`: the state before the first operation.
+  - Both headings are in the project's language; the script knows
+    `General`, `Généralités`, `Initial state` and `État initial`.
   - An operation states its purpose only if the name and cases leave
     it unclear, then its binding (API) if any, and `Trigger: <when>`
     if nothing in `ui.md` runs it or the operation it extends, then

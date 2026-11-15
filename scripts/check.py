@@ -30,6 +30,8 @@ CITE = re.compile(r"(?<![\w/.:~<>%-])/[a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*
 EXTENDS = re.compile(r"^Extends\s+(/\S+?)\.?\s*$")
 DEPENDS = re.compile(r"^Depends on:\s*(.*)$")
 INLINE_CODE = re.compile(r"`[^`]*`")
+# The sections of operations.md that are not operations, in English and French.
+NOT_OPERATIONS = {"general", "generalites", "initial-state", "etat-initial"}
 
 findings = []
 
@@ -317,7 +319,7 @@ def check_reach(index, origins_from=None):
         return
     ops = {}
     for domain, stem, name, s, origin in index.sections:
-        if stem == "operations" and s not in ("general", "initial-state"):
+        if stem == "operations" and s not in NOT_OPERATIONS:
             ops["/" + (domain + "/" if domain else "") + "operations/" + s] = origin
     reached = {p for p in ops
                if p in index.triggers or any(c == p or c.startswith(p + "/") for c in run)}
