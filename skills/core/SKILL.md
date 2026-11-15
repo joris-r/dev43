@@ -37,8 +37,9 @@ it in trailers.
   it: `git log -1 --grep='^Dev43-Next: ' --format='%h %s%n%(trailers)'`.
   Compare its `Dev43` trailer with `version` in
   `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`: a lower major
-  version, load `dev43:migrate`; any other difference, tell the human
-  and, on their approval, record the new version in your next commit.
+  or minor version, load `dev43:migrate`; a patch difference, tell the
+  human and, on their approval, record the new version in your next
+  commit.
 - The trailers, in this order, in the message's last paragraph with any
   other trailers:
   - `Dev43:` the plugin version.

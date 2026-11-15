@@ -30,6 +30,7 @@ Numbering, by the impact on a project following Dev43:
 - major: an incompatible change of the documents or the process; the
   project migrates before any work, with `dev43:migrate`.
 - minor: a new or improved rule; the project needs some updates to
-  follow it.
+  follow it, given by a step of `dev43:migrate` when the documents or
+  the tests change.
 - patch: a fix or clarification of a rule or a script; the project
   works as it is.

@@ -77,16 +77,10 @@ it, `dev43:supervise` can run those increments without you: it relays
 only the decisions that need you, and at the end you try the software,
 guided by its scenarios.
 
-Projects set up with Dev43 3 are migrated by the agent at the first
-session, with your review of the new specification.
-
-A specification written before Dev43 4.3 is brought to the closed form
-in two steps:
-
-1. Ask the agent to run `dev43:soundness` on all of `docs/`.
-2. Start an increment that rewrites `docs/` to the new form and fixes
-   the findings. Closing a specification raises decisions, which you
-   review.
+A project on an earlier major or minor version of Dev43 is migrated
+by the agent at the first session, with your review of the new
+specification. Closing a specification written before Dev43 4.3 raises
+decisions, which you review too.
 
 
 ## Examples
