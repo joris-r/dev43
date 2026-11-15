@@ -280,6 +280,8 @@ def check_depends(index, origins_from=None):
             if c.strip("/") not in index.domains and mine(origin):
                 report("depends", origin, f"{c} is not a domain")
     for path, origin, rel in index.cites:
+        if rel == "BACKLOG.md":   # the outline cites every domain of the feature
+            continue
         own = "/".join(rel.split("/")[:-1])
         target = index.domain_of(path)
         if target and target != own and target not in index.deps(own) and mine(origin):
