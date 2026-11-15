@@ -65,7 +65,8 @@ In scope:
   section, and nothing the section lacks; the states of a component
   with its own mockup are shown there, once.
 - [contents] Every section of `contents.md` is cited by a `ui.md`
-  element, and every element that carries authored text cites one.
+  element or by the case of an operation that sends it, and every
+  element or case that carries authored text cites one.
 - [scenarios] Walk each scenario from its starting state: each action
   is a trigger of `ui.md`, available at that step, and each thing
   seen is what the operations and the UI give.

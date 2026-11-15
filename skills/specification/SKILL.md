@@ -143,12 +143,13 @@ why; or, where Verification has no gate, make the exit commit.
   and every value shown is a field, a definition or a result.
 - An exact text the user sees is written with placeholders:
   `No task <number>.`
-- `contents.md`: one section per element of `ui.md` that carries
-  authored text, which cites it. It states the goal of the text, then
-  its structure in reading order. Wording is free, except text in
-  backticks, which appears as is. No tags: the human reads the result
-  at the final review, as for `design/`. The goal is purpose, not a
-  reason.
+- `contents.md`: one section per authored text: one an element of
+  `ui.md` shows, or one an operation sends (an email, a notice). That
+  element, or the case that sends it, cites the section. A section
+  states the goal of the text, then its structure in reading order.
+  Wording is free, except text in backticks, which appears as is. No
+  tags: the human reads the result at the final review, as for
+  `design/`. The goal is purpose, not a reason.
 - `design/`: mockups, one per element of `ui.md` with a look of its
   own (a page, a component), named after its section, showing every
   state of it, and nothing else, values included. A component used by

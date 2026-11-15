@@ -277,7 +277,7 @@ and records that they must act on it.
     steps carry no tags.
   - `design/`, `design.md` and `contents.md` have no tags: the look
     and the text are checked by eye at review, and the mockups and
-    the contents against `ui.md` by [soundness].
+    the contents against `ui.md` and `operations.md` by [soundness].
 - A decision states what is decided, not why. Give reasons in your
   hand-over message and in the commit message of the phase.
 - The `Dev43-Specification` trailer says whether `docs/` covers the
