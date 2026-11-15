@@ -21,9 +21,10 @@ Release only when the human asks. A release:
 
 - sets `version` in [plugin.json](.claude-plugin/plugin.json);
 - adds the version to [CHANGELOG.md](CHANGELOG.md), with its date and
-  its changes in one or two lines; a new major version also gets its
-  section and its impact;
-- is the commit `vX.Y.Z: <summary>`, its body listing the changes.
+  its changes in one or two lines; a new minor version also gets its
+  subsection, a new major version its section and its impact;
+- is the commit `vX.Y.Z: <summary>`, its body listing the changes,
+  tagged `vX.Y.Z`.
 
 Numbering, by the impact on a project following Dev43:
 

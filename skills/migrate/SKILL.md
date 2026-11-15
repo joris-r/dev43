@@ -104,6 +104,12 @@ conditions read in order ("otherwise", "if none refused") become a
 numbered list; statements on every operation go to `## General`.
 Bulleted cases keep their meaning as they are.
 
+### To 4.6: the texts an operation sends
+
+A text an operation sends (an email, a notice) gets its own section
+of `contents.md`, cited by the case that sends it; the `ui.md`
+element that cited it for that operation drops the citation.
+
 ## Tests
 
 - Existing tests change only their citations: each name, rule ID or

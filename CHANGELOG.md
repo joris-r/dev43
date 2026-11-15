@@ -13,13 +13,28 @@ every statement carries a tag, every test cites paths. Agents check
 the tests and the code in fresh contexts; the human reviews only the
 specification. Projects on Dev43 3 migrate with `dev43:migrate`.
 
+### 4.6: sent texts, migration between minor versions
+
+- 4.6.0 (2026-11-15): a text an operation sends has its own section
+  of `contents.md`, cited by its case; projects on an earlier minor
+  version of Dev43 4 migrate with `dev43:migrate`; check.py reads
+  Extends, the outline's citations and the French section names.
+
+### 4.5: ordered cases and Then:
+
 - 4.5.0 (2026-11-14): under `Cases:`, a numbered list means ordered
   cases; `Then:` holds the statements after given cases or after no
   refusal; `## General` applies before the cases.
+
+### 4.4: contents and mockups
+
 - 4.4.1 (2026-11-14): check.py reads tags on numbered items.
 - 4.4.0 (2026-11-13): one subject per increment; `contents.md` holds
   the authored text; one mockup per UI element; tags in the project's
   language.
+
+### 4.3: a closed specification
+
 - 4.3.4 (2026-11-10): existing code, migrate and supervise follow the
   closed specification; an open case is stated as `unspecified`.
 - 4.3.3 (2026-11-10): the Specification agent check runs before its
@@ -35,6 +50,9 @@ specification. Projects on Dev43 3 migrate with `dev43:migrate`.
   input settled in every state, every outcome displayed. Inputs,
   Cases, Initial state, Trigger; soundness obligations [initial],
   [partition], [determined], [migration] and the coherence checks.
+
+### 4.2: soundness
+
 - 4.2.3 (2026-11-10): the model states what holds; how a value comes
   is an operation.
 - 4.2.2 (2026-11-10): the final review comes before the last exit
@@ -43,6 +61,9 @@ specification. Projects on Dev43 3 migrate with `dev43:migrate`.
   repository.
 - 4.2.0 (2026-11-10): `dev43:soundness`, after the proof obligations
   of the B method, in a fresh context.
+
+### 4.1: fixes from the first migration
+
 - 4.1.4 (2026-11-10): [placement] check; principles on checks and
   traceability.
 - 4.1.3 (2026-11-10): the human reviews a change of behavior before
@@ -52,6 +73,9 @@ specification. Projects on Dev43 3 migrate with `dev43:migrate`.
   disputed, and after three rounds the human decides.
 - 4.1.0 (2026-11-09): fixes from the first migration; refusal messages
   specified only when `technical.md` says so.
+
+### 4.0: docs/ layout and traceability
+
 - 4.0.0 (2026-11-09): `docs/` layout and traceability, future
   specifications with outlines, marks, agent checks, the line of
   responsibility, supervised increments, `dev43:migrate`, check.py.
