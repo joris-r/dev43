@@ -56,7 +56,8 @@ Work without interrupting. By shape:
 - An increment of a feature: move its sections from
   `docs_future/<feature>/` into `docs/`, as they read with the
   feature applied, and remove them, with the increment, from the
-  feature. The last increment deletes `docs_future/<feature>/`,
+  feature. An increment without sections only removes itself from
+  the outline. The last increment deletes `docs_future/<feature>/`,
   moving any open lesson and the points kept for the human to
   `docs_future/BACKLOG.md`.
 - `future`: write or update `docs_future/<feature>/`, in the form of
@@ -201,7 +202,8 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
 - [reach] Every operation is run by a `ui.md`, extends an operation
   that is, or has a `Trigger:` line.
 - [outline] Every section of a feature is in exactly one increment of
-  its outline.
+  its outline; an increment without sections names its shape,
+  `code-only`, `tests-only` or `direct`.
 
 Agent checks, by you, on the change:
 

@@ -30,6 +30,8 @@ CITE = re.compile(r"(?<![\w/.:~<>%-])/[a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*
 EXTENDS = re.compile(r"^Extends\s+(/\S+?)\.?\s*$")
 DEPENDS = re.compile(r"^Depends on:\s*(.*)$")
 INLINE_CODE = re.compile(r"`[^`]*`")
+# The shapes of an increment of an outline that integrates no section.
+NO_SECTION_SHAPE = re.compile(r"`(?:code-only|tests-only|direct)`")
 # The sections of operations.md that are not operations, in English and French.
 NOT_OPERATIONS = {"general", "generalites", "initial-state", "etat-initial"}
 
@@ -336,11 +338,12 @@ def check_reach(index, origins_from=None):
 
 
 def check_outline(feature_dir):
-    """Every section of a feature is in exactly one increment of its outline."""
+    """Every section of a feature is in exactly one increment of its outline;
+    an increment without sections names its shape."""
     backlog = feature_dir / "BACKLOG.md"
     if not backlog.exists():
         return
-    items, inside, span = [], False, False
+    items, starts, shaped, inside, span = [], [], [], False, False
     for text, origin in read_lines(backlog):
         if text.startswith("#"):
             inside = bool(re.match(r"^##\s+Outline\s*$", text))
@@ -351,9 +354,16 @@ def check_outline(feature_dir):
             span = False
         if re.match(r"^\s*\d+\.\s", text):
             items.append(set())
+            starts.append(origin)
+            shaped.append(False)
         plain, span = strip_code(text, span)
         if items:
             items[-1].update(CITE.findall(plain))
+            shaped[-1] = shaped[-1] or bool(NO_SECTION_SHAPE.search(text))
+    for k, cited in enumerate(items):
+        if not cited and not shaped[k]:
+            report("outline", starts[k],
+                   f"increment {k + 1} of the outline has no section and no shape")
     for path in md_files(feature_dir):
         rel = path.relative_to(feature_dir).as_posix()
         if rel == "BACKLOG.md":

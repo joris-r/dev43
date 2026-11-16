@@ -10,5 +10,6 @@ Tasks get tags, and the list can be filtered by one.
    /ui/untag-task.
 2. Filtering: /operations/list-tasks, /ui/list-tasks,
    /scenarios/shopping.
+3. Fixtures: `tests-only`, the list tests share one store.
 
 ## Lessons

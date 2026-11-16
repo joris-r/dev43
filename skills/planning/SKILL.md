@@ -94,7 +94,9 @@ commit (see `dev43:core`, State).
 
 An increment of a feature usually takes `full`; its Specification
 only moves the increment's sections from `docs_future/<feature>/` into
-`docs/`.
+`docs/`. An increment without sections takes the shape its outline
+names; a `direct` one updates the feature in its Direct phase, as a
+Specification would (see `dev43:specification`, Production).
 
 ### Gates
 

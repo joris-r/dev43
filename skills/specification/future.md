@@ -20,7 +20,10 @@ mirror:
 - the feature's description, in a few lines;
 - `## Outline`: the increments that build the feature, in order, each
   with the sections it integrates. Every section is in one increment,
-  and `docs/` is closed after each of them;
+  and `docs/` is closed after each of them. An increment that changes
+  no specified behavior gives its shape (`code-only`, `tests-only` or
+  `direct`) and its work instead, in one line. A feature made only of
+  such increments is its `BACKLOG.md` alone;
 - `## Lessons`: what the increments taught that a later one needs,
   one line each, starting with the increments it serves; a lesson
   leaves with the last of them;
@@ -45,6 +48,7 @@ Tasks get tags, and the list can be filtered by one.
    /ui/untag-task.
 2. Filtering: /operations/list-tasks, /ui/list-tasks,
    /scenarios/shopping.
+3. Fixtures: `tests-only`, the list tests share one store.
 
 ## Lessons
 ````
