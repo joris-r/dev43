@@ -15,6 +15,9 @@ Projects on Dev43 3 migrate with `dev43:migrate`.
 
 ### 4.7: agent checks before each exit commit, test levels
 
+- 4.7.1 (2026-11-16): an increment of an outline that changes no
+  specified behavior gives its shape and its work instead of
+  sections, and [outline] checks it.
 - 4.7.0 (2026-11-16): every phase runs its agent checks before its
   exit commit, and a gate is the human's review only; lessons and
   points for the human take one line and leave once used; the Tests
