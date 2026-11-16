@@ -62,8 +62,7 @@ Work without interrupting until all tests pass, except disputed ones.
   would not otherwise see.
 
 Run the checks and fix what fails, except disputed tests. Then run the
-agent checks of this phase and of the earlier ones that have not run
-theirs. Give the checking agent the disputed tests with your
+agent checks. Give the checking agent the disputed tests with your
 reasoning, and the routine libraries added. Then hand over for the
 final review.
 

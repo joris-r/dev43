@@ -72,9 +72,8 @@ Work without interrupting.
   has no code yet, also set up the project and the test tooling, as
   `docs/technical.md` says.
 
-Mark the choices you are unsure of. Run the checks and fix what fails.
-Then make the exit commit, after the agent checks where Verification
-has a gate or a mark remains.
+Mark the choices you are unsure of. Run the checks, agent checks
+included, and fix what fails. Then make the exit commit.
 
 ## Checks
 

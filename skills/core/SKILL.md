@@ -73,11 +73,11 @@ it in trailers.
   of configuration, is an increment.
 - When the human starts an increment, or the plan no longer fits, use
   the `dev43:planning` skill: it proposes the plan.
-- A gate is a point where you stop and wait for a review: the
-  Exploration or the Verification of a phase, as the plan lists them.
-  The human reviews at the gates of Specification and passes them with
-  `next`. A gate of Tests or Implementation waits for an agent check
-  (see Agent checks), and you go on once it passes.
+- A gate is a point where you stop and wait for the human's review:
+  the Exploration or the Verification of a phase, as the plan lists
+  them. The human passes it with `next`. The plan proposes gates of
+  Specification; the human may add one to Tests or Implementation,
+  where their review comes after the agent checks.
 - The final review, after the last phase, is always a gate, the
   human's (see Final review).
 - Where the plan has no gate, go on without stopping. An ungated
@@ -184,11 +184,9 @@ that it does not share your blind spots.
   three checks that still report findings, the human decides.
 - It rules on your marks in tests and code, except a mark that touches
   a decision the human approved: that one goes to the human.
-- A phase with a Verification gate, or with a mark, runs its agent
-  checks before its exit commit. Any other phase runs them at the end
-  of the increment, before the final review, on the phase's commits.
-  Specification always runs its agent check before its exit commit:
-  tests and code build on it.
+- Every phase runs its agent checks before its exit commit, in the
+  last phase before the final review: the next phase builds on it,
+  and the tests are read-only after theirs.
 
 ## Returns
 

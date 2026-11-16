@@ -218,11 +218,12 @@ marks keep the human aware and involved at Verification.
 
 The agent stops only where the change can do harm. At the start of
 an increment, the agent analyzes the potential impact of the change and
-proposes the gates: the steps where it waits for review, by the human
-for the specification, by an agent for tests and code. Elsewhere it
-goes on alone, and its work is reviewed at the end of the increment,
-which is always a gate: the human reviews the specification change
-and tries the software. The size of a change does
+proposes the gates: the steps where it waits for the human's review,
+those of Specification unless the human asks for more. Elsewhere it
+goes on alone, an agent checking each
+phase before the next builds on it, and its work is reviewed at the
+end of the increment, which is always a gate: the human reviews the
+specification change and tries the software. The size of a change does
 not set its gates: a large refactoring under unchanged tests may need
 fewer than a one-line change of a rule. The human reviews a change of
 behavior before tests and code build on it, in a future specification

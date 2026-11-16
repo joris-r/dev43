@@ -33,7 +33,7 @@ uncommitted by an interrupted sub-agent: tell the human.
 ## Each increment
 
 1. Plan it, as in `dev43:planning`, from the outline and the lessons.
-   You approve the plan; its gates are for you and the agent checks.
+   You approve the plan; its gates are for you.
 2. Start one sub-agent for it, with a fresh context. Give it the plan,
    and tell it that it runs under supervision: it loads `dev43:core`,
    addresses you instead of the human, and stops at each gate and each

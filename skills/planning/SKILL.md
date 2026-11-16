@@ -103,9 +103,11 @@ The final review is always a gate; do not list it. The other gates:
 - Specification Exploration: the human discusses before the change is
   written;
 - Specification Verification: the human reviews the change before
-  tests and code build on it;
-- Tests Verification, Implementation Verification: an agent check
-  before the next phase builds on it.
+  tests and code build on it.
+
+Propose no gate for Tests or Implementation: an agent check covers
+each before its exit commit. The human adds one when they want to
+review there.
 
 Choose the gates from the potential impact of the change, not from its
 size:
@@ -120,12 +122,6 @@ size:
   Specification Exploration;
 - the change is what later work builds on and would be costly to redo
   (the model, the stack, a new interface): Specification Verification;
-- the tests or the code are where the change can do harm (a delicate
-  migration, a subtle invariant, a security point): their
-  Verification;
-- the change adds or rewrites what later tests build on (the test
-  tooling, a kind of test, a policy, shared test helpers): Tests
-  Verification;
 - the first increment of a project: every gate. It sets what all
   later work builds on.
 
