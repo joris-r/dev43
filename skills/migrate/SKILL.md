@@ -62,7 +62,9 @@ reword; the mappings stay in the commit body.
 Each step brings `docs/` and `docs_future/` to the form of the
 `dev43:specification` skill on one point. A rule the step does not
 name is unchanged. Changes of the process alone (gates, the scope of
-an increment, the checks) need no step.
+an increment, the checks) need no step. When no step applies, tell
+the human what changed and record the new version in your next
+commit, without an increment.
 
 ### To 4.3: the specification is closed
 
@@ -109,6 +111,12 @@ Bulleted cases keep their meaning as they are.
 A text an operation sends (an email, a notice) gets its own section
 of `contents.md`, cited by the case that sends it; the `ui.md`
 element that cited it for that operation drops the citation.
+
+### To 4.7: the test levels
+
+The test policy of `technical.md` names the test levels of the
+project and what each can observe. The existing tests stay: propose a
+backlog entry to remove those that repeat a lower level.
 
 ## Tests
 

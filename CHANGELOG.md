@@ -10,8 +10,17 @@ the details.
 Impact: the specification moves from `spec/` to `docs/`, organized by
 domain into model, operations, UI, design, contents and scenarios;
 every statement carries a tag, every test cites paths. Agents check
-the tests and the code in fresh contexts; the human reviews only the
-specification. Projects on Dev43 3 migrate with `dev43:migrate`.
+each phase in a fresh context; the human reviews the specification.
+Projects on Dev43 3 migrate with `dev43:migrate`.
+
+### 4.7: agent checks before each exit commit, test levels
+
+- 4.7.0 (2026-11-16): every phase runs its agent checks before its
+  exit commit, and a gate is the human's review only; lessons and
+  points for the human take one line and leave once used; the Tests
+  phase finds the tests to update by the changed text too; a
+  statement is tested once, at the cheapest level that observes it,
+  and `technical.md` names the levels.
 
 ### 4.6: sent texts, migration between minor versions
 

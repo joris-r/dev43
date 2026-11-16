@@ -15,9 +15,9 @@ before the implementation and are read-only during it.
 
 1. Read the change and the test and quality policy in
    `docs/technical.md`.
-2. Decide what to test, and at which level. The specification gives
-   the cases; choose here the values that exercise them, edges
-   included.
+2. Decide what to test, and at which level of the policy. The
+   specification gives the cases; choose here the values that exercise
+   them, edges included.
 3. Raise to the human only what the specification must settle: a
    state or an input no case settles, a statement that cannot be
    tested, a
@@ -46,6 +46,9 @@ Work without interrupting.
   - a trigger: it runs its operation, each input from its source;
   - a migration: from stored data of the earlier form, the state
     after it.
+- A statement is tested once, at the cheapest level of the policy that
+  can observe it. A higher-level test of a tag checks only what the
+  lower level cannot observe. The scenarios are the end-to-end tests.
 - A test checks nothing the specification leaves free or unstated: of
   `an id no card has`, only that no other card has it.
 - A test reaches its starting state through operations, from the
@@ -98,6 +101,8 @@ the tests added or changed by the increment:
   and nothing the specification leaves free or unstated.
 - [cases] The test cases of each added or changed tag cover what it
   says.
+- [level] Each new or changed test adds something to the lower-level
+  tests of its tag: flag one that repeats what they establish.
 
 ## Exit
 

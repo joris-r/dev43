@@ -41,6 +41,9 @@ for a single user on their own machine: cards move from To do to Done.
   directory. Listens on `127.0.0.1:8000`.
 - Page: plain HTML, CSS and JavaScript, served by the same server.
   It updates without a reload.
+- Test levels:
+  - HTTP: the operations, their results and the state.
+  - Browser: the display and the triggers.
 ````
 
 ## `model.md`

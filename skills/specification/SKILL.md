@@ -76,13 +76,16 @@ why; or, where Verification has no gate, make the exit commit.
   - `README.md`: the index of the documents;
   - `overview.md`: what the software is for, its non-goals. A
     capability the software lacks is a non-goal, untagged;
-  - `technical.md`: stack, conventions, test and quality policy;
+  - `technical.md`: stack, conventions, test and quality policy. The
+    policy names the test levels and what each can observe, nothing
+    more;
   - `design.md`, `design/`: the look;
   - `model.md`: the data, which sets the vocabulary;
   - `operations.md`: the actions on that data, queries included;
   - `ui.md`: what the user meets;
   - `contents.md`: the authored text (pages, help, emails, notices);
-  - `scenarios.md`: typical use, end to end.
+  - `scenarios.md`: the functional tests, the ones the human
+    controls. Each scenario is one end-to-end test.
 - The top level spans domains. A domain folder holds what is specific
   to it; its `README.md` declares the domains it depends on:
   `Depends on: /tasks, /users.`
