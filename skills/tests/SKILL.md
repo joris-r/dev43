@@ -51,8 +51,10 @@ Work without interrupting.
 - A test reaches its starting state through operations, from the
   initial state. It writes stored data directly only for a migration.
 - Update or delete the existing tests that check something the change
-  modifies or removes; find them by the paths they cite, and by the
-  entry points whose behavior changes (e.g. a command, a route).
+  modifies or removes; find them by the paths they cite, by the entry
+  points whose behavior changes (e.g. a command, a route), and by the
+  text whose display changes, in each language, with the helpers that
+  build it.
 - New tests fail for the right reason before implementation (missing
   behavior, not syntax or setup errors). Run them to confirm. On a
   return from Implementation, this applies only to new or changed
