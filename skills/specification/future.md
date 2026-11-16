@@ -21,10 +21,11 @@ mirror:
 - `## Outline`: the increments that build the feature, in order, each
   with the sections it integrates. Every section is in one increment,
   and `docs/` is closed after each of them;
-- `## Lessons`: what the increments taught about the rest of the
-  feature;
+- `## Lessons`: what the increments taught that a later one needs,
+  one line each, starting with the increments it serves; a lesson
+  leaves with the last of them;
 - `## For the human`: under supervision, the retrospective points on
-  the project and the process, kept for the human.
+  the project and the process the human would act on, one line each.
 
 Below, the feature `tags` of the CLI in [cli.md](cli.md). Match its
 form, not its content.

@@ -47,11 +47,17 @@ uncommitted by an interrupted sub-agent: tell the human.
    relay it to the human in a few lines, wait, and pass on the answer.
 5. At its final review, check that its specification change only moves
    sections of `docs_future/<feature>/` into `docs/`, and that the
-   script checks pass. Rule on its retrospective: the lessons go under
-   `## Lessons` in `docs_future/<feature>/BACKLOG.md`, the project and
-   process points under `## For the human`, both in the increment's
-   last commit. An important lesson pauses the supervised work: it
-   needs a `future` increment.
+   script checks pass. Rule on its retrospective, so that the human
+   reads `docs_future/<feature>/BACKLOG.md` in seconds: most points
+   end here, with you.
+   - A lesson is kept as `dev43:core` says (Retrospective), under
+     `## Lessons`.
+   - A project or process point is kept when the human would act on
+     it: one line under `## For the human`, written as an entry of
+     the project backlog.
+
+   Both go in the increment's last commit. An important lesson pauses
+   the supervised work: it needs a `future` increment.
 6. Wait for the increment's last commit before the next one.
 
 ## End

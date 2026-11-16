@@ -146,9 +146,12 @@ say there is none. Topics:
 
 - The project: technical debt, architecture, what was learned, and
   what follows for the backlog.
-- The feature, when the increment carries out an outline: what the
-  increment taught about the rest of it. On approval, write it under
-  `## Lessons` in `docs_future/<feature>/BACKLOG.md`. A lesson that
+- The feature, when the increment carries out an outline: what a
+  later increment of the outline would get wrong without being told.
+  One line per lesson, starting with the increments it serves; what
+  the specification or the code shows is found there. On approval,
+  write it under `## Lessons` in `docs_future/<feature>/BACKLOG.md`,
+  and remove the lessons whose increments are all done. A lesson that
   changes a decision of the future specification escalates (see Line
   of responsibility).
 - The process, only if something went wrong: rules, agent context,
