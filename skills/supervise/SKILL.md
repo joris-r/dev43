@@ -27,7 +27,7 @@ unsupervised increment, for everything but the specification.
 
 Read it from the commits (see `dev43:core`, State) and
 `docs_future/<feature>/BACKLOG.md`: the next increment is the first of
-the outline. You can restart at any point. An increment left
+the outline not done. You can restart at any point. An increment left
 uncommitted by an interrupted sub-agent: tell the human.
 
 ## Each increment

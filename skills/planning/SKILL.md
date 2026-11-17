@@ -22,9 +22,10 @@ feature. When the human starts an increment without naming its work,
 list the open features, each with the next increment of its outline,
 and the project backlog.
 
-An increment of a feature takes the first increment of its outline,
-with the lessons of `docs_future/<feature>/BACKLOG.md`. If a lesson
-calls the outline into question, propose a `future` increment first.
+An increment of a feature takes the first increment of its outline
+not done, with the lessons of `docs_future/<feature>/BACKLOG.md`. If a
+lesson calls the outline into question, propose a `future` increment
+first.
 
 ## Impact analysis
 

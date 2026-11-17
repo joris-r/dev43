@@ -32,6 +32,8 @@ DEPENDS = re.compile(r"^Depends on:\s*(.*)$")
 INLINE_CODE = re.compile(r"`[^`]*`")
 # The shapes of an increment of an outline that integrates no section.
 NO_SECTION_SHAPE = re.compile(r"`(?:code-only|tests-only|direct)`")
+# A done increment of an outline keeps its number: `<n>. <Name> done`.
+DONE = re.compile(r"^\s*\d+\.\s+[^:]*\sdone\.?\s*$")
 # The sections of operations.md that are not operations, in English and French.
 NOT_OPERATIONS = {"general", "generalites", "initial-state", "etat-initial"}
 
@@ -339,7 +341,7 @@ def check_reach(index, origins_from=None):
 
 def check_outline(feature_dir):
     """Every section of a feature is in exactly one increment of its outline;
-    an increment without sections names its shape."""
+    an increment without sections names its shape or is done."""
     backlog = feature_dir / "BACKLOG.md"
     if not backlog.exists():
         return
@@ -355,7 +357,7 @@ def check_outline(feature_dir):
         if re.match(r"^\s*\d+\.\s", text):
             items.append(set())
             starts.append(origin)
-            shaped.append(False)
+            shaped.append(bool(DONE.match(text)))
         plain, span = strip_code(text, span)
         if items:
             items[-1].update(CITE.findall(plain))

@@ -23,7 +23,8 @@ mirror:
   and `docs/` is closed after each of them. An increment that changes
   no specified behavior gives its shape (`code-only`, `tests-only` or
   `direct`) and its work instead, in one line. A feature made only of
-  such increments is its `BACKLOG.md` alone;
+  such increments is its `BACKLOG.md` alone. A done increment keeps
+  its number and reads `<Name> done`;
 - `## Lessons`: what the increments taught that a later one needs,
   one line each, starting with the increments it serves; a lesson
   leaves with the last of them;
