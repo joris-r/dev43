@@ -15,6 +15,8 @@ Projects on Dev43 3 migrate with `dev43:migrate`.
 
 ### 4.7: agent checks before each exit commit, test levels
 
+- 4.7.2 (2026-11-17): a done increment stays in its outline as
+  `<Name> done`, so that the numbers of the increments stay stable.
 - 4.7.1 (2026-11-16): an increment of an outline that changes no
   specified behavior gives its shape and its work instead of
   sections, and [outline] checks it.
