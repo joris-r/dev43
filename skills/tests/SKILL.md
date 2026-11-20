@@ -78,7 +78,8 @@ Work without interrupting.
   `docs/technical.md` says.
 
 Mark the choices you are unsure of. Run the checks, agent checks
-included, and fix what fails. Then make the exit commit.
+included, and fix what fails. Then make the exit commit; in the last
+phase, hand over for the final review instead.
 
 ## Checks
 
@@ -107,7 +108,7 @@ the tests added or changed by the increment:
 ## Exit
 
 Checks pass and no marks remain. Next phase: the next one of the plan.
-In the last phase, the human also approves at the final review (see
+In the last phase, the human approves at the final review (see
 `dev43:core`, Final review); Next is `Pause`.
 From now on, tests are read-only.
 
