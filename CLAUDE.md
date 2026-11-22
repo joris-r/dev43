@@ -9,6 +9,10 @@ The operational rules live in [skills/](skills/).
 the principles. Amend it only for an important topic, such as a new or
 changed principle. Never copy skill details into it.
 
+[docs_future/](docs_future/) holds the future work on the plugin: the
+backlog in [BACKLOG.md](docs_future/BACKLOG.md), and one folder per
+future feature.
+
 ## Commits
 
 - Propose a commit once your changes are complete and coherent.
