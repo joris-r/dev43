@@ -96,6 +96,17 @@ the code changed by the increment:
 - [technical] The code follows `docs/technical.md`.
 - [choices] Every dependency, service or interface the specification
   does not name is marked, or is a routine library of the stack.
+- [security] Every entry point, boundary, asset or dependency the code
+  adds is covered by `security.md`, and the code has none of the
+  common flaws of its stack: injection, secrets in code or logs, path
+  traversal, unsafe deserialization, weak cryptography or randomness,
+  data shown to an actor who may not see it. While `security.md` is
+  empty, only the common flaws. [general] covers the mitigations.
+
+A flaw is fixed or disputed, as any finding. Mark uncovered surface
+where it is in the code: at the final review, the human returns to
+Specification, or accepts it with a backlog entry to update
+`security.md`.
 
 ## Exit
 

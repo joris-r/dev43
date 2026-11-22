@@ -1,6 +1,6 @@
 ---
 name: soundness
-description: Dev43 soundness check of the specification, after the proof obligations of the B method. Run by a sub-agent at the Verification of Specification when the change touches the model, the operations, the UI, the design, the contents or the scenarios; the human may also call it on the whole of docs/. Checks that every operation keeps the invariants, that every extension keeps the operation it extends, and that the documents agree.
+description: Dev43 soundness check of the specification, after the proof obligations of the B method. Run by a sub-agent at the Verification of Specification when the change touches the model, the operations, the UI, the design, the contents, the scenarios or the threat model; the human may also call it on the whole of docs/. Checks that every operation keeps the invariants, that every extension keeps the operation it extends, that every threat is ruled, and that the documents agree.
 ---
 
 # Soundness
@@ -19,8 +19,9 @@ that the specification is proved.
 - Called at the Verification of Specification, in a fresh context
   (see `dev43:core`, Agent checks): the operations the change adds or
   changes, the operations whose effects touch an invariant it adds or
-  changes, their extensions, and the UI elements, mockups and
-  scenarios that the change touches or that use those operations.
+  changes, their extensions, the UI elements, mockups and scenarios
+  that the change touches or that use those operations, and the
+  threats and boundaries the change touches.
   `check.py spec` lists the changed operations with their dependent
   domains and extensions. For a future version, check `docs/` with the
   feature applied.
@@ -68,8 +69,13 @@ In scope:
   element or by the case of an operation that sends it, and every
   element or case that carries authored text cites one.
 - [scenarios] Walk each scenario from its starting state: each action
-  is a trigger of `ui.md`, available at that step, and each thing
-  seen is what the operations and the UI give.
+  is a trigger of `ui.md`, available at that step, or for an attacker
+  a request across a boundary of `security.md`, and each thing seen is
+  what the operations and the UI give.
+- [threats] Every threat of `security.md` cites an existing statement
+  that mitigates it, or is accepted.
+- [access] Every operation reachable across a boundary states who may
+  run it, in its cases or by a rule of `## General`.
 
 ## Report
 

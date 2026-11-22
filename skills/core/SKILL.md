@@ -109,9 +109,10 @@ it in trailers.
   the checks again. The step is complete when the checks pass, no mark
   remains (see Marks), and the human approves.
 - Direct phase: no specification, no retrospective. Make the change,
-  run the checks of the test and quality policy, and hand over as
-  usual. On `next`, commit as `[<increment>] <Kind>`, where `<Kind>`
-  names the work in one word, e.g. Tooling, Config, Dependencies, Fix;
+  run the checks of the test and quality policy and the agent check
+  [security] of the Implementation skill, and hand over as usual. On
+  `next`, commit as `[<increment>] <Kind>`, where `<Kind>` names the
+  work in one word, e.g. Tooling, Config, Dependencies, Fix;
   Next is `Pause`.
 - Abandon: only the human decides to abandon an increment, from any
   phase. Then:
@@ -278,7 +279,9 @@ and records that they must act on it.
   - A statement no test can check ends with `(not testable)`.
   - A scenario is one end-to-end test, cited by its section path; its
     steps carry no tags.
-  - `design/`, `design.md` and `contents.md` have no tags: the look
+  - A threat of `security.md` is tagged and cites the path of its
+    mitigation, whose tests cover it.
+  - `_design/`, `design.md` and `contents.md` have no tags: the look
     and the text are checked by eye at review, and the mockups and
     the contents against `ui.md` and `operations.md` by [soundness].
 - A decision states what is decided, not why. Give reasons in your

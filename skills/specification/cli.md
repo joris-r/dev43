@@ -9,6 +9,7 @@ The specification of a small to-do CLI, in `docs/`. Match its form and level of 
 
 - [overview.md](overview.md): what the tool is for.
 - [technical.md](technical.md): stack and storage.
+- [security.md](security.md): nothing to defend.
 - [model.md](model.md): what is stored, sets the vocabulary.
 - [operations.md](operations.md): what each action does to it.
 - [ui.md](ui.md): the commands and their output.
@@ -38,6 +39,14 @@ task, see what is left, tick it off.
 - Installed as a `todo` command.
 - Tasks are stored in one JSON file, `~/.todo.json`, created on first
   write.
+````
+
+## `security.md`
+
+````markdown
+# Security
+
+One local user, who owns the data and the machine: nothing to defend.
 ````
 
 ## `model.md`

@@ -33,7 +33,8 @@ In a new or existing project, run:
 This creates and commits:
 
 - `CLAUDE.md`, telling the agent to use Dev43 (add your own directives below)
-- `docs/`, for the specification
+- `docs/`, for the specification, with its threat model in
+  `docs/security.md`
 - `docs_future/BACKLOG.md`, for future work
 
 The agent records where the process stands in trailers at the end of

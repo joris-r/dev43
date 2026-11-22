@@ -1,6 +1,6 @@
 # Form: a web application
 
-The specification of a small kanban web application, in `docs/`. Match its form and level of detail, not its content. Its `design/` holds one static HTML page per element of `ui.md` with a look of its own, with one frame per state and real content in every frame; the page mockup shows each component once. `design/style.css` carries the look, its values as CSS variables at the top.
+The specification of a small kanban web application, in `docs/`. Match its form and level of detail, not its content. Its `_design/` holds one static HTML page per element of `ui.md` with a look of its own, with one frame per state and real content in every frame; the page mockup shows each component once. `_design/style.css` carries the look, its values as CSS variables at the top.
 
 ## `README.md`
 
@@ -9,7 +9,8 @@ The specification of a small kanban web application, in `docs/`. Match its form 
 
 - [overview.md](overview.md): what the app is for.
 - [technical.md](technical.md): stack and architecture.
-- [design/](design/): mockups of the look, checked by eye.
+- [security.md](security.md): what is defended, from whom.
+- [_design/](_design/): mockups of the look, checked by eye.
 - [model.md](model.md): what is stored, sets the vocabulary.
 - [operations.md](operations.md): what each action does to it, and
   its HTTP interface.
@@ -44,6 +45,33 @@ for a single user on their own machine: cards move from To do to Done.
 - Test levels:
   - HTTP: the operations, their results and the state.
   - Browser: the display and the triggers.
+````
+
+## `security.md`
+
+````markdown
+# Security
+
+## Assets
+
+- The cards, which only the user reads and changes.
+
+## Actors
+
+- A foreign page: a page of another site, open in the user's browser.
+- A local program: any other program on the user's machine.
+
+## Boundaries
+
+- The HTTP interface: the user's page, foreign pages and local
+  programs.
+
+## Threats
+
+- [foreign-page] A foreign page reads or changes the cards through the
+  HTTP interface: mitigated by /technical and
+  /operations/general/origin.
+- [local-program] A local program reads or changes the cards: accepted.
 ````
 
 ## `model.md`
@@ -90,8 +118,11 @@ The page runs every operation on the server. JSON in and out; a card
 reads `{"id": 1, "title": "write tests", "column": "todo",
 "position": 1}`.
 
-- [malformed] Body not JSON, or an input missing or not of its type:
-  refused, 400, `Malformed request.`
+- [origin] A request whose `Host` is not `127.0.0.1:8000` or
+  `localhost:8000`, or whose `Origin`, when present, is not
+  `http://<its Host>`: refused, 403, `Forbidden.`
+- [malformed] Any other request whose body is not JSON, or with an
+  input missing or not of its type: refused, 400, `Malformed request.`
 - [refused] A refused operation changes nothing and answers
   `{"error": "<message>"}`.
 
@@ -266,4 +297,14 @@ To do holds "write tests", then "fix bug".
 - The user clicks "fix bug", then "↑".
 - To do shows "fix bug", then "write tests".
 - They reload the page: the order is kept.
+
+## Foreign page
+
+Plays /security/threats/foreign-page. The board holds "write tests" in
+To do.
+
+- A foreign page sends `POST /cards` with `{"title": "spam"}` as plain
+  text.
+- It is refused, 403.
+- The user reloads the page: the board holds only "write tests".
 ````

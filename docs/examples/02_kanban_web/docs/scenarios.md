@@ -24,3 +24,13 @@ To do holds "write tests", then "fix bug".
 - The user clicks "fix bug", then "↑".
 - To do shows "fix bug", then "write tests".
 - They reload the page: the order is kept.
+
+## Foreign page
+
+Plays /security/threats/foreign-page. The board holds "write tests" in
+To do.
+
+- A foreign page sends `POST /cards` with `{"title": "spam"}` as plain
+  text.
+- It is refused, 403.
+- The user reloads the page: the board holds only "write tests".

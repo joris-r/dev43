@@ -118,6 +118,18 @@ The test policy of `technical.md` names the test levels of the
 project and what each can observe. The existing tests stay: propose a
 backlog entry to remove those that repeat a lower level.
 
+### To 4.8: the threat model, the folders of one kind of document
+
+- Every `design/` becomes `_design/`, in the domain folders and in
+  `docs_future/<feature>/` too; what refers to the old path follows
+  (the index of `README.md`, sometimes a build file).
+- `docs/security.md` is created with its title alone, and
+  `docs_future/BACKLOG.md` gets the entry `- Write the threat model.`,
+  a `specify-existing` increment.
+
+When this is the only step, the increment is a Specification phase
+alone, its Verification the one gate.
+
 ## Tests
 
 - Existing tests change only their citations: each name, rule ID or

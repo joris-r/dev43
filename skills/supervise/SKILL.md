@@ -42,9 +42,10 @@ uncommitted by an interrupted sub-agent: tell the human.
    their checks pass. Run each agent check in a fresh context of its
    own.
 4. A decision where the human matters (a mark on the specification, an
-   Amendment, an escalation, a return to Specification) pauses the
-   supervised work:
+   Amendment, an escalation, a return to Specification, accepting a
+   threat or uncovered surface) pauses the supervised work:
    relay it to the human in a few lines, wait, and pass on the answer.
+   A mitigation the future specification states is yours to check.
 5. At its final review, check that its specification change only moves
    sections of `docs_future/<feature>/` into `docs/`, and that the
    script checks pass. Rule on its retrospective, so that the human
@@ -67,6 +68,8 @@ over to the human:
 
 - what the feature changed for a user, and its scenarios, to try the
   software by them;
+- the threats the feature added to `security.md`, and how each was
+  ruled;
 - the points of `## For the human`, which the last increment moved to
   `docs_future/BACKLOG.md`, each in a line or two. They rule on each;
   the rejected ones leave the backlog.

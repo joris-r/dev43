@@ -9,11 +9,13 @@ Discuss first, before the scope:
 
 1. Purpose: what the software is for, for whom, the main use cases.
 2. Constraints: technical, legal, platform, budget, hosting.
-3. Out of scope: what it will explicitly not do.
-4. Stack: the structuring choices (language, framework, database).
+3. Security context: the exposure and the sensitive data, with the
+   legal constraints. It sets the depth of the threat model.
+4. Out of scope: what it will explicitly not do.
+5. Stack: the structuring choices (language, framework, database).
    Raise a real trade-off when there is one; build a throwaway preview
    (see the Specification skill) if a choice needs evidence.
-5. Conventions: repo layout, naming, the test and quality policy,
+6. Conventions: repo layout, naming, the test and quality policy,
    whether the specification states the messages the user sees, and
    repository files. Most are choices you can make with confidence:
    make them in Production rather than asking.
@@ -37,8 +39,12 @@ later increment.
 
 - When `docs/technical.md` is empty, the change writes it in
   full: the stack, the conventions, and the
-  test and quality policy. Decide only what is costly to change later.
+  test and quality policy, with the dependency audit of the stack when
+  the software is exposed. Decide only what is costly to change later.
   On existing code, it describes them as they are.
+- Write `docs/security.md` from the security context, except on
+  existing code: there it stays empty, and "write the threat model"
+  waits in the backlog.
 - Write `docs/overview.md`: what the software is for, for whom, and
   its non-goals.
 - Write or update the project's `README.md`: a few lines on what the

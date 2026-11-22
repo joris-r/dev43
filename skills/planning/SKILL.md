@@ -37,6 +37,12 @@ of behavior, the model, the domains that depend on them (their
 break, open features included. A changed invariant that stored data
 may break needs a migration.
 
+A change that adds an asset, an actor, an entry point or a boundary
+has `security.md` in its scope, takes `full` or `specify-existing`,
+and has the Exploration of Specification as a gate. While
+`security.md` is empty, propose "write the threat model" first when
+the change adds an entry point.
+
 A change too large for one increment (a new domain, a reshaped model,
 several concepts or operations) is first written ahead, in a `future`
 increment.
@@ -87,10 +93,10 @@ commit (see `dev43:core`, State).
 - `direct`: one Direct phase, starting at Production. Tooling,
   configuration, dependencies, `CLAUDE.md` or `docs/technical.md`
   change, or a small code change outside the specification
-  (appearance that `design/` does not show, assets, unspecified
+  (appearance that `_design/` does not show, assets, unspecified
   wording); specified behavior and tests do not. A structural change
   (a new framework, a new repo layout), a refactoring, or an
-  appearance change that `design/` shows takes `full` or `code-only`
+  appearance change that `_design/` shows takes `full` or `code-only`
   instead.
 
 An increment of a feature usually takes `full`; its Specification

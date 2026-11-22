@@ -8,8 +8,9 @@ skill.
 
 1. Agree on the zone with the human: it becomes a domain of `docs/`,
    or sections of its documents.
-2. The human states claims about the zone: concepts, operations,
-   what the user sees.
+2. List the entry points of the zone from the code. The human states
+   claims about the zone: concepts, operations, what the user sees,
+   who may run each operation, what is sensitive.
    Do not draft them from the code: it shows what the software does,
    not what was intended. Help with questions.
 3. Look for counterexamples to each claim in the code and tests, and
@@ -19,6 +20,12 @@ skill.
    - a wrong claim: refined.
 4. Point out behavior of the zone the claims leave out only if the
    human would likely care (silver rule); they decide.
+
+"Write the threat model" is a `specify-existing` increment on
+`security.md`, whether the specification is complete or partial, with
+its Exploration as a gate: list the entry points and boundaries from
+the code; the human states the assets, the actors and the risks they
+accept.
 
 ## Production
 

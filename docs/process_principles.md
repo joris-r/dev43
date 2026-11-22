@@ -124,6 +124,18 @@ goes back to the human, as a change of the specification.
 This line holds in every increment, supervised or not.
 
 
+### Security in the specification
+
+Security is part of the specification. The threat model states what
+the software protects, from whom, and where trust changes. Each
+threat is either mitigated by a statement of behavior, tested like
+any other, or accepted by the human.
+
+The human decides the risks; the agent brings the expertise, and
+states each risk in plain words. Every increment is checked against
+the threat model.
+
+
 ### Checks
 
 Each artifact is checked at three levels: scripts check the form,

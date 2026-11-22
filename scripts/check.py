@@ -80,8 +80,21 @@ def read_lines(path):
 
 def md_files(root):
     for p in sorted(root.rglob("*.md")):
-        if "design" not in p.relative_to(root).parts[:-1]:
+        if "_design" not in p.relative_to(root).parts[:-1]:
             yield p
+
+
+def doc_parts(rel):
+    """The domain, document kind and path of a document: a folder of one
+    kind of document starts with `_`, and its paths drop the `_`
+    (`tasks/_scenarios/checkout.md` is in /tasks, kind scenarios, at
+    /tasks/scenarios/checkout)."""
+    parts = rel[:-3].split("/")
+    k = next((k for k, x in enumerate(parts) if x.startswith("_")), len(parts) - 1)
+    domain = "/".join(parts[:k])
+    kind = parts[k].lstrip("_").lower()
+    base = "/" + "/".join(parts[:k] + [kind] + parts[k + 1:]).lower()
+    return domain, kind, base
 
 
 def load_tree(root):
@@ -98,7 +111,7 @@ def tree_from_git(rev):
         return tree
     for name in out.stdout.splitlines():
         rel = Path(name).relative_to(DOCS)
-        if not name.endswith(".md") or "design" in rel.parts[:-1]:
+        if not name.endswith(".md") or "_design" in rel.parts[:-1]:
             continue
         show = subprocess.run(["git", "show", f"{rev}:./{name}"], capture_output=True, text=True)
         if show.returncode == 0:
@@ -169,24 +182,23 @@ class Index:
         self.tree = tree
         self.targets = set()
         self.domains = set()
-        self.sections = []   # (domain, file stem, name, slug, origin)
-        self.tags = []       # (path, origin, statement)
+        self.sections = []   # (domain, document kind, name, slug, origin, section path)
+        self.tags = []       # (path, origin, statement, document kind)
         self.cites = []      # (path, origin, file rel)
         self.depends = {}    # domain -> [(path, origin)]
         self.extends = []    # (domain, extended path, own path, origin)
         self.triggers = set()  # paths of the operations with a Trigger line
         for rel, lines in tree.items():
-            parts = rel.split("/")
-            domain = "/".join(parts[:-1])
+            domain, kind, base = doc_parts(rel)
             if domain:
-                for i in range(1, len(parts)):
+                parts = domain.split("/")
+                for i in range(1, len(parts) + 1):
                     self.domains.add("/".join(parts[:i]))
-            self.parse(rel, domain, parts[-1][:-3].lower(), lines)
+            self.parse(rel, domain, kind, base, lines)
         for d in self.domains:
             self.targets.add("/" + d)
 
-    def parse(self, rel, domain, stem, lines):
-        base = "/" + (domain + "/" if domain else "") + stem
+    def parse(self, rel, domain, stem, base, lines):
         self.targets.add(base)
         section, sec_path, seen, code, span = None, base, {}, False, False
         for i, (text, origin) in enumerate(lines):
@@ -201,7 +213,7 @@ class Index:
             if m:
                 section, sec_path, seen = m.group(1), base + "/" + slug(m.group(1)), {}
                 self.targets.add(sec_path)
-                self.sections.append((domain, stem, section, slug(section), origin))
+                self.sections.append((domain, stem, section, slug(section), origin, sec_path))
                 continue
             plain, span = strip_code(text, span)
             m = DEPENDS.match(text)
@@ -224,7 +236,7 @@ class Index:
                 seen[tag] = origin
                 path = sec_path + "/" + tag
                 self.targets.add(path)
-                self.tags.append((path, origin, self.statement(lines, i)))
+                self.tags.append((path, origin, self.statement(lines, i), stem))
 
     @staticmethod
     def statement(lines, i):
@@ -266,7 +278,7 @@ def check_no_future_in_docs():
 
 def check_names(index, origins_from=None):
     by_slug = {}
-    for domain, stem, name, s, origin in index.sections:
+    for domain, stem, name, s, origin, _ in index.sections:
         by_slug.setdefault(s, {}).setdefault(name, origin)
     for s, names in by_slug.items():
         if len(names) > 1:
@@ -286,9 +298,9 @@ def check_depends(index, origins_from=None):
             if c.strip("/") not in index.domains and mine(origin):
                 report("depends", origin, f"{c} is not a domain")
     for path, origin, rel in index.cites:
-        if rel == "BACKLOG.md":   # the outline cites every domain of the feature
+        if rel in ("BACKLOG.md", "security.md"):   # the outline and the threat model span the domains
             continue
-        own = "/".join(rel.split("/")[:-1])
+        own = doc_parts(rel)[0]
         target = index.domain_of(path)
         if target and target != own and target not in index.deps(own) and mine(origin):
             report("depends", origin, f"{path}: /{own or '(top level)'} does not declare /{target}")
@@ -322,7 +334,7 @@ def check_reach(index, origins_from=None):
     if not any(rel.split("/")[-1] == "ui.md" for rel in index.tree):
         return
     ops = {}
-    for domain, stem, name, s, origin in index.sections:
+    for domain, stem, name, s, origin, _ in index.sections:
         if stem == "operations" and s not in NOT_OPERATIONS:
             ops["/" + (domain + "/" if domain else "") + "operations/" + s] = origin
     reached = {p for p in ops
@@ -370,7 +382,7 @@ def check_outline(feature_dir):
         rel = path.relative_to(feature_dir).as_posix()
         if rel == "BACKLOG.md":
             continue
-        base = "/" + rel[:-3].lower()
+        base = doc_parts(rel)[2]
         lines = read_lines(path)
         units = [(base + "/" + slug(m.group(1)), origin)
                  for text, origin in lines for m in [H2.match(text)] if m]
@@ -497,11 +509,10 @@ def cmd_tests(args):
                     cited.add(c)
                 else:
                     report("coverage", (f.as_posix(), n), f"{c} does not resolve")
-    for path, origin, stmt in index.tags:
-        if path not in cited and "(not testable)" not in stmt:
+    for path, origin, stmt, stem in index.tags:   # a threat is covered by its mitigation
+        if stem != "security" and path not in cited and "(not testable)" not in stmt:
             report("coverage", origin, f"{path} has no test")
-    for domain, stem, name, s, origin in index.sections:
-        path = "/" + (domain + "/" if domain else "") + stem + "/" + s
+    for domain, stem, name, s, origin, path in index.sections:
         if stem == "scenarios" and path not in cited:
             report("coverage", origin, f"scenario {path} has no test")
 

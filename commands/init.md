@@ -20,7 +20,9 @@ Set up the Dev43 process in the current project. Templates are in
      them to the human. The Dev43 rules stay in the `dev43:core` skill,
      never in `CLAUDE.md`.
 5. Create `docs/technical.md` holding only the title `# Technical`,
-   and `docs_future/BACKLOG.md` holding only the title `# Backlog`. If a
+   `docs/security.md` holding only the title `# Security`, and
+   `docs_future/BACKLOG.md` holding only the title `# Backlog`, with
+   source code the entry `- Write the threat model.` under it. If a
    `docs/` folder already holds documents the process does not own,
    ask the human where the specification goes before going on.
 6. Stage and commit only the files you created or changed, as

@@ -27,7 +27,14 @@ the `future` shape.
    scope that looks too big goes back to the plan.
 5. Agree with the human on the name of a new domain, document or
    concept.
-6. If a point needs evidence, or the human wants to see something
+6. Compare the change with `security.md`. A new asset, actor, entry
+   point or boundary brings the threats you propose, derived from the
+   model and the operations; the catalogs of the field (STRIDE, OWASP)
+   are for you to search with, never to copy. The human rules on
+   each: mitigated or accepted. Ask in plain words: what an attacker
+   gains, how likely it is, what the mitigation costs. `security.md`
+   keeps only the decision.
+7. If a point needs evidence, or the human wants to see something
    first, build a throwaway preview outside the repo (e.g. in a
    `git worktree`). Delete it when Exploration ends: it never enters a
    commit, and the real code comes in its phase.
@@ -83,16 +90,22 @@ Final review).
   - `technical.md`: stack, conventions, test and quality policy. The
     policy names the test levels and what each can observe, nothing
     more;
-  - `design.md`, `design/`: the look;
+  - `security.md`: the threat model, always present;
+  - `design.md`, `_design/`: the look;
   - `model.md`: the data, which sets the vocabulary;
   - `operations.md`: the actions on that data, queries included;
   - `ui.md`: what the user meets;
   - `contents.md`: the authored text (pages, help, emails, notices);
-  - `scenarios.md`: the functional tests, the ones the human
-    controls. Each scenario is one end-to-end test.
+  - the scenarios, in `scenarios.md` or in `_scenarios/`, never both:
+    the functional tests, the ones the human controls. Each scenario
+    is one end-to-end test.
 - The top level spans domains. A domain folder holds what is specific
   to it; its `README.md` declares the domains it depends on:
   `Depends on: /tasks, /users.`
+- A folder of one kind of document starts with `_`; a domain folder
+  does not. `_scenarios/` holds several files, grouped as the project
+  likes, one `##` section per scenario; its paths drop the `_`:
+  `/scenarios/checkout/<scenario>`.
 - One `##` section per concept or operation, with the same name
   across documents.
 - `model.md`: all the data, and only the data.
@@ -158,16 +171,35 @@ Final review).
   states the goal of the text, then its structure in reading order.
   Wording is free, except text in backticks, which appears as is. No
   tags: the human reads the result at the final review, as for
-  `design/`. The goal is purpose, not a reason.
-- `design/`: mockups, one per element of `ui.md` with a look of its
+  `_design/`. The goal is purpose, not a reason.
+- `_design/`: mockups, one per element of `ui.md` with a look of its
   own (a page, a component), named after its section, showing every
   state of it, and nothing else, values included. A component used by
   several elements has its own mockup, and theirs show it once, in
   place, in one state. `design.md` holds the look rules they cannot
   show.
+- `security.md`, by the silver rule: only the threats where another
+  choice would matter to the human.
+  - `## Assets`: what the project protects.
+  - `## Actors`: whom it defends against.
+  - `## Boundaries`: where input comes from someone less trusted, and
+    the actors at each.
+  - `## Threats`: one tagged entry per threat, from an asset and a
+    boundary of the project, citing the path of its mitigation, or
+    stating `accepted`.
+  With nothing to defend, a few lines say so. Empty, it is not
+  written yet.
+- A mitigation is stated where its behavior lives (e.g. a case of
+  `operations.md`) and tested like any other statement.
+- An operation reachable from a less-trusted actor states who may run
+  it and refuses the others, in a tagged case, or by a rule of
+  `## General` covering several: `[owner] Only the owner of a board
+  runs its operations.`
 - A scenario: its starting state, then its steps, each a trigger of
   `ui.md` or what the user then sees, as the operations and the UI
-  give it.
+  give it. An abuse scenario has an attacker of `security.md` as its
+  actor and names the threat it plays; its steps are requests across
+  a boundary, and it ends on the refusal or limit a mitigation states.
 - Use nested lists, never tables. An example only where a statement is
   ambiguous without it.
 
@@ -198,8 +230,9 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
 - [overlap] Every future version applies to `docs/`: each `×` and `…`
   line matches an existing line.
 - [depends] A domain cites only itself, the top level and the domains
-  it declares; dependencies have no cycle; each `Extends` path is an
-  operation of a declared domain. The script also lists, for each
+  it declares, and the top-level `security.md` any domain;
+  dependencies have no cycle; each `Extends` path is an operation of
+  a declared domain. The script also lists, for each
   changed operation, its dependent domains and its extensions: they
   are the input of [soundness].
 - [reach] Every operation is run by a `ui.md`, extends an operation
@@ -228,10 +261,11 @@ Agent checks, by you, on the change:
 
 Agent check, in a fresh context (see `dev43:core`, Agent checks),
 before the exit commit, gate or not, when the change touches the
-model, the operations, the UI, the design, the contents or the scenarios:
+model, the operations, the UI, the design, the contents, the
+scenarios or the threat model:
 
 - [soundness] The `dev43:soundness` check: the operations keep the
-  invariants, and the documents agree.
+  invariants, the threats are ruled, and the documents agree.
 
 ## Exit
 

@@ -6,8 +6,11 @@ The page runs every operation on the server. JSON in and out; a card
 reads `{"id": 1, "title": "write tests", "column": "todo",
 "position": 1}`.
 
-- [malformed] Body not JSON, or an input missing or not of its type:
-  refused, 400, `Malformed request.`
+- [origin] A request whose `Host` is not `127.0.0.1:8000` or
+  `localhost:8000`, or whose `Origin`, when present, is not
+  `http://<its Host>`: refused, 403, `Forbidden.`
+- [malformed] Any other request whose body is not JSON, or with an
+  input missing or not of its type: refused, 400, `Malformed request.`
 - [refused] A refused operation changes nothing and answers
   `{"error": "<message>"}`.
 
