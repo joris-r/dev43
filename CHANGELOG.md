@@ -13,6 +13,12 @@ every statement carries a tag, every test cites paths. Agents check
 each phase in a fresh context; the human reviews the specification.
 Projects on Dev43 3 migrate with `dev43:migrate`.
 
+### 4.8: security in the specification
+
+- 4.8.0 (2026-11-22): a threat model, `docs/security.md`, with abuse
+  scenarios and the [security] check; `design/` becomes `_design/`, and
+  the scenarios may live in `_scenarios/`.
+
 ### 4.7: agent checks before each exit commit, test levels
 
 - 4.7.3 (2026-11-20): in the last phase, the final review takes the
