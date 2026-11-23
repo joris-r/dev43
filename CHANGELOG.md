@@ -15,6 +15,9 @@ Projects on Dev43 3 migrate with `dev43:migrate`.
 
 ### 4.8: security in the specification
 
+- 4.8.1 (2026-11-23): an outline may list a section `(part)` in
+  several increments, each writing a closed intermediate version in
+  `docs/`; the last one integrates the rest.
 - 4.8.0 (2026-11-22): a threat model, `docs/security.md`, with abuse
   scenarios and the [security] check; `design/` becomes `_design/`, and
   the scenarios may live in `_scenarios/`.
