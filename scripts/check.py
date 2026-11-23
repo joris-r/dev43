@@ -32,6 +32,9 @@ DEPENDS = re.compile(r"^Depends on:\s*(.*)$")
 INLINE_CODE = re.compile(r"`[^`]*`")
 # The shapes of an increment of an outline that integrates no section.
 NO_SECTION_SHAPE = re.compile(r"`(?:code-only|tests-only|direct)`")
+# A section cited `(part)` in an increment of an outline: the increment
+# integrates part of it, and a later increment the rest.
+PART = re.compile(r"\s*\(part\)")
 # A done increment of an outline keeps its number: `<n>. <Name> done`.
 DONE = re.compile(r"^\s*\d+\.\s+[^:]*\sdone\.?\s*$")
 # The sections of operations.md that are not operations, in English and French.
@@ -352,12 +355,13 @@ def check_reach(index, origins_from=None):
 
 
 def check_outline(feature_dir):
-    """Every section of a feature is in exactly one increment of its outline;
-    an increment without sections names its shape or is done."""
+    """Every section of a feature is in exactly one increment of its outline
+    without `(part)`, and in its `(part)` increments only before it; an
+    increment without sections names its shape or is done."""
     backlog = feature_dir / "BACKLOG.md"
     if not backlog.exists():
         return
-    items, starts, shaped, inside, span = [], [], [], False, False
+    items, parts, starts, shaped, inside, span = [], [], [], [], False, False
     for text, origin in read_lines(backlog):
         if text.startswith("#"):
             inside = bool(re.match(r"^##\s+Outline\s*$", text))
@@ -368,14 +372,17 @@ def check_outline(feature_dir):
             span = False
         if re.match(r"^\s*\d+\.\s", text):
             items.append(set())
+            parts.append(set())
             starts.append(origin)
             shaped.append(bool(DONE.match(text)))
         plain, span = strip_code(text, span)
         if items:
-            items[-1].update(CITE.findall(plain))
+            for m in CITE.finditer(plain):
+                part = PART.match(plain, m.end())
+                (parts if part else items)[-1].add(m.group(0))
             shaped[-1] = shaped[-1] or bool(NO_SECTION_SHAPE.search(text))
     for k, cited in enumerate(items):
-        if not cited and not shaped[k]:
+        if not cited and not parts[k] and not shaped[k]:
             report("outline", starts[k],
                    f"increment {k + 1} of the outline has no section and no shape")
     for path in md_files(feature_dir):
@@ -389,9 +396,14 @@ def check_outline(feature_dir):
         if not units and lines:
             units = [(base, lines[0][1])]
         for unit, origin in units:
-            n = sum(1 for cited in items if unit in cited or base in cited)
-            if n != 1:
-                report("outline", origin, f"{unit} is in {n} increments of the outline")
+            whole = [k for k, cited in enumerate(items) if unit in cited or base in cited]
+            part = [k for k, cited in enumerate(parts) if unit in cited or base in cited]
+            if len(whole) != 1:
+                report("outline", origin, f"{unit} is in {len(whole)} increments of the outline"
+                       + (" without (part)" if part else ""))
+            elif part and max(part) >= whole[0]:
+                report("outline", origin,
+                       f"{unit} is (part) in increment {max(part) + 1}, not before increment {whole[0] + 1}")
 
 
 def dependents(index, domain):

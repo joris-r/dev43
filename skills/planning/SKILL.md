@@ -124,7 +124,8 @@ size:
 - no specified behavior changes: the final review alone;
 - behavior changes, and the human reviewed it in
   `docs_future/<feature>/`: no Specification gate;
-- behavior changes, and the increment writes it: Specification
+- behavior changes, and the increment writes it, the intermediate
+  version of a `(part)` section included: Specification
   Verification;
 - the change holds a decision the human may not share (a statement
   open to debate, a new concept, a choice hard to reverse):

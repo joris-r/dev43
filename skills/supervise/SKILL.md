@@ -47,8 +47,9 @@ uncommitted by an interrupted sub-agent: tell the human.
    relay it to the human in a few lines, wait, and pass on the answer.
    A mitigation the future specification states is yours to check.
 5. At its final review, check that its specification change only moves
-   sections of `docs_future/<feature>/` into `docs/`, and that the
-   script checks pass. Rule on its retrospective, so that the human
+   sections of `docs_future/<feature>/` into `docs/`, or the
+   intermediate version of a `(part)` section, and that the script
+   checks pass. Rule on its retrospective, so that the human
    reads `docs_future/<feature>/BACKLOG.md` in seconds: most points
    end here, with you.
    - A lesson is kept as `dev43:core` says (Retrospective), under

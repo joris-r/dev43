@@ -62,7 +62,10 @@ Work without interrupting. By shape:
   versions the change breaks.
 - An increment of a feature: move its sections from
   `docs_future/<feature>/` into `docs/`, as they read with the
-  feature applied, and remove them from the feature. In the outline,
+  feature applied, and remove them from the feature. For a `(part)`
+  section, write in `docs/` the version that the increment needs and
+  that keeps `docs/` closed, and rewrite the rest of the section in
+  the feature to apply to it. In the outline,
   replace the increment's text by `<Name> done`, so that the numbers
   of the increments stay stable; an increment without sections only
   does that. The last increment deletes `docs_future/<feature>/`,
@@ -238,7 +241,8 @@ Script checks: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" spec`.
 - [reach] Every operation is run by a `ui.md`, extends an operation
   that is, or has a `Trigger:` line.
 - [outline] Every section of a feature is in exactly one increment of
-  its outline; an increment without sections names its shape,
+  its outline without `(part)`, and in its `(part)` increments only
+  before it; an increment without sections names its shape,
   `code-only`, `tests-only` or `direct`, or reads `<Name> done`.
 
 Agent checks, by you, on the change:
