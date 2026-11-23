@@ -22,7 +22,8 @@ mirror:
   with the sections it integrates. Every section is in one increment,
   and `docs/` is closed after each of them. A section that several
   increments need is listed `(part)` in each of them but the last,
-  which integrates the rest of it. An increment that changes
+  which integrates the rest of it. A file's path stands for its
+  intro and its sections not cited whole on their own. An increment that changes
   no specified behavior gives its shape (`code-only`, `tests-only` or
   `direct`) and its work instead, in one line. A feature made only of
   such increments is its `BACKLOG.md` alone. A done increment keeps

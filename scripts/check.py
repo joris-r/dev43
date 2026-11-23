@@ -396,8 +396,11 @@ def check_outline(feature_dir):
         if not units and lines:
             units = [(base, lines[0][1])]
         for unit, origin in units:
-            whole = [k for k, cited in enumerate(items) if unit in cited or base in cited]
-            part = [k for k, cited in enumerate(parts) if unit in cited or base in cited]
+            # A file's path covers its sections not cited whole on their own.
+            own = any(unit in cited for cited in items)
+            keys = {unit} if own else {unit, base}
+            whole = [k for k, cited in enumerate(items) if keys & cited]
+            part = [k for k, cited in enumerate(parts) if keys & cited]
             if len(whole) != 1:
                 report("outline", origin, f"{unit} is in {len(whole)} increments of the outline"
                        + (" without (part)" if part else ""))
