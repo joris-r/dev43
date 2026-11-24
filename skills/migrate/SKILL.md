@@ -135,11 +135,15 @@ alone, its Verification the one gate.
 - A case repeated in several operations, same tag and same statement,
   becomes a rule of `## General` with that tag; each case keeps its
   tag and applies the rule. Citations of the cases stay; a statement
-  listing them cites the rule.
+  listing them cites the rule. The same statement under different
+  tags: propose one tag to the human, as in 4.4; on approval, the
+  citations follow.
 - In `security.md`, each boundary is named first; the threats go under
   one `###` per boundary, their ruling in nested `Mitigated:` and
   `Accepted:` items. A threat across no listed boundary is an open
-  point: propose the boundary to the human. The tags stay.
+  point: propose the boundary to the human. A threat across several
+  boundaries is split into one per boundary, each with its own tag;
+  the other tags stay.
 
 ## Tests
 

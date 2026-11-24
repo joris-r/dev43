@@ -193,7 +193,8 @@ Final review).
   - `## Boundaries`: where input comes from someone less trusted, and
     the actors at each, each boundary named first.
   - `## Threats`: one `###` per boundary, under its name, holding the
-    threats across it. A threat is one tagged line on an asset, then
+    threats across it; a threat across several boundaries is split
+    into one per boundary. A threat is one tagged line on an asset, then
     its ruling in nested items: `Mitigated: <paths>.`, the statements
     that mitigate it; `Accepted: <what remains>.`, or `Accepted.`
     alone. A partial ruling has both.
