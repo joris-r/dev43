@@ -130,6 +130,13 @@ backlog entry to remove those that repeat a lower level.
 When this is the only step, the increment is a Specification phase
 alone, its Verification the one gate.
 
+### To 4.9: rules of General applied by cases
+
+A case repeated in several operations, same tag and same statement,
+becomes a rule of `## General` with that tag; each case keeps its tag
+and applies the rule. Citations of the cases stay; a statement listing
+them cites the rule.
+
 ## Tests
 
 - Existing tests change only their citations: each name, rule ID or

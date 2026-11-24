@@ -28,6 +28,8 @@ TAG = re.compile(r"^\s*(?:[-*]\s+|\d+(?:\.\d+)*\.?\s+)?\[([^\W_][\w-]*)\]")  # l
 ITEM = re.compile(r"^\s*(?:[-*]|\d+(?:\.\d+)*\.?)\s")
 CITE = re.compile(r"(?<![\w/.:~<>%-])/[a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*")
 EXTENDS = re.compile(r"^Extends\s+(/\S+?)\.?\s*$")
+# A case applying a rule of `## General`: `[manager] /operations/general/manager applies.`
+APPLIES = re.compile(r"^\s*(?:[-*]\s+|\d+(?:\.\d+)*\.?\s+)?\[[^\]]+\]\s+(/\S+?)\s+(?:applies|s'applique)\.?\s*$")
 DEPENDS = re.compile(r"^Depends on:\s*(.*)$")
 INLINE_CODE = re.compile(r"`[^`]*`")
 # The shapes of an increment of an outline that integrates no section.
@@ -524,8 +526,10 @@ def cmd_tests(args):
                     cited.add(c)
                 else:
                     report("coverage", (f.as_posix(), n), f"{c} does not resolve")
+    # a rule of `## General` applied by cases is covered by their tests
+    applied = {m.group(1) for _, _, stmt, _ in index.tags if (m := APPLIES.match(stmt))}
     for path, origin, stmt, stem in index.tags:   # a threat is covered by its mitigation
-        if stem != "security" and path not in cited and "(not testable)" not in stmt:
+        if stem != "security" and path not in cited | applied and "(not testable)" not in stmt:
             report("coverage", origin, f"{path} has no test")
     for domain, stem, name, s, origin, path in index.sections:
         if stem == "scenarios" and path not in cited:

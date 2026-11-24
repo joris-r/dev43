@@ -130,6 +130,11 @@ Final review).
   - `## General`: the statements that apply to every operation, before
     its cases. An input not of its type is one case there, or in
     `ui.md`.
+  - A rule shared by several operations, not all, is a tagged
+    statement of `## General`. Each operation it covers applies it in
+    a case of the same tag, which reads alone:
+    `1. [manager] /operations/general/manager applies.` The tests
+    cite these cases; other statements cite the rule.
   - `## Initial state`: the state before the first operation.
   - Both headings are in the project's language; the script knows
     `General`, `Généralités`, `Initial state` and `État initial`.
@@ -196,8 +201,8 @@ Final review).
   `operations.md`) and tested like any other statement.
 - An operation reachable from a less-trusted actor states who may run
   it and refuses the others, in a tagged case, or by a rule of
-  `## General` covering several: `[owner] Only the owner of a board
-  runs its operations.`
+  `## General`: `[owner] Only the owner of a board runs its
+  operations.`
 - A scenario: its starting state, then its steps, each a trigger of
   `ui.md` or what the user then sees, as the operations and the UI
   give it. An abuse scenario has an attacker of `security.md` as its
