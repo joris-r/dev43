@@ -130,12 +130,16 @@ backlog entry to remove those that repeat a lower level.
 When this is the only step, the increment is a Specification phase
 alone, its Verification the one gate.
 
-### To 4.9: rules of General applied by cases
+### To 4.9: rules of General applied by cases, the form of the threats
 
-A case repeated in several operations, same tag and same statement,
-becomes a rule of `## General` with that tag; each case keeps its tag
-and applies the rule. Citations of the cases stay; a statement listing
-them cites the rule.
+- A case repeated in several operations, same tag and same statement,
+  becomes a rule of `## General` with that tag; each case keeps its
+  tag and applies the rule. Citations of the cases stay; a statement
+  listing them cites the rule.
+- In `security.md`, each boundary is named first; the threats go under
+  one `###` per boundary, their ruling in nested `Mitigated:` and
+  `Accepted:` items. A threat across no listed boundary is an open
+  point: propose the boundary to the human. The tags stay.
 
 ## Tests
 

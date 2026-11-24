@@ -191,10 +191,12 @@ Final review).
   - `## Assets`: what the project protects.
   - `## Actors`: whom it defends against.
   - `## Boundaries`: where input comes from someone less trusted, and
-    the actors at each.
-  - `## Threats`: one tagged entry per threat, from an asset and a
-    boundary of the project, citing the path of its mitigation, or
-    stating `accepted`.
+    the actors at each, each boundary named first.
+  - `## Threats`: one `###` per boundary, under its name, holding the
+    threats across it. A threat is one tagged line on an asset, then
+    its ruling in nested items: `Mitigated: <paths>.`, the statements
+    that mitigate it; `Accepted: <what remains>.`, or `Accepted.`
+    alone. A partial ruling has both.
   With nothing to defend, a few lines say so. Empty, it is not
   written yet.
 - A mitigation is stated where its behavior lives (e.g. a case of

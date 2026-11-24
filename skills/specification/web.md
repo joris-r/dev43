@@ -65,13 +65,22 @@ for a single user on their own machine: cards move from To do to Done.
 
 - The HTTP interface: the user's page, foreign pages and local
   programs.
+- The database, `kanban.db`: local programs.
 
 ## Threats
 
-- [foreign-page] A foreign page reads or changes the cards through the
-  HTTP interface: mitigated by /technical and
-  /operations/general/origin.
-- [local-program] A local program reads or changes the cards: accepted.
+### The HTTP interface
+
+- [foreign-page] A foreign page reads or changes the cards.
+  - Mitigated: /technical, /operations/general/origin.
+- [local-request] A local program reads or changes the cards through
+  the HTTP interface.
+  - Accepted.
+
+### The database
+
+- [local-db] A local program reads or changes `kanban.db`.
+  - Accepted.
 ````
 
 ## `model.md`
