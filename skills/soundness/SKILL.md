@@ -72,10 +72,15 @@ In scope:
   is a trigger of `ui.md`, available at that step, or for an attacker
   a request across a boundary of `security.md`, and each thing seen is
   what the operations and the UI give.
-- [threats] Every threat of `security.md` cites an existing statement
-  that mitigates it, or is accepted.
+- [threats] Every threat of `security.md` sits under a boundary of
+  `## Boundaries` and is ruled: each path after `Mitigated:` is a
+  statement that mitigates it, and a partial ruling states what
+  remains after `Accepted:`.
 - [access] Every operation reachable across a boundary states who may
-  run it, in its cases or by a rule of `## General`.
+  run it, in its cases or by applying a rule of `## General`.
+- [applies] A case applying a rule of `## General` carries the rule's
+  tag; an operation the rule fits applies it, or its own cases state
+  the difference.
 
 ## Report
 
