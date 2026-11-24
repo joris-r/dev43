@@ -195,9 +195,12 @@ Final review).
   - `## Threats`: one `###` per boundary, under its name, holding the
     threats across it; a threat across several boundaries is split
     into one per boundary. A threat is one tagged line on an asset, then
-    its ruling in nested items: `Mitigated: <paths>.`, the statements
-    that mitigate it; `Accepted: <what remains>.`, or `Accepted.`
-    alone. A partial ruling has both.
+    its ruling in nested items: `Mitigated: <how, in a few words>.`,
+    then one nested item per path of a statement that mitigates it;
+    `Accepted: <what the attacker still gets, and its bound>.` A
+    partial ruling has both.
+  - A mitigation shared by several operations is a rule of
+    `## General`, applied by their cases; the threat cites the rule.
   With nothing to defend, a few lines say so. Empty, it is not
   written yet.
 - A mitigation is stated where its behavior lives (e.g. a case of

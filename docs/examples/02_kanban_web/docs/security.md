@@ -20,12 +20,15 @@
 ### The HTTP interface
 
 - [foreign-page] A foreign page reads or changes the cards.
-  - Mitigated: /technical, /operations/general/origin.
+  - Mitigated: the server listens on the loopback alone, and refuses
+    a foreign `Host` or `Origin`.
+    - /technical
+    - /operations/general/origin
 - [local-request] A local program reads or changes the cards through
   the HTTP interface.
-  - Accepted.
+  - Accepted: every card, for any program the user runs.
 
 ### The database
 
 - [local-db] A local program reads or changes `kanban.db`.
-  - Accepted.
+  - Accepted: every card, for any program the user runs.

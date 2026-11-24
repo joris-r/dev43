@@ -73,9 +73,9 @@ In scope:
   a request across a boundary of `security.md`, and each thing seen is
   what the operations and the UI give.
 - [threats] Every threat of `security.md` sits under a boundary of
-  `## Boundaries` and is ruled: each path after `Mitigated:` is a
-  statement that mitigates it, and a partial ruling states what
-  remains after `Accepted:`.
+  `## Boundaries` and is ruled: the words after `Mitigated:` say what
+  its paths state, each path a statement that mitigates it, and
+  `Accepted:` states what remains.
 - [access] Every operation reachable across a boundary states who may
   run it, in its cases or by applying a rule of `## General`.
 - [applies] A case applying a rule of `## General` carries the rule's

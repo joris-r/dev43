@@ -145,6 +145,19 @@ alone, its Verification the one gate.
   boundaries is split into one per boundary, each with its own tag;
   the other tags stay.
 
+### To 4.10: the threats read without their paths
+
+In `security.md`:
+
+- `Mitigated:` says how in a few words, its paths below it, one
+  nested item each.
+- `Accepted:` states what the attacker still gets, and its bound, as
+  the code gives it; mark it `@dev43:unsure` when the code leaves it
+  unclear.
+- A mitigation listing the cases of several operations that state the
+  same thing: those cases become a rule of `## General`, as in 4.9,
+  and the threat cites the rule.
+
 ## Tests
 
 - Existing tests change only their citations: each name, rule ID or
