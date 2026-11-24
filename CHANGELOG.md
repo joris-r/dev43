@@ -13,6 +13,12 @@ every statement carries a tag, every test cites paths. Agents check
 each phase in a fresh context; the human reviews the specification.
 Projects on Dev43 3 migrate with `dev43:migrate`.
 
+### 4.10: threats read without their paths
+
+- 4.10.0 (2026-11-24): a threat's `Mitigated:` says how in a few
+  words, one nested item per path; `Accepted:` states what the
+  attacker still gets; a shared mitigation is a rule of `## General`.
+
 ### 4.9: rules of General applied by cases, threats by boundary
 
 - 4.9.1 (2026-11-24): a threat across several boundaries is split
