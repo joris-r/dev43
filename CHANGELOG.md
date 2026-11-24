@@ -15,6 +15,9 @@ Projects on Dev43 3 migrate with `dev43:migrate`.
 
 ### 4.9: rules of General applied by cases, threats by boundary
 
+- 4.9.1 (2026-11-24): a threat across several boundaries is split
+  into one per boundary; the migration to 4.9 unifies the tags of a
+  same statement, with the human.
 - 4.9.0 (2026-11-24): a rule of `## General` shared by several
   operations is applied by a tagged case in each; the threats are
   grouped by boundary, their ruling in `Mitigated:` and `Accepted:`
