@@ -13,6 +13,13 @@ every statement carries a tag, every test cites paths. Agents check
 each phase in a fresh context; the human reviews the specification.
 Projects on Dev43 3 migrate with `dev43:migrate`.
 
+### 4.9: rules of General applied by cases, threats by boundary
+
+- 4.9.0 (2026-11-24): a rule of `## General` shared by several
+  operations is applied by a tagged case in each; the threats are
+  grouped by boundary, their ruling in `Mitigated:` and `Accepted:`
+  items; [soundness] checks both.
+
 ### 4.8: security in the specification
 
 - 4.8.1 (2026-11-23): an outline may list a section `(part)` in
