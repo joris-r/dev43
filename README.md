@@ -54,6 +54,8 @@ This creates and commits:
 - `docs/`, for the specification
 - `docs_future/BACKLOG.md`, for future work
 
+Git is mandatory, the agent will init the repository if absent.
+
 The agent records where the process stands in trailers at the end of
 each commit message. So never clear the agent's context while work is
 uncommitted.
@@ -66,16 +68,16 @@ health check or "hello world". On existing code, it describes the existing
 stack instead.
 
 Then you are in Pause: ask for something and the agent starts
-an increment, which can go through these four phases:
+an increment, which can go through these four **phases**:
 
-1. Planning
-2. Specification
-3. (writing of) Tests
-4. Implementation
+1. **Planning**
+2. **Specification**
+3. (writing of) **Tests**
+4. **Implementation**
 
-Work in each phase happens in these three steps:
+Work in each phase happens in these three **steps**:
 
-1. **Exploration**: you discuss with the agent. When you're ready, say "next".
+1. **Exploration**: you discuss with the agent.
 2. **Production**: the agent does the work in one go.
 3. **Verification**: you review the produced work. The agent may place a
    mark where it needs a human decision, which you must rule on.
@@ -97,7 +99,8 @@ only the decisions that need you.
   a feature written ahead in `docs_future/tags/`
 - [02_kanban_web](docs/examples/02_kanban_web/docs/README.md): a web
   app, with a page design
-- See [Gilda](https://github.com/joris-r/gilda) for a bigger project
+
+See [Gilda](https://github.com/joris-r/gilda) for a bigger project.
 
 ## License
 
