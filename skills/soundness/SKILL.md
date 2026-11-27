@@ -1,6 +1,6 @@
 ---
 name: soundness
-description: Dev43 soundness check of the specification, after the proof obligations of the B method. Run by a sub-agent at the Verification of Specification when the change touches the model, the operations, the UI, the design, the contents, the scenarios or the threat model; the human may also call it on the whole of docs/. Checks that every operation keeps the invariants, that every extension keeps the operation it extends, that every threat is ruled, and that the documents agree.
+description: Dev43 soundness check of the specification, after the proof obligations of the B method. Run by a sub-agent at the Verification of Specification when the change touches the model, the operations, the UI, the design, the contents, the scenarios or the threat model; the human may also call it on the whole of docs/. Checks that every operation keeps the invariants, that every extension keeps the operation it extends, that every threat is ruled and none is missing, and that the documents agree.
 ---
 
 # Soundness
@@ -76,6 +76,10 @@ In scope:
   `## Boundaries` and is ruled: the words after `Mitigated:` say what
   its paths state, each path a statement that mitigates it, and
   `Accepted:` states what remains.
+- [coverage] For each boundary, each of its actors and each asset
+  they reach across it: a threat of that boundary covers the pair, or
+  the specification makes plain the actor gains nothing there. A
+  missing threat is a finding: the threat to propose.
 - [access] Every operation reachable across a boundary states who may
   run it, in its cases or by applying a rule of `## General`.
 - [applies] A case applying a rule of `## General` carries the rule's
